@@ -11,7 +11,8 @@
 * **🌍 Language** O'zbek va Rus tillarini qo'llab-quvvatlaydi (bir tugma orqali almashish).
 * **📱 To'liq Responsive:** Mobil, planshet va kompyuterlarda ideal ko'rinadi.
 * **📩 Telegram Integratsiyasi:** Saytdagi formadan yuborilgan arizalar darhol sizning Telegram botingizga kelib tushadi.
-        !![alt text](image-2.png)[alt text](image-1.png)
+        ![alt text](image-2.png)
+        ![alt text](image-1.png)
 
 * **🎨 Zamonaviy Dizayn:** Tailwind CSS yordamida "Green & Premium" uslubidagi dizayn.
 * **✨ Animatsiyalar:** Framer Motion yordamida silliq (smooth) va chiroyli animatsiyalar.
