@@ -2,7 +2,7 @@
 
 **Green&Legal** — bu yuridik firmalar va advokatlar uchun maxsus ishlab chiqilgan zamonaviy, tezkor va to'liq moslashuvchan (responsive) landing page. Loyiha mijozlarni jalb qilish, xizmatlarni taqdim etish va arizalarni to'g'ridan-to'g'ri Telegram botga yuborish imkoniyatini beradi.
 
-![Loyiha Skrinshoti] ![alt text](image.png)
+ ![alt text](image.png)
 
 
 ## ✨ Asosiy Xususiyatlar
