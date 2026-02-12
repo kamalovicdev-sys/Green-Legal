@@ -3,12 +3,12 @@
 **Green&Legal** — bu yuridik firmalar va advokatlar uchun maxsus ishlab chiqilgan zamonaviy, tezkor va to'liq moslashuvchan (responsive) landing page. Loyiha mijozlarni jalb qilish, xizmatlarni taqdim etish va arizalarni to'g'ridan-to'g'ri Telegram botga yuborish imkoniyatini beradi.
 
 ![Loyiha Skrinshoti](/public/logo.jpg)
-*(Bu yerga keyinchalik saytning to'liq skrinshotini qo'yishingiz mumkin)*
+
 
 ## ✨ Asosiy Xususiyatlar
 
 * **⚡ Zamonaviy Texnologiyalar:** React + Vite orqali juda tez ishlaydi.
-* **🌍 Ko'p Tillilik:** O'zbek va Rus tillarini qo'llab-quvvatlaydi (bir tugma orqali almashish).
+* **🌍 Language** O'zbek va Rus tillarini qo'llab-quvvatlaydi (bir tugma orqali almashish).
 * **📱 To'liq Responsive:** Mobil, planshet va kompyuterlarda ideal ko'rinadi.
 * **📩 Telegram Integratsiyasi:** Saytdagi formadan yuborilgan arizalar darhol sizning Telegram botingizga kelib tushadi.
 * **🎨 Zamonaviy Dizayn:** Tailwind CSS yordamida "Green & Premium" uslubidagi dizayn.
@@ -22,7 +22,7 @@ Loyiha quyidagi texnologiyalar asosida qurilgan:
 * [Tailwind CSS](https://tailwindcss.com/) - Stillar va dizayn uchun.
 * [Framer Motion](https://www.framer.com/motion/) - Animatsiyalar uchun.
 * [Lucide React](https://lucide.dev/) - Zamonaviy ikonka to'plami.
-* Telegram Bot API - Arizalarni qabul qilish uchun.
+* Telegram Bot API - Arizalarni qabul qilish uchun. 
 
 ## 🚀 O'rnatish va Ishga Tushirish
 
@@ -34,3 +34,5 @@ Terminalni oching va quyidagi buyruqni yozing:
 ```bash
 git clone [https://github.com/kamalovicdev-sys/yuridik-landing.git](https://github.com/kamalovicdev-sys/yuridik-landing.git)
 cd yuridik-landing
+
+npm run dev
