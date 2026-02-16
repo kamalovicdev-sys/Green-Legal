@@ -348,7 +348,7 @@ const LandingPage = () => {
               <a href="#contact" className="inline-flex justify-center items-center px-6 py-3.5 bg-[#73976A] text-white font-semibold rounded-lg hover:bg-[#5e7a56] transition shadow-lg shadow-[#73976A]/20">
                 {t.hero.btn1} <ChevronRight className="ml-2 h-5 w-5" />
               </a>
-              <a href="tel:+998901234567" className="inline-flex justify-center items-center px-6 py-3.5 bg-white text-stone-700 font-semibold rounded-lg border border-stone-300 hover:bg-stone-50 transition">
+              <a href="tel:+998911620063" className="inline-flex justify-center items-center px-6 py-3.5 bg-white text-stone-700 font-semibold rounded-lg border border-stone-300 hover:bg-stone-50 transition">
                 <Phone className="mr-2 h-5 w-5 text-stone-500" /> +998 91 162 00 63
               </a>
             </motion.div>
