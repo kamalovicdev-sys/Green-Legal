@@ -169,7 +169,7 @@ const LandingPage = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [lang, setLang] = useState('uz');
   
-  // Telegram Form Statelari
+  // Telegram Form
   const [formData, setFormData] = useState({ name: '', phone: '' });
   const [status, setStatus] = useState('idle'); // idle, loading, success, error
 
@@ -196,7 +196,7 @@ const LandingPage = () => {
     trackVisit();
   }, []);
 
-  // TELEGRAM BOT SOZLAMALARI 
+  // TELEGRAM BOT api 
   const BOT_TOKEN = "8014966765:AAFsBpsRbdta0YymF2Vd9UjIZGGB9IKZ-zs"; 
   const CHAT_ID = "5791278544";
 
@@ -234,7 +234,7 @@ const LandingPage = () => {
         }),
       });
 
-      // 2. Google Sheetga statistika uchun yuborish (Backend sifatida)
+      // 2. Google Sheetga statistika uchun 
       if (telegramResponse.ok) {
         fetch(GOOGLE_SCRIPT_URL, {
           method: 'POST',
