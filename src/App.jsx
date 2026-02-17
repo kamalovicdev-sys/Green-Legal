@@ -543,7 +543,7 @@ const LandingPage = () => {
                       value={formData.phone}
                       onChange={(e) => setFormData({...formData, phone: e.target.value})}
                       className="w-full px-4 py-3 rounded-lg border border-stone-300 focus:ring-2 focus:ring-[#73976A] focus:border-[#73976A] outline-none transition bg-white" 
-                      placeholder="+998 __ ___ __ __" 
+                      placeholder="+99890" 
                     />
                   </div>
                   <button 
