@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X, Scale, FileText, ShieldCheck, Briefcase, ChevronRight, Phone, CheckCircle, Users, MapPin, Mail, Clock, Globe } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-// --- TARJIMALAR LUG'ATI ---
+// --- Language ---
 const translations = {
   uz: {
     nav: {
@@ -169,7 +169,7 @@ const LandingPage = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [lang, setLang] = useState('uz');
   
-  // Telegram Form Statelari
+  // Telegram Form
   const [formData, setFormData] = useState({ name: '', phone: '' });
   const [status, setStatus] = useState('idle'); // idle, loading, success, error
 
@@ -187,7 +187,7 @@ const LandingPage = () => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ type: 'visit' })
           });
-          sessionStorage.setItem('visited', 'true'); // Qayta-qayta sanamaslik uchun
+          sessionStorage.setItem('visited', 'true'); // Qayta-qayta sanamasligi uchun
         }
       } catch (error) {
         console.error("Statistika xatosi:", error);
@@ -196,9 +196,9 @@ const LandingPage = () => {
     trackVisit();
   }, []);
 
-  // TELEGRAM BOT SOZLAMALARI 
+  // TELEGRAM BOT api 
   const BOT_TOKEN = "8014966765:AAFsBpsRbdta0YymF2Vd9UjIZGGB9IKZ-zs"; 
-  const CHAT_ID = "5791278544";
+  const CHAT_ID = "5791278544, 436935150";
 
   const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwoUMJGg6enEuzs_HlBi98pXY57_f9FztRcT1oUh-_TimUVIkauBxVIdislmsG0UJ2AAQ/exec";
 
@@ -234,7 +234,7 @@ const LandingPage = () => {
         }),
       });
 
-      // 2. Google Sheetga statistika uchun yuborish (Backend sifatida)
+      // 2. Google Sheetga statistika uchun 
       if (telegramResponse.ok) {
         fetch(GOOGLE_SCRIPT_URL, {
           method: 'POST',
@@ -261,7 +261,7 @@ const LandingPage = () => {
     }
   };
 
-  // Tugma matnini holatga qarab o'zgartirish
+  // Button matnini holatga qarab o'zgartirish
   const getButtonText = () => {
     if (status === 'loading') return t.contact.sending;
     if (status === 'success') return t.contact.success;
@@ -473,7 +473,7 @@ const LandingPage = () => {
               </div>
             </motion.div>
 
-            {/* Barcha jamoa */}
+            {/* All team memebers*/}
             <motion.div variants={fadeInUp} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-stone-200 hover:shadow-xl transition flex flex-col md:hidden lg:flex">
               <div className="w-full aspect-[4/5] sm:aspect-square md:aspect-[4/5] bg-stone-100 flex flex-col items-center justify-center text-stone-400">
                 <Users className="h-16 w-16 mb-2" />
@@ -543,7 +543,7 @@ const LandingPage = () => {
                       value={formData.phone}
                       onChange={(e) => setFormData({...formData, phone: e.target.value})}
                       className="w-full px-4 py-3 rounded-lg border border-stone-300 focus:ring-2 focus:ring-[#73976A] focus:border-[#73976A] outline-none transition bg-white" 
-                      placeholder="+998 __ ___ __ __" 
+                      placeholder="+998" 
                     />
                   </div>
                   <button 
