@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X, Scale, FileText, ShieldCheck, Briefcase, ChevronRight, Phone, CheckCircle, Users, MapPin, Mail, Clock, Globe } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-// --- TARJIMALAR LUG'ATI ---
+// --- Language ---
 const translations = {
   uz: {
     nav: {
@@ -187,7 +187,7 @@ const LandingPage = () => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ type: 'visit' })
           });
-          sessionStorage.setItem('visited', 'true'); // Qayta-qayta sanamaslik uchun
+          sessionStorage.setItem('visited', 'true'); // Qayta-qayta sanamasligi uchun
         }
       } catch (error) {
         console.error("Statistika xatosi:", error);
@@ -261,7 +261,7 @@ const LandingPage = () => {
     }
   };
 
-  // Tugma matnini holatga qarab o'zgartirish
+  // Button matnini holatga qarab o'zgartirish
   const getButtonText = () => {
     if (status === 'loading') return t.contact.sending;
     if (status === 'success') return t.contact.success;
@@ -473,7 +473,7 @@ const LandingPage = () => {
               </div>
             </motion.div>
 
-            {/* Barcha jamoa */}
+            {/* All team memebers*/}
             <motion.div variants={fadeInUp} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-stone-200 hover:shadow-xl transition flex flex-col md:hidden lg:flex">
               <div className="w-full aspect-[4/5] sm:aspect-square md:aspect-[4/5] bg-stone-100 flex flex-col items-center justify-center text-stone-400">
                 <Users className="h-16 w-16 mb-2" />
