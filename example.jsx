@@ -1,42 +1,167 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Scale, FileText, ShieldCheck, Briefcase, ChevronRight, Phone, CheckCircle, Users, MapPin, Mail, Clock, Globe, ChevronDown } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X, Scale, FileText, ShieldCheck, Briefcase, ChevronRight, Phone, CheckCircle, Users, MapPin, Mail, Clock, Globe } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 // --- TARJIMALAR LUG'ATI ---
 const translations = {
   uz: {
-    nav: { services: "Xizmatlar", adv: "Afzalliklar", process: "Jarayon", team: "Jamoa", btn: "Konsultatsiya" },
-    hero: { badge: "B2B Yuridik Xizmatlar", title1: "Biznesingizni huquqiy xavflardan", title2: "himoya qiling", desc: "Korxonalarni ro'yxatdan o'tkazish, litsenziyalash va sud jarayonlarida to'liq huquqiy yordam. Barcha yuridik masalalarni professionallarga topshirib, xotirjam ishlang.", btn1: "Bepul tahlil olish" },
-    services: { title: "Biznesingiz uchun yechimlar", desc: "Vaqtingizni tejash va qonuniy xavfsizlikni ta'minlash uchun asosiy xizmatlarimiz", s1Title: "Biznesni ro'yxatdan o'tkazish", s1Desc: "Yangi korxonalarni (MChJ, AJ) ochish va ta'sis hujjatlarini qonuniy rasmiylashtirish.", s2Title: "Litsenziyalash", s2Desc: "Faoliyatingiz uchun zarur bo'lgan litsenziya va ruxsatnomalarni byurokratiyasiz olish.", s3Title: "Sud ishlarida himoya", s3Desc: "Xo'jalik va iqtisodiy nizolarda sudda kompaniyangiz manfaatlarini to'liq himoya qilish.", s4Title: "Yuridik konsultatsiya", s4Desc: "Shartnomalar ekspertizasi va biznes jarayonlarida doimiy professional huquqiy maslahat." },
-    adv: { title: "Nima uchun yuridik ishlarni bizga ishonishadi?", desc: "Biz shunchaki maslahat bermaymiz, balki kompaniyangiz duch kelishi mumkin bo'lgan xavflarning oldini olamiz va amaliy yechimlar taqdim etamiz.", a1Title: "B2B Sektorida chuqur tajriba", a1Desc: "Biz asosan yuridik shaxslar bilan ishlaymiz va korporativ huquqni ich-ichidan bilamiz.", a2Title: "100% Maxfiylik kafolati", a2Desc: "Kompaniyangiz sirlari va moliyaviy ma'lumotlari qat'iy sir saqlanishiga kafolat beramiz.", a3Title: "Tezkorlik va byurokratiyasizlik", a3Desc: "Siz biznes bilan shug'ullanasiz, barcha hujjatbozlik va davlat idoralari bilan ishlashni o'zimiz hal qilamiz." },
-    process: { title: "Biz qanday ishlaymiz?", desc: "Muammongizni qonuniy hal qilish uchun 4 ta oddiy qadam", p1Title: "Ariza qoldirish", p1Desc: "Sayt orqali ariza qoldirasiz yoki bizga qo'ng'iroq qilasiz.", p2Title: "Bepul tahlil", p2Desc: "Yuristimiz holatingizni bepul o'rganib chiqadi va yechim taklif qiladi.", p3Title: "Shartnoma", p3Desc: "Rasmiy shartnoma tuzamiz va barcha mas'uliyatni o'z zimmamizga olamiz.", p4Title: "Natija", p4Desc: "Sizning muammongiz qonuniy, tez va xavfsiz hal etiladi." },
-    team: { title: "Bizning Mutaxassislar", desc: "Sizning manfaatlaringizni ko'p yillik tajribaga ega professionallar himoya qiladi", t1Name: "Ism Familiya", t1Role: "Katta huquqshunos (Korporativ huquq)", t1Desc: "Biznesni ro'yxatdan o'tkazish va litsenziyalash bo'yicha 10+ yillik tajriba. Yuzlab korxonalarga yuridik maslahat bergan.", t2Name: "Malika Karimova", t2Role: "Sud ishlari bo'yicha yetakchi advokat", t2Desc: "Iqtisodiy nizolar va sud jarayonlarida yuzlab muvaffaqiyatli keyslar muallifi. Ishonchli himoya kafolati.", t3Title: "Kuchli Jamoa", t3Role: "Sizning biznesingiz uchun", t3Desc: "Bizning jamoamiz turli sohalarga ixtisoslashgan 15 dan ortiq malakali huquqshunoslardan iborat.", t3Badge: "Barcha mutaxassislarimiz" },
-    partners: { title: "Bizning hamkorlar", desc: "Bizga ishonch bildirgan xalqaro va mahalliy yetakchi kompaniyalar" },
-    faq: { title: "Ko'p beriladigan savollar", desc: "Mijozlarimiz tomonidan eng ko'p beriladigan savollarga javoblar", items: [
-      { q: "Biznesni ro'yxatdan o'tkazish qancha vaqt oladi?", a: "Odatda barcha hujjatlar to'liq bo'lganda 3-5 ish kuni ichida davlat ro'yxatidan o'tkazish jarayonlari yakunlanadi." },
-      { q: "Xizmatlar narxi qanday belgilanadi?", a: "Narxlar muammoning murakkabligi va xizmat turiga qarab individual belgilanadi. Dastlabki bepul tahlildan so'ng sizga aniq tijorat taklifi beriladi." },
-      { q: "Kompaniya sirlari maxfiyligiga kafolat berasizmi?", a: "Ha, albatta. Biz har bir mijoz bilan ishlashni boshlashdan oldin rasmiy Maxfiylik kelishuvi (NDA) imzolaymiz va ma'lumotlar tarqalmasligini qonunan kafolatlaymiz." },
-      { q: "Sud jarayonlarida ham ishtirok etasizmi?", a: "Ha, bizning tajribali advokatlarimiz iqtisodiy va xo'jalik sudlarining barcha instansiyalarida kompaniyangiz manfaatlarini ishonchli himoya qiladi." }
-    ]},
-    contact: { title: "Huquqiy maslahat kerakmi?", desc: "Ma'lumotlaringizni qoldiring. Bizning yetakchi yuristlarimiz siz bilan bog'lanib, vaziyatingizni tahlil qilib berishadi. Maxfiylik 100% kafolatlanadi.", fast: "Tezkor aloqa", email: "Elektron manzil", formTitle: "Ariza qoldirish", formName: "Ism yoki Kompaniya nomi", formPhone: "Telefon raqam", formBtn: "Arizani yuborish", sending: "Yuborilmoqda...", success: "✅ Muvaffaqiyatli yuborildi!", error: "❌ Xatolik yuz berdi" },
-    footer: { desc: "Biznesingizning ishonchli huquqiy himoyachisi. Biz bilan muammolar tez va qonuniy hal qilinadi.", address: "Toshkent shahri, Yunusobod tumani, Amir Temur shoh ko'chasi, 107-uy. (Biznes markaz, 4-qavat)", hours: "Du-Ju: 09:00 - 18:00", rights: "Barcha huquqlar himoyalangan." }
+    nav: {
+       services: "Xizmatlar",
+       adv: "Afzalliklar",
+       process: "Jarayon",
+       team: "Jamoa",
+       btn: "Konsultatsiya"
+      },
+    hero: {
+      badge: "B2B Yuridik Xizmatlar",
+      title1: "Biznesingizni huquqiy xavflardan",
+      title2: "himoya qiling",
+      desc: "Korxonalarni ro'yxatdan o'tkazish, litsenziyalash va sud jarayonlarida to'liq huquqiy yordam. Barcha yuridik masalalarni professionallarga topshirib, xotirjam ishlang.",
+      btn1: "Bepul tahlil olish"
+    },
+    services: {
+      title: "Biznesingiz uchun yechimlar",
+      desc: "Vaqtingizni tejash va qonuniy xavfsizlikni ta'minlash uchun asosiy xizmatlarimiz",
+      s1Title: "Biznesni ro'yxatdan o'tkazish",
+      s1Desc: "Yangi korxonalarni (MChJ, AJ) ochish va ta'sis hujjatlarini qonuniy rasmiylashtirish.",
+      s2Title: "Litsenziyalash",
+      s2Desc: "Faoliyatingiz uchun zarur bo'lgan litsenziya va ruxsatnomalarni byurokratiyasiz olish.",
+      s3Title: "Sud ishlarida himoya",
+      s3Desc: "Xo'jalik va iqtisodiy nizolarda sudda kompaniyangiz manfaatlarini to'liq himoya qilish.",
+      s4Title: "Yuridik konsultatsiya",
+      s4Desc: "Shartnomalar ekspertizasi va biznes jarayonlarida doimiy professional huquqiy maslahat."
+    },
+    adv: {
+      title: "Nima uchun yuridik ishlarni bizga ishonishadi?",
+      desc: "Biz shunchaki maslahat bermaymiz, balki kompaniyangiz duch kelishi mumkin bo'lgan xavflarning oldini olamiz va amaliy yechimlar taqdim etamiz.",
+      a1Title: "B2B Sektorida chuqur tajriba",
+      a1Desc: "Biz asosan yuridik shaxslar bilan ishlaymiz va korporativ huquqni ich-ichidan bilamiz.",
+      a2Title: "100% Maxfiylik kafolati",
+      a2Desc: "Kompaniyangiz sirlari va moliyaviy ma'lumotlari qat'iy sir saqlanishiga kafolat beramiz.",
+      a3Title: "Tezkorlik va byurokratiyasizlik",
+      a3Desc: "Siz biznes bilan shug'ullanasiz, barcha hujjatbozlik va davlat idoralari bilan ishlashni o'zimiz hal qilamiz."
+    },
+    process: {
+      title: "Biz qanday ishlaymiz?",
+      desc: "Muammongizni qonuniy hal qilish uchun 4 ta oddiy qadam",
+      p1Title: "Ariza qoldirish",
+      p1Desc: "Sayt orqali ariza qoldirasiz yoki bizga qo'ng'iroq qilasiz.",
+      p2Title: "Bepul tahlil",
+      p2Desc: "Yuristimiz holatingizni bepul o'rganib chiqadi va yechim taklif qiladi.",
+      p3Title: "Shartnoma",
+      p3Desc: "Rasmiy shartnoma tuzamiz va barcha mas'uliyatni o'z zimmamizga olamiz.",
+      p4Title: "Natija",
+      p4Desc: "Sizning muammongiz qonuniy, tez va xavfsiz hal etiladi."
+    },
+    team: {
+      title: "Bizning Mutaxassislar",
+      desc: "Sizning manfaatlaringizni ko'p yillik tajribaga ega professionallar himoya qiladi",
+      t1Role: "Katta huquqshunos (Korporativ huquq)",
+      t1Desc: "Biznesni ro'yxatdan o'tkazish va litsenziyalash bo'yicha 10+ yillik tajriba. Yuzlab korxonalarga yuridik maslahat bergan.",
+      t2Role: "Sud ishlari bo'yicha yetakchi advokat",
+      t2Desc: "Iqtisodiy nizolar va sud jarayonlarida yuzlab muvaffaqiyatli keyslar muallifi. Ishonchli himoya kafolati.",
+      t3Title: "Kuchli Jamoa",
+      t3Role: "Sizning biznesingiz uchun",
+      t3Desc: "Bizning jamoamiz turli sohalarga ixtisoslashgan 15 dan ortiq malakali huquqshunoslardan iborat.",
+      t3Badge: "Barcha mutaxassislarimiz"
+    },
+    contact: {
+      title: "Huquqiy maslahat kerakmi?",
+      desc: "Ma'lumotlaringizni qoldiring. Bizning yetakchi yuristlarimiz siz bilan bog'lanib, vaziyatingizni tahlil qilib berishadi. Maxfiylik 100% kafolatlanadi.",
+      fast: "Tezkor aloqa",
+      email: "Elektron manzil",
+      formTitle: "Ariza qoldirish",
+      formName: "Ism yoki Kompaniya nomi",
+      formPhone: "Telefon raqam",
+      formBtn: "Arizani yuborish"
+    },
+
+    footer: {
+      esc: "Biznesingizning ishonchli huquqiy himoyachisi. Biz bilan muammolar tez va qonuniy hal qilinadi.",
+      address: "Toshkent shahri, Yakkasaroy tumani, Cho'pon ota ko'chasi, 16-uy. ",
+      hours: "Du-Ju: 09:00 - 18:00",
+      rights: "Barcha huquqlar himoyalangan."
+    }
   },
+
+
   ru: {
-    nav: { services: "Услуги", adv: "Преимущества", process: "Процесс", team: "Команда", btn: "Консультация" },
-    hero: { badge: "Юридические услуги B2B", title1: "Защитите свой бизнес от", title2: "правовых рисков", desc: "Регистрация предприятий, лицензирование и полная юридическая поддержка в судебных процессах. Доверьте все юридические вопросы профессионалам и работайте спокойно.", btn1: "Бесплатный анализ" },
-    services: { title: "Решения для вашего бизнеса", desc: "Основные услуги для экономии вашего времени и обеспечения юридической безопасности", s1Title: "Регистрация бизнеса", s1Desc: "Открытие новых предприятий (ООО, АО) и законное оформление учредительных документов.", s2Title: "Лицензирование", s2Desc: "Получение необходимых лицензий и разрешений для вашей деятельности без бюрократии.", s3Title: "Защита в суде", s3Desc: "Полная защита интересов вашей компании в суде по хозяйственным и экономическим спорам.", s4Title: "Юридическая консультация", s4Desc: "Экспертиза договоров и постоянные профессиональные юридические консультации в бизнес-процессах." },
-    adv: { title: "Почему юридические дела доверяют нам?", desc: "Мы не просто консультируем, мы предотвращаем риски, с которыми может столкнуться ваша компания, и предлагаем практические решения.", a1Title: "Глубокий опыт в B2B секторе", a1Desc: "Мы работаем в основном с юридическими лицами и знаем корпоративное право изнутри.", a2Title: "100% Гарантия конфиденциальности", a2Desc: "Мы гарантируем строгую конфиденциальность секретов вашей компании и финансовой информации.", a3Title: "Оперативность и без бюрократии", a3Desc: "Вы занимаетесь бизнесом, а всю работу с документами и государственными органами мы берем на себя." },
-    process: { title: "Как мы работаем?", desc: "4 простых шага для законного решения вашей проблемы", p1Title: "Оставить заявку", p1Desc: "Вы оставляете заявку на сайте или звоните нам.", p2Title: "Бесплатный анализ", p2Desc: "Наш юрист бесплатно изучит вашу ситуацию и предложит решение.", p3Title: "Договор", p3Desc: "Мы заключаем официальный договор и берем на себя всю ответственность.", p4Title: "Результат", p4Desc: "Ваша проблема будет решена законно, быстро и безопасно." },
-    team: { title: "Наши специалисты", desc: "Ваши интересы защищают профессионалы с многолетним опытом", t1Name: "Имя Фамилия", t1Role: "Старший юрист (Корпоративное право)", t1Desc: "Более 10 лет опыта в регистрации бизнеса и лицензировании. Проконсультировал сотни предприятий.", t2Name: "Малика Каримова", t2Role: "Ведущий адвокат по судебным делам", t2Desc: "Автор сотен успешных кейсов в экономических спорах и судебных процессах. Гарантия надежной защиты.", t3Title: "Сильная команда", t3Role: "Для вашего бизнеса", t3Desc: "Наша команда состоит из более чем 15 квалифицированных юристов, специализирующихся в различных областях.", t3Badge: "Все специалисты" },
-    partners: { title: "Наши партнеры", desc: "Ведущие международные и местные компании, доверяющие нам" },
-    faq: { title: "Часто задаваемые вопросы", desc: "Ответы на самые популярные вопросы наших клиентов", items: [
-      { q: "Сколько времени занимает регистрация бизнеса?", a: "Обычно, при наличии всех документов, процесс государственной регистрации завершается в течение 3-5 рабочих дней." },
-      { q: "Как формируется стоимость услуг?", a: "Цены определяются индивидуально в зависимости от сложности проблемы и вида услуги. После бесплатного анализа мы предоставим вам точное коммерческое предложение." },
-      { q: "Вы гарантируете конфиденциальность секретов компании?", a: "Да, конечно. Перед началом работы мы подписываем с каждым клиентом официальное соглашение о неразглашении (NDA) и юридически гарантируем сохранность данных." },
-      { q: "Участвуете ли вы в судебных процессах?", a: "Да, наши опытные адвокаты надежно защитят интересы вашей компании во всех инстанциях экономических и хозяйственных судов." }
-    ]},
-    contact: { title: "Нужна юридическая консультация?", desc: "Оставьте свои данные. Наши ведущие юристы свяжутся с вами и проанализируют вашу ситуацию. 100% конфиденциальность гарантирована.", fast: "Быстрая связь", email: "Электронная почта", formTitle: "Оставить заявку", formName: "Имя или название компании", formPhone: "Номер телефона", formBtn: "Отправить заявку", sending: "Отправка...", success: "✅ Успешно отправлено!", error: "❌ Произошла ошибка" },
-    footer: { desc: "Надежный правовой защитник вашего бизнеса. С нами проблемы решаются быстро и законно.", address: "г. Ташкент, Юнусабадский район, проспект Амира Темура, 107. (Бизнес-центр, 4-этаж)", hours: "Пн-Пт: 09:00 - 18:00", rights: "Все права защищены." }
+    nav: {
+      services: "Услуги",
+      adv: "Преимущества",
+      process: "Процесс",
+      team: "Команда",
+      btn: "Консультация"
+    },
+    hero: {
+      badge: "Юридические услуги B2B",
+      title1: "Защитите свой бизнес от",
+      title2: "правовых рисков",
+      desc: "Регистрация предприятий, лицензирование и полная юридическая поддержка в судебных процессах. Доверьте все юридические вопросы профессионалам и работайте спокойно.",
+      btn1: "Бесплатный анализ"
+    },
+    services: {
+      title: "Решения для вашего бизнеса",
+      desc: "Основные услуги для экономии вашего времени и обеспечения юридической безопасности",
+      s1Title: "Регистрация бизнеса",
+      s1Desc: "Открытие новых предприятий (ООО, АО) и законное оформление учредительных документов.",
+      s2Title: "Лицензирование",
+      s2Desc: "Получение необходимых лицензий и разрешений для вашей деятельности без бюрократии.",
+      s3Title: "Защита в суде",
+      s3Desc: "Полная защита интересов вашей компании в суде по хозяйственным и экономическим спорам.",
+      s4Title: "Юридическая консультация",
+      s4Desc: "Экспертиза договоров и постоянные профессиональные юридические консультации в бизнес-процессах."
+    },
+    adv: {
+      title: "Почему юридические дела доверяют нам?",
+      desc: "Мы не просто консультируем, мы предотвращаем риски, с которыми может столкнуться ваша компания, и предлагаем практические решения.",
+      a1Title: "Глубокий опыт в B2B секторе",
+      a1Desc: "Мы работаем в основном с юридическими лицами и знаем корпоративное право изнутри.",
+      a2Title: "100% Гарантия конфиденциальности",
+      a2Desc: "Мы гарантируем строгую конфиденциальность секретов вашей компании и финансовой информации.",
+      a3Title: "Оперативность и без бюрократии",
+      a3Desc: "Вы занимаетесь бизнесом, а всю работу с документами и государственными органами мы берем на себя."
+    },
+    process: {
+      title: "Как мы работаем?",
+      desc: "4 простых шага для законного решения вашей проблемы",
+      p1Title: "Оставить заявку",
+      p1Desc: "Вы оставляете заявку на сайте или звоните нам.",
+      p2Title: "Бесплатный анализ",
+      p2Desc: "Наш юрист бесплатно изучит вашу ситуацию и предложит решение.",
+      p3Title: "Договор",
+      p3Desc: "Мы заключаем официальный договор и берем на себя всю ответственность.",
+      p4Title: "Результат",
+      p4Desc: "Ваша проблема будет решена законно, быстро и безопасно."
+    },
+    team: {
+      title: "Наши специалисты",
+      desc: "Ваши интересы защищают профессионалы с многолетним опытом",
+      t1Role: "Старший юрист (Корпоративное право)",
+      t1Desc: "Более 10 лет опыта в регистрации бизнеса и лицензировании. Проконсультировал сотни предприятий.",
+      t2Role: "Ведущий адвокат по судебным делам",
+      t2Desc: "Автор сотен успешных кейсов в экономических спорах и судебных процессах. Гарантия надежной защиты.",
+      t3Title: "Сильная команда",
+      t3Role: "Для вашего бизнеса",
+      t3Desc: "Наша команда состоит из более чем 15 квалифицированных юристов, специализирующихся в различных областях.",
+      t3Badge: "Все специалисты"
+    },
+    contact: {
+      title: "Нужна юридическая консультация?",
+      desc: "Оставьте свои данные. Наши ведущие юристы свяжутся с вами и проанализируют вашу ситуацию. 100% конфиденциальность гарантирована.",
+      fast: "Быстрая связь",
+      email: "Электронная почта",
+      formTitle: "Оставить заявку",
+      formName: "Имя или название компании",
+      formPhone: "Номер телефона",
+      formBtn: "Отправить заявку"
+    },
+    footer: {
+      desc: "Надежный правовой защитник вашего бизнеса. С нами проблемы решаются быстро и законно.",
+      address: "г. Ташкент, Яккасарайский район, улица Чупан-ота, дом 16.",
+      hours: "Пн-Пт: 09:00 - 18:00",
+      rights: "Все права защищены."
+    }
   }
 };
 
@@ -44,41 +169,84 @@ const LandingPage = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [lang, setLang] = useState('uz');
 
+  // Telegram Form Statelari
   const [formData, setFormData] = useState({ name: '', phone: '' });
-  const [status, setStatus] = useState('idle');
-  const [openFaq, setOpenFaq] = useState(null);
+  const [status, setStatus] = useState('idle'); // idle, loading, success, error
 
   const t = translations[lang];
 
-  // TELEGRAM BOT SOZLAMALARI
-  const BOT_TOKEN = "SIZNING_BOT_TOKENINGIZ_SHU_YERGA";
-  const CHAT_ID = "SIZNING_CHAT_ID_RAQAMINGIZ_SHU_YERGA";
+  // Saytga kirganda "visit" deb Google Sheetga yozish
+  useEffect(() => {
+    const trackVisit = async () => {
+      try {
+        // Oldin yozilmagan bo'lsa (Session Storage)
+        if (!sessionStorage.getItem('visited')) {
+          await fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors', // Muhim!
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ type: 'visit' })
+          });
+          sessionStorage.setItem('visited', 'true'); // Qayta-qayta sanamaslik uchun
+        }
+      } catch (error) {
+        console.error("Statistika xatosi:", error);
+      }
+    };
+    trackVisit();
+  }, []);
 
+  // TELEGRAM BOT SOZLAMALARI
+  const BOT_TOKEN = "8014966765:AAFsBpsRbdta0YymF2Vd9UjIZGGB9IKZ-zs";
+  const CHAT_ID = "5791278544";
+
+  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwoUMJGg6enEuzs_HlBi98pXY57_f9FztRcT1oUh-_TimUVIkauBxVIdislmsG0UJ2AAQ/exec";
+
+  // Animatsiya sozlamalari
   const fadeInUp = {
     hidden: { opacity: 0, y: 40 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
   };
   const staggerContainer = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
+    visible: { opacity: 1, transition: { staggerChildren: 0.2 } }
   };
 
-  const toggleLanguage = () => setLang(lang === 'uz' ? 'ru' : 'uz');
-  const toggleFaq = (index) => setOpenFaq(openFaq === index ? null : index);
+  const toggleLanguage = () => {
+    setLang(lang === 'uz' ? 'ru' : 'uz');
+  };
 
+  // Telegramga xabar yuborish funksiyasi
   const sendToTelegram = async (e) => {
     e.preventDefault();
     setStatus('loading');
+
     const message = `Yangi ariza (Green&Legal) 🌿\n\n👤 Ism: ${formData.name}\n📞 Telefon: ${formData.phone}`;
 
     try {
-      const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+      // 1. Telegramga yuborish
+      const telegramResponse = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ chat_id: CHAT_ID, text: message }),
+        body: JSON.stringify({
+          chat_id: CHAT_ID,
+          text: message,
+        }),
       });
 
-      if (response.ok) {
+      // 2. Google Sheetga statistika uchun yuborish (Backend sifatida)
+      if (telegramResponse.ok) {
+        fetch(GOOGLE_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            type: 'lead',
+            name: formData.name,
+            phone: formData.phone
+          })
+        });
+
         setStatus('success');
         setFormData({ name: '', phone: '' });
         setTimeout(() => setStatus('idle'), 3000);
@@ -93,6 +261,7 @@ const LandingPage = () => {
     }
   };
 
+  // Tugma matnini holatga qarab o'zgartirish
   const getButtonText = () => {
     if (status === 'loading') return t.contact.sending;
     if (status === 'success') return t.contact.success;
@@ -107,6 +276,7 @@ const LandingPage = () => {
       <header className="fixed top-0 w-full bg-white/95 backdrop-blur-md z-50 border-b border-stone-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
+            {/* Logo */}
             <a href="#" className="flex-shrink-0 flex items-center gap-2 cursor-pointer">
               <img src="/logo.jpg" alt="Green & Legal Logo" className="h-10 w-10 object-contain mix-blend-multiply" />
               <span className="font-bold text-2xl tracking-tight text-stone-900">
@@ -114,6 +284,7 @@ const LandingPage = () => {
               </span>
             </a>
 
+            {/* Desktop Menu */}
             <nav className="hidden md:flex space-x-6 items-center">
               <a href="#services" className="text-sm font-medium text-stone-600 hover:text-[#73976A] transition">{t.nav.services}</a>
               <a href="#advantages" className="text-sm font-medium text-stone-600 hover:text-[#73976A] transition">{t.nav.adv}</a>
@@ -129,17 +300,22 @@ const LandingPage = () => {
               </a>
             </nav>
 
+            {/* Mobile Menu Button & Lang Toggle */}
             <div className="md:hidden flex items-center gap-3">
               <button onClick={toggleLanguage} className="flex items-center gap-1 px-2 py-1.5 rounded-md bg-stone-100 text-stone-700 text-sm font-bold">
                 {lang === 'uz' ? 'RU' : 'UZ'}
               </button>
-              <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-stone-600 hover:text-stone-900 focus:outline-none">
+              <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="text-stone-600 hover:text-stone-900 focus:outline-none"
+              >
                 {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
               </button>
             </div>
           </div>
         </div>
 
+        {/* Mobile Menu Dropdown */}
         {isMenuOpen && (
           <div className="md:hidden bg-white border-b border-stone-200">
             <div className="px-4 pt-2 pb-6 space-y-2 shadow-lg">
@@ -172,8 +348,8 @@ const LandingPage = () => {
               <a href="#contact" className="inline-flex justify-center items-center px-6 py-3.5 bg-[#73976A] text-white font-semibold rounded-lg hover:bg-[#5e7a56] transition shadow-lg shadow-[#73976A]/20">
                 {t.hero.btn1} <ChevronRight className="ml-2 h-5 w-5" />
               </a>
-              <a href="tel:+998901234567" className="inline-flex justify-center items-center px-6 py-3.5 bg-white text-stone-700 font-semibold rounded-lg border border-stone-300 hover:bg-stone-50 transition">
-                <Phone className="mr-2 h-5 w-5 text-stone-500" /> +998 90 123 45 67
+              <a href="tel:+998911620063" className="inline-flex justify-center items-center px-6 py-3.5 bg-white text-stone-700 font-semibold rounded-lg border border-stone-300 hover:bg-stone-50 transition">
+                <Phone className="mr-2 h-5 w-5 text-stone-500" /> +998 91 162 00 63
               </a>
             </motion.div>
           </motion.div>
@@ -276,6 +452,8 @@ const LandingPage = () => {
           </motion.div>
 
           <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}>
+
+            {/* 1- Mutaxassis */}
             <motion.div variants={fadeInUp} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-stone-200 hover:shadow-xl transition flex flex-col">
               <img src="/team1.jpg" alt="Yurist" className="w-full aspect-[4/5] sm:aspect-square md:aspect-[4/5] object-cover object-center" />
               <div className="p-6 flex-1">
@@ -285,6 +463,7 @@ const LandingPage = () => {
               </div>
             </motion.div>
 
+            {/* 2- Mutaxassis */}
             <motion.div variants={fadeInUp} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-stone-200 hover:shadow-xl transition flex flex-col">
               <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Yurist" className="w-full aspect-[4/5] sm:aspect-square md:aspect-[4/5] object-cover object-center" />
               <div className="p-6 flex-1">
@@ -294,6 +473,7 @@ const LandingPage = () => {
               </div>
             </motion.div>
 
+            {/* Barcha jamoa */}
             <motion.div variants={fadeInUp} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-stone-200 hover:shadow-xl transition flex flex-col md:hidden lg:flex">
               <div className="w-full aspect-[4/5] sm:aspect-square md:aspect-[4/5] bg-stone-100 flex flex-col items-center justify-center text-stone-400">
                 <Users className="h-16 w-16 mb-2" />
@@ -305,80 +485,13 @@ const LandingPage = () => {
                 <p className="text-stone-600 text-sm">{t.team.t3Desc}</p>
               </div>
             </motion.div>
-          </motion.div>
-        </div>
-      </section>
 
-      {/* PARTNERS (HAMKORLAR) SECTION - PLACEHOLDERS */}
-      <section id="partners" className="py-20 bg-white border-t border-stone-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-stone-900 mb-4">{t.partners.title}</h2>
-            <p className="text-lg text-stone-600">{t.partners.desc}</p>
-          </motion.div>
-
-          <motion.div
-            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 items-center justify-items-center"
-            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}
-          >
-            {/* 12 ta Placeholder yaratamiz */}
-            {[...Array(12)].map((_, index) => (
-              <motion.div
-                key={index}
-                variants={fadeInUp}
-                className="w-full h-40 bg-stone-100 rounded-lg flex items-center justify-center p-4 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-pointer border border-stone-200 hover:border-[#73976A]/30 hover:bg-white"
-              >
-                <img
-                  src={`/partners/logo${index + 1}.png`}  // Rasmlaringiz nomi logo1.png, logo2.png bo'lishi kerak
-                  alt={`Partner ${index + 1}`}
-                  className="max-w-[90%] max-h-[500%] object-contain"
-                />
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* FAQ SECTION */}
-      <section id="faq" className="py-20 bg-stone-50 border-t border-stone-200">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-stone-900 mb-4">{t.faq.title}</h2>
-            <p className="text-lg text-stone-600">{t.faq.desc}</p>
-          </motion.div>
-
-          <motion.div className="space-y-4" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}>
-            {t.faq.items.map((item, index) => (
-              <motion.div key={index} variants={fadeInUp} className="border border-stone-200 rounded-xl overflow-hidden bg-white">
-                <button
-                  onClick={() => toggleFaq(index)}
-                  className="w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none hover:bg-stone-50 transition-colors"
-                >
-                  <span className="font-semibold text-stone-900 text-lg pr-4">{item.q}</span>
-                  <ChevronDown className={`w-5 h-5 text-[#73976A] transition-transform duration-300 ${openFaq === index ? 'rotate-180' : ''}`} />
-                </button>
-                <AnimatePresence>
-                  {openFaq === index && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: "easeInOut" }}
-                    >
-                      <div className="px-6 pb-5 text-stone-600 leading-relaxed border-t border-stone-100 pt-4">
-                        {item.a}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-            ))}
           </motion.div>
         </div>
       </section>
 
       {/* CONTACT FORM SECTION */}
-      <section id="contact" className="py-24 bg-white relative border-t border-stone-200">
+      <section id="contact" className="py-24 bg-white relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="bg-stone-900 rounded-3xl overflow-hidden shadow-2xl">
             <div className="flex flex-col lg:flex-row">
@@ -393,7 +506,7 @@ const LandingPage = () => {
                     </div>
                     <div>
                       <p className="text-sm text-stone-400">{t.contact.fast}</p>
-                      <p className="font-semibold text-lg">+998 90 123 45 67</p>
+                      <p className="font-semibold text-lg">+998 91 162 00 63</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
@@ -430,7 +543,7 @@ const LandingPage = () => {
                       value={formData.phone}
                       onChange={(e) => setFormData({...formData, phone: e.target.value})}
                       className="w-full px-4 py-3 rounded-lg border border-stone-300 focus:ring-2 focus:ring-[#73976A] focus:border-[#73976A] outline-none transition bg-white"
-                      placeholder="+998 "
+                      placeholder="+998 __ ___ __ __"
                     />
                   </div>
                   <button
@@ -480,7 +593,7 @@ const LandingPage = () => {
             </div>
 
             <div className="h-64 lg:h-auto rounded-xl overflow-hidden shadow-lg">
-              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2996.363734762081!2d69.279737!3d41.311151!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38ae8b2931f41f23%3A0x81095e06b654b845!2sAmir%20Temur%20Square!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s" width="100%" height="100%" style={{ border: 0, minHeight: "250px" }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="Office Location"></iframe>
+              <iframe src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d1119.5940641113732!2d69.22940705420845!3d41.27086445751913!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNDHCsDE2JzE1LjUiTiA2OcKwMTMnNDYuNiJF!5e0!3m2!1sen!2s!4v1770832733495!5m2!1sen!2s" width="100%" height="100%" style={{ border: 0, minHeight: "250px" }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="Office Location"></iframe>
             </div>
 
           </div>
