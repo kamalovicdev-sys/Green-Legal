@@ -373,7 +373,7 @@ const LandingPage = () => {
               <motion.div
                 key={index}
                 variants={fadeInUp}
-                className="w-full h-24 bg-stone-100 rounded-lg flex items-center justify-center p-4 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-pointer border border-stone-200 hover:border-[#73976A]/30 hover:bg-white"
+                className="w-full h-40 bg-stone-100 rounded-lg flex items-center justify-center p-4 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-pointer border border-stone-200 hover:border-[#73976A]/30 hover:bg-white"
               >
                 <img
                   src={`/partners/logo${index + 1}.png`}
