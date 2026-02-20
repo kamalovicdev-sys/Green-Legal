@@ -20,7 +20,7 @@ const translations = {
     },
 
     hero: {
-        badge: "B2B Yuridik Xizmatlar",
+        badge: "B2B | B2G Yuridik Xizmatlar",
         title1: "Biznesingizni huquqiy xavflardan",
         title2: "himoya qiling",
         desc: "Korxonalarni ro'yxatdan o'tkazish, litsenziyalash va sud jarayonlarida to'liq huquqiy yordam. Barcha yuridik masalalarni professionallarga topshirib, xotirjam ishlang.",
@@ -47,7 +47,7 @@ const translations = {
     adv: {
         title: "Nima uchun yuridik ishlarni bizga ishonishadi?",
         desc: "Biz shunchaki maslahat bermaymiz, balki kompaniyangiz duch kelishi mumkin bo'lgan xavflarning oldini olamiz va amaliy yechimlar taqdim etamiz.",
-        a1Title: "B2B Sektorida chuqur tajriba",
+        a1Title: "B2B | B2G Sektorida chuqur tajriba",
         a1Desc: "Biz asosan yuridik shaxslar bilan ishlaymiz va korporativ huquqni ich-ichidan bilamiz.",
         a2Title: "100% Maxfiylik kafolati",
         a2Desc: "Kompaniyangiz sirlari va moliyaviy ma'lumotlari qat'iy sir saqlanishiga kafolat beramiz.",
@@ -71,7 +71,7 @@ const translations = {
     team: {
         title: "Bizning Mutaxassislar",
         desc: "Sizning manfaatlaringizni ko'p yillik tajribaga ega professionallar himoya qiladi",
-        t1Name: "Ism Familiya",
+        t1Name: "John Doe",
         t1Role: "Katta huquqshunos (Korporativ huquq)",
         t1Desc: "Biznesni ro'yxatdan o'tkazish va litsenziyalash bo'yicha 10+ yillik tajriba. Yuzlab korxonalarga yuridik maslahat bergan.",
         t2Name: "Malika Karimova",
@@ -117,7 +117,7 @@ const translations = {
     },
 
     hero: {
-        badge: "Юридические услуги B2B",
+        badge: "Юридические услуги B2B | B2G",
         title1: "Защитите свой бизнес от",
         title2: "правовых рисков",
         desc: "Регистрация предприятий, лицензирование и полная юридическая поддержка в судебных процессах. Доверьте все юридические вопросы профессионалам и работайте спокойно.",
@@ -144,7 +144,7 @@ const translations = {
     adv: {
         title: "Почему юридические дела доверяют нам?",
         desc: "Мы не просто консультируем, мы предотвращаем риски, с которыми может столкнуться ваша компания, и предлагаем практические решения.",
-        a1Title: "Глубокий опыт в B2B секторе",
+        a1Title: "Глубокий опыт в B2B | B2G секторе",
         a1Desc: "Мы работаем в основном с юридическими лицами и знаем корпоративное право изнутри.",
         a2Title: "100% Гарантия конфиденциальности",
         a2Desc: "Мы гарантируем строгую конфиденциальность секретов вашей компании и финансовой информации.",
@@ -168,7 +168,7 @@ const translations = {
     team: {
         title: "Наши специалисты",
         desc: "Ваши интересы защищают профессионалы с многолетним опытом",
-        t1Name: "Имя Фамилия",
+        t1Name: "John Doe",
         t1Role: "Старший юрист (Корпоративное право)",
         t1Desc: "Более 10 лет опыта в регистрации бизнеса и лицензировании. Проконсультировал сотни предприятий.",
         t2Name: "Малика Каримова",
