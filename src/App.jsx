@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 // --- TELEGRAM VA GOOGLE SOZLAMALARI ---
 const BOT_TOKEN = "8014966765:AAFsBpsRbdta0YymF2Vd9UjIZGGB9IKZ-zs";
-const CHAT_ID = "5791278544";
+const CHAT_ID = "5791278544, 436935150";
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwoUMJGg6enEuzs_HlBi98pXY57_f9FztRcT1oUh-_TimUVIkauBxVIdislmsG0UJ2AAQ/exec";
 
 // --- TARJIMALAR LUG'ATI ---
