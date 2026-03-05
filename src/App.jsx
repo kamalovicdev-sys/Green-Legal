@@ -36,8 +36,8 @@ const translations = {
     },
     team: {
       title: "Bizning Mutaxassislar", desc: "Sizning manfaatlaringizni ko'p yillik tajribaga ega professionallar himoya qiladi",
-      t1Name: "John Doe", t1Role: "Katta huquqshunos (Korporativ huquq)", t1Desc: "Biznesni ro'yxatdan o'tkazish va litsenziyalash bo'yicha 10+ yillik tajriba. Yuzlab korxonalarga yuridik maslahat bergan.",
-      t2Name: "Malika Karimova", t2Role: "Sud ishlari bo'yicha yetakchi advokat", t2Desc: "Iqtisodiy nizolar va sud jarayonlarida yuzlab muvaffaqiyatli keyslar muallifi. Ishonchli himoya kafolati.",
+      t1Name: "Po'lat Xudayberdiyevich", t1Role: "Katta huquqshunos ", t1Desc: "Biznesni ro'yxatdan o'tkazish va litsenziyalash bo'yicha 10+ yillik tajriba. Yuzlab korxonalarga yuridik maslahat bergan.",
+      t2Name: "Muhammad Rabbimov", t2Role: "Yurist yordamchisi", t2Desc: "Iqtisodiy nizolar va sud jarayonlarida yuzlab muvaffaqiyatli keyslar muallifi. Ishonchli himoya kafolati.",
       t3Title: "Kuchli Jamoa", t3Role: "Sizning biznesingiz uchun", t3Desc: "Bizning jamoamiz turli sohalarga ixtisoslashgan 15 dan ortiq malakali huquqshunoslardan iborat.", t3Badge: "Barcha mutaxassislarimiz"
     },
     partners: { title: "Bizning hamkorlar", desc: "Bizga ishonch bildirgan xalqaro va mahalliy yetakchi kompaniyalar" },
@@ -80,8 +80,8 @@ const translations = {
     },
     team: {
       title: "Наши специалисты", desc: "Ваши интересы защищают профессионалы с многолетним опытом",
-      t1Name: "John Doe", t1Role: "Старший юрист (Корпоративное право)", t1Desc: "Более 10 лет опыта в регистрации бизнеса и лицензировании. Проконсультировал сотни предприятий.",
-      t2Name: "Малика Каримова", t2Role: "Ведущий адвокат по судебным делам", t2Desc: "Автор сотен успешных кейсов в экономических спорах и судебных процессах. Гарантия надежной защиты.",
+      t1Name: "Пулат Худайбердиевич", t1Role: "Старший юрист", t1Desc: "Более 10 лет опыта в регистрации бизнеса и лицензировании. Проконсультировал сотни предприятий.",
+      t2Name: "Мухаммад Раббимов", t2Role: "Ассистент юриста", t2Desc: "Автор сотен успешных кейсов в экономических спорах и судебных процессах. Гарантия надежной защиты.",
       t3Title: "Сильная команда", t3Role: "Для вашего бизнеса", t3Desc: "Наша команда состоит из более чем 15 квалифицированных юристов, специализирующихся в различных областях.", t3Badge: "Все специалисты"
     },
     partners: { title: "Наши партнеры", desc: "Ведущие международные и местные компании, доверяющие нам" },
@@ -367,7 +367,7 @@ const LandingPage = () => {
 
             <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}>
               <motion.div variants={fadeInUp} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-stone-200 hover:shadow-xl transition flex flex-col">
-                <img src="/team1.jpg" alt="Yurist" loading="lazy" decoding="async" className="w-full aspect-[4/5] sm:aspect-square md:aspect-[4/5] object-cover object-center bg-stone-100" />
+                <img src="/team1.png" alt="Yurist" loading="lazy" decoding="async" className="w-full aspect-[4/5] sm:aspect-square md:aspect-[4/5] object-cover object-center bg-stone-100" />
                 <div className="p-6 flex-1">
                   <h3 className="text-xl font-bold text-stone-900">{t.team.t1Name}</h3>
                   <p className="text-[#5b7b52] font-semibold mb-3">{t.team.t1Role}</p>
@@ -376,7 +376,7 @@ const LandingPage = () => {
               </motion.div>
 
               <motion.div variants={fadeInUp} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-stone-200 hover:shadow-xl transition flex flex-col">
-                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Yurist" loading="lazy" decoding="async" className="w-full aspect-[4/5] sm:aspect-square md:aspect-[4/5] object-cover object-center bg-stone-100" />
+                <img src="/team-2.png" alt="Yurist" loading="lazy" decoding="async" className="w-full aspect-[4/5] sm:aspect-square md:aspect-[4/5] object-cover object-center bg-stone-100" />
                 <div className="p-6 flex-1">
                   <h3 className="text-xl font-bold text-stone-900">{t.team.t2Name}</h3>
                   <p className="text-[#5b7b52] font-semibold mb-3">{t.team.t2Role}</p>
