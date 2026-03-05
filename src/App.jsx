@@ -12,37 +12,38 @@ const translations = {
   uz: {
     nav: { services: "Xizmatlar", adv: "Afzalliklar", process: "Jarayon", team: "Jamoa", btn: "Konsultatsiya" },
     hero: { badge: "B2B | B2G Yuridik Xizmatlar", title1: "Biznesingizni huquqiy xavflardan", title2: "himoya qiling", desc: "Korxonalarni ro'yxatdan o'tkazish, litsenziyalash va sud jarayonlarida to'liq huquqiy yordam. Barcha yuridik masalalarni professionallarga topshirib, xotirjam ishlang.", btn1: "Ariza qoldiring" },
-    services: {
-      title: "Biznesingiz uchun yechimlar", desc: "Vaqtingizni tejash va qonuniy xavfsizlikni ta'minlash uchun asosiy xizmatlarimiz",
-      s1Title: "Biznesni ro'yxatdan o'tkazish", s1Desc: "Yangi korxonalarni (MChJ, AJ) ochish va ta'sis hujjatlarini qonuniy rasmiylashtirish.",
-      s2Title: "Litsenziyalash", s2Desc: "Faoliyatingiz uchun zarur bo'lgan litsenziya va ruxsatnomalarni byurokratiyasiz olish.",
-      s3Title: "Sud ishlarida himoya", s3Desc: "Xo'jalik va iqtisodiy nizolarda sudda kompaniyangiz manfaatlarini to'liq himoya qilish.",
+    services: { 
+      title: "Biznesingiz uchun yechimlar", desc: "Vaqtingizni tejash va qonuniy xavfsizlikni ta'minlash uchun asosiy xizmatlarimiz", 
+      s1Title: "Biznesni ro'yxatdan o'tkazish", s1Desc: "Yangi korxonalarni (MChJ, AJ) ochish va ta'sis hujjatlarini qonuniy rasmiylashtirish.", 
+      s2Title: "Litsenziyalash", s2Desc: "Faoliyatingiz uchun zarur bo'lgan litsenziya va ruxsatnomalarni byurokratiyasiz olish.", 
+      s3Title: "Sud ishlarida himoya", s3Desc: "Xo'jalik va iqtisodiy nizolarda sudda kompaniyangiz manfaatlarini to'liq himoya qilish.", 
       s4Title: "Yuridik konsultatsiya", s4Desc: "Shartnomalar ekspertizasi va biznes jarayonlarida doimiy professional huquqiy maslahat.",
       s5Title: "Buxgalteriya xizmatlari", s5Desc: "Korxonangizning buxgalteriya hisobini to'liq yuritish, soliq hisobotlarini tayyorlash va topshirish.",
       s6Title: "HR va Kadrlar ishi", s6Desc: "Xodimlarni ishga qabul qilish, mehnat shartnomalarini tuzish va kadrlar hujjatlarini qonuniy yuritish."
     },
-    adv: {
-      title: "Nima uchun yuridik ishlarni bizga ishonishadi?", desc: "Biz shunchaki maslahat bermaymiz, balki kompaniyangiz duch kelishi mumkin bo'lgan xavflarning oldini olamiz va amaliy yechimlar taqdim etamiz.",
-      a1Title: "B2B | B2G Sektorida chuqur tajriba", a1Desc: "Biz asosan yuridik shaxslar bilan ishlaymiz va korporativ huquqni ich-ichidan bilamiz.",
-      a2Title: "100% Maxfiylik kafolati", a2Desc: "Kompaniyangiz sirlari va moliyaviy ma'lumotlari qat'iy sir saqlanishiga kafolat beramiz.",
-      a3Title: "Tezkorlik va byurokratiyasizlik", a3Desc: "Siz biznes bilan shug'ullanasiz, barcha hujjatbozlik va davlat idoralari bilan ishlashni o'zimiz hal qilamiz."
+    adv: { 
+      title: "Nima uchun yuridik ishlarni bizga ishonishadi?", desc: "Biz shunchaki maslahat bermaymiz, balki kompaniyangiz duch kelishi mumkin bo'lgan xavflarning oldini olamiz va amaliy yechimlar taqdim etamiz.", 
+      a1Title: "B2B | B2G Sektorida chuqur tajriba", a1Desc: "Biz asosan yuridik shaxslar bilan ishlaymiz va korporativ huquqni ich-ichidan bilamiz.", 
+      a2Title: "100% Maxfiylik kafolati", a2Desc: "Kompaniyangiz sirlari va moliyaviy ma'lumotlari qat'iy sir saqlanishiga kafolat beramiz.", 
+      a3Title: "Tezkorlik va byurokratiyasizlik", a3Desc: "Siz biznes bilan shug'ullanasiz, barcha hujjatbozlik va davlat idoralari bilan ishlashni o'zimiz hal qilamiz." 
     },
-    process: {
-      title: "Biz qanday ishlaymiz?", desc: "Muammongizni qonuniy hal qilish uchun 4 ta oddiy qadam",
-      p1Title: "Ariza qoldirish", p1Desc: "Sayt orqali ariza qoldirasiz yoki bizga qo'ng'iroq qilasiz.",
-      p2Title: "Bepul tahlil", p2Desc: "Yuristimiz holatingizni bepul o'rganib chiqadi va yechim taklif qiladi.",
-      p3Title: "Shartnoma", p3Desc: "Rasmiy shartnoma tuzamiz va barcha mas'uliyatni o'z zimmamizga olamiz.",
-      p4Title: "Natija", p4Desc: "Sizning muammongiz qonuniy, tez va xavfsiz hal etiladi."
+    process: { 
+      title: "Biz qanday ishlaymiz?", desc: "Muammongizni qonuniy hal qilish uchun 4 ta oddiy qadam", 
+      p1Title: "Ariza qoldirish", p1Desc: "Sayt orqali ariza qoldirasiz yoki bizga qo'ng'iroq qilasiz.", 
+      p2Title: "Bepul tahlil", p2Desc: "Yuristimiz holatingizni bepul o'rganib chiqadi va yechim taklif qiladi.", 
+      p3Title: "Shartnoma", p3Desc: "Rasmiy shartnoma tuzamiz va barcha mas'uliyatni o'z zimmamizga olamiz.", 
+      p4Title: "Natija", p4Desc: "Sizning muammongiz qonuniy, tez va xavfsiz hal etiladi." 
     },
-    team: {
-      title: "Bizning Mutaxassislar", desc: "Sizning manfaatlaringizni ko'p yillik tajribaga ega professionallar himoya qiladi",
-      t1Name: "Po'lat Xudayberdiyevich", t1Role: "Katta huquqshunos ", t1Desc: "Biznesni ro'yxatdan o'tkazish va litsenziyalash bo'yicha 10+ yillik tajriba. Yuzlab korxonalarga yuridik maslahat bergan.",
-      t2Name: "Muhammad Rabbimov", t2Role: "Yurist yordamchisi", t2Desc: "Iqtisodiy nizolar va sud jarayonlarida yuzlab muvaffaqiyatli keyslar muallifi. Ishonchli himoya kafolati.",
-      t3Title: "Kuchli Jamoa", t3Role: "Sizning biznesingiz uchun", t3Desc: "Bizning jamoamiz turli sohalarga ixtisoslashgan 15 dan ortiq malakali huquqshunoslardan iborat.", t3Badge: "Barcha mutaxassislarimiz"
+    team: { 
+      title: "Bizning Mutaxassislar", desc: "Sizning manfaatlaringizni ko'p yillik tajribaga ega professionallar himoya qiladi", 
+      t1Name: "Po'lat Xudayberdiyevich", t1Role: "Katta huquqshunos", t1Desc: "Biznesni ro'yxatdan o'tkazish va litsenziyalash bo'yicha 10+ yillik tajriba. Yuzlab korxonalarga yuridik maslahat bergan.", 
+      t2Name: "Muhammad Rabbimov", t2Role: "Yurist yordamchisi", t2Desc: "Iqtisodiy nizolar va sud jarayonlarida yuzlab muvaffaqiyatli keyslar muallifi. Ishonchli himoya kafolati.", 
+      t3Name: "Dildora Xakimova", t3Role: "Yurist katta yordamchisi", t3Desc: "Korporativ huquq va shartnomalar ekspertizasi bo'yicha kuchli tajribaga ega malakali xodim.", 
+      t4Title: "Kuchli Jamoa", t4Role: "Sizning biznesingiz uchun", t4Desc: "Bizning jamoamiz turli sohalarga ixtisoslashgan 15 dan ortiq malakali huquqshunoslardan iborat.", t4Badge: "Barcha mutaxassislarimiz" 
     },
     partners: { title: "Bizning hamkorlar", desc: "Bizga ishonch bildirgan xalqaro va mahalliy yetakchi kompaniyalar" },
-    faq: {
-      title: "Ko'p beriladigan savollar", desc: "Mijozlarimiz tomonidan eng ko'p beriladigan savollarga javoblar",
+    faq: { 
+      title: "Ko'p beriladigan savollar", desc: "Mijozlarimiz tomonidan eng ko'p beriladigan savollarga javoblar", 
       items: [
         { q: "Biznesni ro'yxatdan o'tkazish qancha vaqt oladi?", a: "Odatda barcha hujjatlar to'liq bo'lganda 3-5 ish kuni ichida davlat ro'yxatidan o'tkazish jarayonlari yakunlanadi." },
         { q: "Xizmatlar narxi qanday belgilanadi?", a: "Narxlar muammoning murakkabligi va xizmat turiga qarab individual belgilanadi. Dastlabki bepul tahlildan so'ng sizga aniq tijorat taklifi beriladi." },
@@ -56,37 +57,38 @@ const translations = {
   ru: {
     nav: { services: "Услуги", adv: "Преимущества", process: "Процесс", team: "Команда", btn: "Консультация" },
     hero: { badge: "Юридические услуги B2B | B2G", title1: "Защитите свой бизнес от", title2: "правовых рисков", desc: "Регистрация предприятий, лицензирование и полная юридическая поддержка в судебных процессах. Доверьте все юридические вопросы профессионалам и работайте спокойно.", btn1: "Бесплатный анализ" },
-    services: {
-      title: "Решения для вашего бизнеса", desc: "Основные услуги для экономии вашего времени и обеспечения юридической безопасности",
-      s1Title: "Регистрация бизнеса", s1Desc: "Открытие новых предприятий (ООО, АО) и законное оформление учредительных документов.",
-      s2Title: "Лицензирование", s2Desc: "Получение необходимых лицензий и разрешений для вашей деятельности без бюрократии.",
-      s3Title: "Защита в суде", s3Desc: "Полная защита интересов вашей компании в суде по хозяйственным и экономическим спорам.",
+    services: { 
+      title: "Решения для вашего бизнеса", desc: "Основные услуги для экономии вашего времени и обеспечения юридической безопасности", 
+      s1Title: "Регистрация бизнеса", s1Desc: "Открытие новых предприятий (ООО, АО) и законное оформление учредительных документов.", 
+      s2Title: "Лицензирование", s2Desc: "Получение необходимых лицензий и разрешений для вашей деятельности без бюрократии.", 
+      s3Title: "Защита в суде", s3Desc: "Полная защита интересов вашей компании в суде по хозяйственным и экономическим спорам.", 
       s4Title: "Юридическая консультация", s4Desc: "Экспертиза договоров и постоянные профессиональные юридические консультации в бизнес-процессах.",
       s5Title: "Бухгалтерские услуги", s5Desc: "Полное ведение бухгалтерского учета вашей компании, подготовка и сдача налоговой отчетности.",
       s6Title: "HR и Кадровое дело", s6Desc: "Прием сотрудников на работу, оформление трудовых договоров и законное ведение кадровой документации."
     },
-    adv: {
-      title: "Почему юридические дела доверяют нам?", desc: "Мы не просто консультируем, мы предотвращаем риски, с которыми может столкнуться ваша компания, и предлагаем практические решения.",
-      a1Title: "Глубокий опыт в B2B | B2G секторе", a1Desc: "Мы работаем в основном с юридическими лицами и знаем корпоративное право изнутри.",
-      a2Title: "100% Гарантия конфиденциальности", a2Desc: "Мы гарантируем строгую конфиденциальность секретов вашей компании и финансовой информации.",
-      a3Title: "Оперативность и без бюрократии", a3Desc: "Вы занимаетесь бизнесом, а всю работу с документами и государственными органами мы берем на себя."
+    adv: { 
+      title: "Почему юридические дела доверяют нам?", desc: "Мы не просто консультируем, мы предотвращаем риски, с которыми может столкнуться ваша компания, и предлагаем практические решения.", 
+      a1Title: "Глубокий опыт в B2B | B2G секторе", a1Desc: "Мы работаем в основном с юридическими лицами и знаем корпоративное право изнутри.", 
+      a2Title: "100% Гарантия конфиденциальности", a2Desc: "Мы гарантируем строгую конфиденциальность секретов вашей компании и финансовой информации.", 
+      a3Title: "Оперативность и без бюрократии", a3Desc: "Вы занимаетесь бизнесом, а всю работу с документами и государственными органами мы берем на себя." 
     },
-    process: {
-      title: "Как мы работаем?", desc: "4 простых шага для законного решения вашей проблемы",
-      p1Title: "Оставить заявку", p1Desc: "Вы оставляете заявку на сайте или звоните нам.",
-      p2Title: "Бесплатный анализ", p2Desc: "Наш юрист бесплатно изучит вашу ситуацию и предложит решение.",
-      p3Title: "Договор", p3Desc: "Мы заключаем официальный договор и берем на себя всю ответственность.",
-      p4Title: "Результат", p4Desc: "Ваша проблема будет решена законно, быстро и безопасно."
+    process: { 
+      title: "Как мы работаем?", desc: "4 простых шага для законного решения вашей проблемы", 
+      p1Title: "Оставить заявку", p1Desc: "Вы оставляете заявку на сайте или звоните нам.", 
+      p2Title: "Бесплатный анализ", p2Desc: "Наш юрист бесплатно изучит вашу ситуацию и предложит решение.", 
+      p3Title: "Договор", p3Desc: "Мы заключаем официальный договор и берем на себя всю ответственность.", 
+      p4Title: "Результат", p4Desc: "Ваша проблема будет решена законно, быстро и безопасно." 
     },
-    team: {
-      title: "Наши специалисты", desc: "Ваши интересы защищают профессионалы с многолетним опытом",
-      t1Name: "Пулат Худайбердиевич", t1Role: "Старший юрист", t1Desc: "Более 10 лет опыта в регистрации бизнеса и лицензировании. Проконсультировал сотни предприятий.",
-      t2Name: "Мухаммад Раббимов", t2Role: "Ассистент юриста", t2Desc: "Автор сотен успешных кейсов в экономических спорах и судебных процессах. Гарантия надежной защиты.",
-      t3Title: "Сильная команда", t3Role: "Для вашего бизнеса", t3Desc: "Наша команда состоит из более чем 15 квалифицированных юристов, специализирующихся в различных областях.", t3Badge: "Все специалисты"
+    team: { 
+      title: "Наши специалисты", desc: "Ваши интересы защищают профессионалы с многолетним опытом", 
+      t1Name: "Пулат Худайбердиевич", t1Role: "Старший юрист", t1Desc: "Более 10 лет опыта в регистрации бизнеса и лицензировании. Проконсультировал сотни предприятий.", 
+      t2Name: "Мухаммад Раббимов", t2Role: "Ассистент юриста", t2Desc: "Автор сотен успешных кейсов в экономических спорах и судебных процессах. Гарантия надежной защиты.", 
+      t3Name: "Дилдора Хакимова", t3Role: "Старший ассистент юриста", t3Desc: "Квалифицированный сотрудник с большим опытом работы в области корпоративного права и экспертизы договоров.", 
+      t4Title: "Сильная команда", t4Role: "Для вашего бизнеса", t4Desc: "Наша команда состоит из более чем 15 квалифицированных юристов, специализирующихся в различных областях.", t4Badge: "Все специалисты" 
     },
     partners: { title: "Наши партнеры", desc: "Ведущие международные и местные компании, доверяющие нам" },
-    faq: {
-      title: "Часто задаваемые вопросы", desc: "Ответы на самые популярные вопросы наших клиентов",
+    faq: { 
+      title: "Часто задаваемые вопросы", desc: "Ответы на самые популярные вопросы наших клиентов", 
       items: [
         { q: "Сколько времени занимает регистрация бизнеса?", a: "Обычно, при наличии всех документов, процесс государственной регистрации завершается в течение 3-5 рабочих дней." },
         { q: "Как формируется стоимость услуг?", a: "Цены определяются индивидуально в зависимости от сложности проблемы и вида услуги. После бесплатного анализа мы предоставим вам точное коммерческое предложение." },
@@ -259,8 +261,8 @@ const LandingPage = () => {
                 <a href="#contact" className="inline-flex justify-center items-center px-6 py-3.5 bg-[#73976A] text-white font-semibold rounded-lg hover:bg-[#5e7a56] transition shadow-lg shadow-[#73976A]/20">
                   {t.hero.btn1} <ChevronRight className="ml-2 h-5 w-5" aria-hidden="true" />
                 </a>
-                <a href="tel:+998911620063" className="inline-flex justify-center items-center px-6 py-3.5 bg-white text-stone-800 font-semibold rounded-lg border border-stone-300 hover:bg-stone-50 transition">
-                  <Phone className="mr-2 h-5 w-5 text-stone-600" aria-hidden="true" /> +998 91 162 00 63
+                <a href="tel:+998956760163" className="inline-flex justify-center items-center px-6 py-3.5 bg-white text-stone-800 font-semibold rounded-lg border border-stone-300 hover:bg-stone-50 transition">
+                  <Phone className="mr-2 h-5 w-5 text-stone-600" aria-hidden="true" /> +998 95 676 01 63
                 </a>
               </motion.div>
             </motion.div>
@@ -313,7 +315,6 @@ const LandingPage = () => {
                     <motion.div key={index} variants={fadeInUp} className="flex gap-4">
                       <CheckCircle className="h-6 w-6 text-stone-200 flex-shrink-0 mt-1" aria-hidden="true" />
                       <div>
-                        {/* h4 dan h3 ga o'zgartirildi SEO uchun */}
                         <h3 className="text-xl font-semibold mb-1">{adv.title}</h3>
                         <p className="text-stone-100 text-sm">{adv.desc}</p>
                       </div>
@@ -365,7 +366,10 @@ const LandingPage = () => {
               <p className="text-lg text-stone-600">{t.team.desc}</p>
             </motion.div>
 
-            <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}>
+            {/* Bu joy lg:grid-cols-4 qilib o'zgartirildi (4 ta karta 1 qatorda bo'lishi uchun) */}
+            <motion.div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}>
+              
+              {/* Karta 1 */}
               <motion.div variants={fadeInUp} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-stone-200 hover:shadow-xl transition flex flex-col">
                 <img src="/team1.png" alt="Yurist" loading="lazy" decoding="async" className="w-full aspect-[4/5] sm:aspect-square md:aspect-[4/5] object-cover object-center bg-stone-100" />
                 <div className="p-6 flex-1">
@@ -375,6 +379,7 @@ const LandingPage = () => {
                 </div>
               </motion.div>
 
+              {/* Karta 2 */}
               <motion.div variants={fadeInUp} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-stone-200 hover:shadow-xl transition flex flex-col">
                 <img src="/team-2.png" alt="Yurist" loading="lazy" decoding="async" className="w-full aspect-[4/5] sm:aspect-square md:aspect-[4/5] object-cover object-center bg-stone-100" />
                 <div className="p-6 flex-1">
@@ -384,17 +389,29 @@ const LandingPage = () => {
                 </div>
               </motion.div>
 
-              <motion.div variants={fadeInUp} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-stone-200 hover:shadow-xl transition flex flex-col md:hidden lg:flex">
-                <div className="w-full aspect-[4/5] sm:aspect-square md:aspect-[4/5] bg-stone-100 flex flex-col items-center justify-center text-stone-500">
-                  <Users className="h-16 w-16 mb-2" aria-hidden="true" />
-                  <span className="font-medium">{t.team.t3Badge}</span>
-                </div>
+              {/* Karta 3 (Yangi qo'shilgan mutaxassis) */}
+              <motion.div variants={fadeInUp} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-stone-200 hover:shadow-xl transition flex flex-col">
+                <img src="/team3.png" alt="Yurist" loading="lazy" decoding="async" className="w-full aspect-[4/5] sm:aspect-square md:aspect-[4/5] object-cover object-center bg-stone-100" />
                 <div className="p-6 flex-1">
-                  <h3 className="text-xl font-bold text-stone-900">{t.team.t3Title}</h3>
+                  <h3 className="text-xl font-bold text-stone-900">{t.team.t3Name}</h3>
                   <p className="text-[#5b7b52] font-semibold mb-3">{t.team.t3Role}</p>
                   <p className="text-stone-600 text-sm">{t.team.t3Desc}</p>
                 </div>
               </motion.div>
+
+              {/* Karta 4 (Kuchli jamoa badge kartasi) */}
+              <motion.div variants={fadeInUp} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-stone-200 hover:shadow-xl transition flex flex-col">
+                <div className="w-full aspect-[4/5] sm:aspect-square md:aspect-[4/5] bg-stone-100 flex flex-col items-center justify-center text-stone-500">
+                  <Users className="h-16 w-16 mb-2" aria-hidden="true" />
+                  <span className="font-medium">{t.team.t4Badge}</span>
+                </div>
+                <div className="p-6 flex-1">
+                  <h3 className="text-xl font-bold text-stone-900">{t.team.t4Title}</h3>
+                  <p className="text-[#5b7b52] font-semibold mb-3">{t.team.t4Role}</p>
+                  <p className="text-stone-600 text-sm">{t.team.t4Desc}</p>
+                </div>
+              </motion.div>
+
             </motion.div>
           </div>
         </section>
