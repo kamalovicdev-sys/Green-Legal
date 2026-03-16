@@ -141,7 +141,7 @@ const LandingPage = () => {
   }, []);
 
   const toggleLanguage = () => {
-    setLang(lang === 'uz' ? 'ru' : 'ru');
+    setLang(lang === 'ru' ? 'uz' : 'ru');
   };
 
   const toggleFaq = (index) => {
