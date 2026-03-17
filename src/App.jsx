@@ -113,7 +113,7 @@ const staggerContainer = {
 
 const LandingPage = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [lang, setLang] = useState('uz');
+  const [lang, setLang] = useState('ru');
   const [openFaq, setOpenFaq] = useState(null);
 
   const [formData, setFormData] = useState({ name: '', phone: '' });
@@ -141,7 +141,7 @@ const LandingPage = () => {
   }, []);
 
   const toggleLanguage = () => {
-    setLang(lang === 'uz' ? 'ru' : 'uz');
+    setLang(lang === 'ru' ? 'uz' : 'ru');
   };
 
   const toggleFaq = (index) => {
