@@ -189,13 +189,19 @@ const LandingPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-stone-50 font-sans text-stone-900 scroll-smooth overflow-hidden">
+    // SEO uchun asosiy schema (LegalService) qo'shildi
+    <div className="min-h-screen bg-stone-50 font-sans text-stone-900 scroll-smooth overflow-hidden" itemScope itemType="https://schema.org/LegalService">
+      
+      {/* Schema tegida nomi va logotipni avtomatik aniqlash uchun */}
+      <meta itemProp="name" content="Green&Legal" />
+      <meta itemProp="image" content="/logo.jpg" />
+
       {/* HEADER / NAVBAR */}
       <header className="fixed top-0 w-full bg-white/95 backdrop-blur-md z-50 border-b border-stone-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
-            <a href="#" className="flex-shrink-0 flex items-center gap-2 cursor-pointer">
-              <img src="/logo.jpg" alt="Green & Legal Logo" width="40" height="40" fetchpriority="high" className="h-10 w-10 object-contain mix-blend-multiply" />
+            <a href="#" className="flex-shrink-0 flex items-center gap-2 cursor-pointer" title="Green&Legal Asosiy sahifa">
+              <img src="/logo.jpg" alt="Green&Legal - Yuridik Xizmatlar Logotipi" width="40" height="40" fetchpriority="high" className="h-10 w-10 object-contain mix-blend-multiply" />
               <span className="font-bold text-2xl tracking-tight text-stone-900">
                 Green<span className="text-[#73976A]">&Legal</span>
               </span>
@@ -211,7 +217,7 @@ const LandingPage = () => {
                 <Globe className="h-4 w-4" aria-hidden="true" /> {lang === 'uz' ? 'RU' : 'UZ'}
               </button>
 
-              <a href="#contact" className="px-5 py-2.5 bg-[#73976A] text-white text-sm font-semibold rounded-lg hover:bg-[#5e7a56] transition shadow-sm">
+              <a href="#contact" className="px-5 py-2.5 bg-[#73976A] text-white text-sm font-semibold rounded-lg hover:bg-[#5e7a56] transition shadow-sm" title={t.nav.btn}>
                 {t.nav.btn}
               </a>
             </nav>
@@ -258,10 +264,10 @@ const LandingPage = () => {
                 {t.hero.desc}
               </motion.p>
               <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4">
-                <a href="#contact" className="inline-flex justify-center items-center px-6 py-3.5 bg-[#73976A] text-white font-semibold rounded-lg hover:bg-[#5e7a56] transition shadow-lg shadow-[#73976A]/20">
+                <a href="#contact" className="inline-flex justify-center items-center px-6 py-3.5 bg-[#73976A] text-white font-semibold rounded-lg hover:bg-[#5e7a56] transition shadow-lg shadow-[#73976A]/20" title={t.hero.btn1}>
                   {t.hero.btn1} <ChevronRight className="ml-2 h-5 w-5" aria-hidden="true" />
                 </a>
-                <a href="tel:+998956760163" className="inline-flex justify-center items-center px-6 py-3.5 bg-white text-stone-800 font-semibold rounded-lg border border-stone-300 hover:bg-stone-50 transition">
+                <a href="tel:+998956760163" className="inline-flex justify-center items-center px-6 py-3.5 bg-white text-stone-800 font-semibold rounded-lg border border-stone-300 hover:bg-stone-50 transition" title="Telefon qilish" itemProp="telephone">
                   <Phone className="mr-2 h-5 w-5 text-stone-600" aria-hidden="true" /> +998 95 676 01 63
                 </a>
               </motion.div>
@@ -325,7 +331,7 @@ const LandingPage = () => {
 
               <motion.div className="relative" initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, ease: "easeOut" }}>
                 <div className="absolute inset-0 bg-[#5e7a56] rounded-2xl transform translate-x-4 translate-y-4 opacity-40"></div>
-                <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1632&q=80" alt="Biznes uchrashuv" loading="lazy" decoding="async" className="rounded-2xl relative z-10 w-full h-auto object-cover shadow-2xl" />
+                <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1632&q=80" alt={t.adv.title} loading="lazy" decoding="async" className="rounded-2xl relative z-10 w-full h-auto object-cover shadow-2xl" />
               </motion.div>
             </div>
           </div>
@@ -366,12 +372,11 @@ const LandingPage = () => {
               <p className="text-lg text-stone-600">{t.team.desc}</p>
             </motion.div>
 
-            {/* Bu joy lg:grid-cols-4 qilib o'zgartirildi (4 ta karta 1 qatorda bo'lishi uchun) */}
             <motion.div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}>
               
-              {/* Karta 1 */}
+              {/* Karta 1 - Alt qismi mutaxassis nomiga moslashtirildi */}
               <motion.div variants={fadeInUp} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-stone-200 hover:shadow-xl transition flex flex-col">
-                <img src="/team1.png" alt="Yurist" loading="lazy" decoding="async" className="w-full aspect-[4/5] sm:aspect-square md:aspect-[4/5] object-cover object-center bg-stone-100" />
+                <img src="/team1.png" alt={`${t.team.t1Name} - ${t.team.t1Role} | Green&Legal`} loading="lazy" decoding="async" className="w-full aspect-[4/5] sm:aspect-square md:aspect-[4/5] object-cover object-center bg-stone-100" />
                 <div className="p-6 flex-1">
                   <h3 className="text-xl font-bold text-stone-900">{t.team.t1Name}</h3>
                   <p className="text-[#5b7b52] font-semibold mb-3">{t.team.t1Role}</p>
@@ -381,7 +386,7 @@ const LandingPage = () => {
 
               {/* Karta 2 */}
               <motion.div variants={fadeInUp} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-stone-200 hover:shadow-xl transition flex flex-col">
-                <img src="/team-2.png" alt="Yurist" loading="lazy" decoding="async" className="w-full aspect-[4/5] sm:aspect-square md:aspect-[4/5] object-cover object-center bg-stone-100" />
+                <img src="/team-2.png" alt={`${t.team.t2Name} - ${t.team.t2Role} | Green&Legal`} loading="lazy" decoding="async" className="w-full aspect-[4/5] sm:aspect-square md:aspect-[4/5] object-cover object-center bg-stone-100" />
                 <div className="p-6 flex-1">
                   <h3 className="text-xl font-bold text-stone-900">{t.team.t2Name}</h3>
                   <p className="text-[#5b7b52] font-semibold mb-3">{t.team.t2Role}</p>
@@ -389,9 +394,9 @@ const LandingPage = () => {
                 </div>
               </motion.div>
 
-              {/* Karta 3 (Yangi qo'shilgan mutaxassis) */}
+              {/* Karta 3 */}
               <motion.div variants={fadeInUp} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-stone-200 hover:shadow-xl transition flex flex-col">
-                <img src="/team3.png" alt="Yurist" loading="lazy" decoding="async" className="w-full aspect-[4/5] sm:aspect-square md:aspect-[4/5] object-cover object-center bg-stone-100" />
+                <img src="/team3.png" alt={`${t.team.t3Name} - ${t.team.t3Role} | Green&Legal`} loading="lazy" decoding="async" className="w-full aspect-[4/5] sm:aspect-square md:aspect-[4/5] object-cover object-center bg-stone-100" />
                 <div className="p-6 flex-1">
                   <h3 className="text-xl font-bold text-stone-900">{t.team.t3Name}</h3>
                   <p className="text-[#5b7b52] font-semibold mb-3">{t.team.t3Role}</p>
@@ -399,7 +404,7 @@ const LandingPage = () => {
                 </div>
               </motion.div>
 
-              {/* Karta 4 (Kuchli jamoa badge kartasi) */}
+              {/* Karta 4 */}
               <motion.div variants={fadeInUp} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-stone-200 hover:shadow-xl transition flex flex-col">
                 <div className="w-full aspect-[4/5] sm:aspect-square md:aspect-[4/5] bg-stone-100 flex flex-col items-center justify-center text-stone-500">
                   <Users className="h-16 w-16 mb-2" aria-hidden="true" />
@@ -426,8 +431,8 @@ const LandingPage = () => {
 
             <motion.div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 items-center justify-items-center" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}>
               {[...Array(12)].map((_, index) => (
-                <motion.div key={index} variants={fadeInUp} className="w-full h-40 bg-stone-100 rounded-lg flex items-center justify-center p-4 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-pointer border border-stone-200 hover:border-[#73976A]/30 hover:bg-white">
-                  <img src={`/partners/logo${index + 1}.png`} alt={`Partner ${index + 1}`} loading="lazy" decoding="async" width="200" height="40" className="max-w-full max-h-full object-contain" onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'block'; }} />
+                <motion.div key={index} variants={fadeInUp} className="w-full h-40 bg-stone-100 rounded-lg flex items-center justify-center p-4 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-pointer border border-stone-200 hover:border-[#73976A]/30 hover:bg-white" title={`Hamkorimiz - Kompaniya ${index + 1}`}>
+                  <img src={`/partners/logo${index + 1}.png`} alt={`Green&Legal Hamkori ${index + 1}`} loading="lazy" decoding="async" width="200" height="40" className="max-w-full max-h-full object-contain" onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'block'; }} />
                   <span style={{display: 'none'}} className="text-stone-500 font-bold text-lg">LOGO {index + 1}</span>
                 </motion.div>
               ))}
@@ -445,15 +450,15 @@ const LandingPage = () => {
 
             <motion.div className="space-y-4" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}>
               {t.faq.items.map((item, index) => (
-                <motion.div key={index} variants={fadeInUp} className="border border-stone-200 rounded-xl overflow-hidden bg-white">
+                <motion.div key={index} variants={fadeInUp} className="border border-stone-200 rounded-xl overflow-hidden bg-white" itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
                   <button aria-expanded={openFaq === index} aria-controls={`faq-answer-${index}`} onClick={() => toggleFaq(index)} className="w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none hover:bg-stone-50 transition-colors">
-                    <span className="font-semibold text-stone-900 text-lg pr-4">{item.q}</span>
+                    <span className="font-semibold text-stone-900 text-lg pr-4" itemProp="name">{item.q}</span>
                     <ChevronDown className={`w-5 h-5 text-[#73976A] transition-transform duration-300 ${openFaq === index ? 'rotate-180' : ''}`} aria-hidden="true" />
                   </button>
                   <AnimatePresence>
                     {openFaq === index && (
-                      <motion.div id={`faq-answer-${index}`} initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3, ease: "easeInOut" }}>
-                        <div className="px-6 pb-5 text-stone-600 leading-relaxed border-t border-stone-100 pt-4">
+                      <motion.div id={`faq-answer-${index}`} itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer" initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3, ease: "easeInOut" }}>
+                        <div className="px-6 pb-5 text-stone-600 leading-relaxed border-t border-stone-100 pt-4" itemProp="text">
                           {item.a}
                         </div>
                       </motion.div>
@@ -481,8 +486,9 @@ const LandingPage = () => {
                       </div>
                       <div>
                         <p className="text-sm text-stone-400 items-center">{t.contact.fast}</p>
-                        <p className="font-semibold text-lg">+998 91 162 00 63</p>
-                        <p className="font-semibold text-lg">+998 95 676 01 63</p>
+                        {/* itemProp bilan raqamlarni belgilash */}
+                        <p className="font-semibold text-lg" itemProp="telephone">+998 91 162 00 63</p>
+                        <p className="font-semibold text-lg" itemProp="telephone">+998 95 676 01 63</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-4">
@@ -491,7 +497,7 @@ const LandingPage = () => {
                       </div>
                       <div>
                         <p className="text-sm text-stone-400">{t.contact.email}</p>
-                        <p className="font-semibold text-lg">info@greenlegal.uz</p>
+                        <p className="font-semibold text-lg" itemProp="email">info@greenlegal.uz</p>
                       </div>
                     </div>
                   </div>
@@ -508,7 +514,7 @@ const LandingPage = () => {
                       <label htmlFor="formPhone" className="block text-sm font-medium text-stone-700 mb-2">{t.contact.formPhone}</label>
                       <input id="formPhone" type="tel" required value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value})} className="w-full px-4 py-3 rounded-lg border border-stone-300 focus:ring-2 focus:ring-[#73976A] focus:border-[#73976A] outline-none transition bg-white text-stone-900" placeholder="+998" />
                     </div>
-                    <button type="submit" disabled={status === 'loading'} className={`w-full py-4 text-white font-bold rounded-lg transition shadow-lg mt-4 flex justify-center items-center ${ status === 'success' ? 'bg-green-600' : status === 'error' ? 'bg-red-600' : 'bg-[#73976A] hover:bg-[#5e7a56]' }`}>
+                    <button type="submit" disabled={status === 'loading'} className={`w-full py-4 text-white font-bold rounded-lg transition shadow-lg mt-4 flex justify-center items-center ${ status === 'success' ? 'bg-green-600' : status === 'error' ? 'bg-red-600' : 'bg-[#73976A] hover:bg-[#5e7a56]' }`} title={getButtonText()}>
                       {getButtonText()}
                     </button>
                   </form>
@@ -534,20 +540,23 @@ const LandingPage = () => {
                 </span>
               </div>
               <p className="text-stone-400 mb-8 max-w-md">{t.footer.desc}</p>
-              <div className="space-y-4">
+              
+              {/* Address schema bilan belgilandi */}
+              <div className="space-y-4" itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
                 <div className="flex items-start gap-3">
                   <MapPin className="h-5 w-5 text-[#73976A] mt-1 flex-shrink-0" aria-hidden="true" />
-                  <p>{t.footer.address}</p>
+                  <p itemProp="streetAddress">{t.footer.address}</p>
                 </div>
                 <div className="flex items-center gap-3">
                   <Clock className="h-5 w-5 text-[#73976A] flex-shrink-0" aria-hidden="true" />
-                  <p>{t.footer.hours}</p>
+                  <p itemProp="openingHours" content="Mo-Fr 09:00-18:00">{t.footer.hours}</p>
                 </div>
               </div>
             </div>
 
             <div className="h-64 lg:h-auto rounded-xl overflow-hidden shadow-lg">
-              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2998.737489217121!2d69.22463708632729!3d41.271051297352585!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b76a3584e745d11%3A0xcfddd6323aa4d27c!2sGreen%26Legal!5e0!3m2!1sen!2s!4v1771841167977!5m2!1sen!2s" width="100%" height="100%" style={{ border: 0, minHeight: "250px" }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="Office Location"></iframe>
+              {/* Iframe uchun title atributi qo'shildi (SEO Accessibility) */}
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2998.737489217121!2d69.22463708632729!3d41.271051297352585!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b76a3584e745d11%3A0xcfddd6323aa4d27c!2sGreen%26Legal!5e0!3m2!1sen!2s!4v1771841167977!5m2!1sen!2s" width="100%" height="100%" style={{ border: 0, minHeight: "250px" }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="Green&Legal Ofisining xaritadagi joylashuvi"></iframe>
             </div>
 
           </div>
