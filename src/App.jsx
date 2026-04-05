@@ -556,7 +556,7 @@ const LandingPage = () => {
 
             <div className="h-64 lg:h-auto rounded-xl overflow-hidden shadow-lg">
               {/* Iframe uchun title atributi qo'shildi (SEO Accessibility) */}
-              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2998.737489217121!2d69.22463708632729!3d41.271051297352585!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b76a3584e745d11%3A0xcfddd6323aa4d27c!2sGreen%26Legal!5e0!3m2!1sen!2s!4v1771841167977!5m2!1sen!2s" width="100%" height="100%" style={{ border: 0, minHeight: "250px" }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="Green&Legal Ofisining xaritadagi joylashuvi"></iframe>
+              <iframe src="https://yandex.ru/map-widget/v1/?z=12&ol=biz&oid=202735655546" width="100%" height="100%" style={{ border: 0, minHeight: "250px" }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="Green&Legal Ofisining xaritadagi joylashuvi"></iframe>
             </div>
 
           </div>
