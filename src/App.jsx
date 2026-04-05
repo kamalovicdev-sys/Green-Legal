@@ -203,7 +203,7 @@ const LandingPage = () => {
             <a href="#" className="flex-shrink-0 flex items-center gap-2 cursor-pointer" title="Green&Legal Asosiy sahifa">
               <img src="/logo.jpg" alt="Green&Legal - Yuridik Xizmatlar Logotipi" width="40" height="40" fetchpriority="high" className="h-10 w-10 object-contain mix-blend-multiply" />
               <span className="font-bold text-2xl tracking-tight text-stone-900">
-                Green<span className="text-[#73976A]">&Legal</span>
+                Green <span className="text-[#73976A]">& Legal</span>
               </span>
             </a>
 
@@ -536,7 +536,7 @@ const LandingPage = () => {
                    <img src="/logo.jpg" alt="Green & Legal Logo" width="32" height="32" loading="lazy" decoding="async" className="h-8 w-8 object-contain" />
                 </div>
                 <span className="font-bold text-2xl tracking-tight text-white">
-                  Green<span className="text-[#73976A]">&Legal</span>
+                  Green <span className="text-[#73976A]">& Legal</span>
                 </span>
               </div>
               <p className="text-stone-400 mb-8 max-w-md">{t.footer.desc}</p>
