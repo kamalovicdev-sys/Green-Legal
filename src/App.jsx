@@ -18,7 +18,7 @@ const translations = {
       s2Title: "Litsenziyalash", s2Desc: "Faoliyatingiz uchun zarur bo'lgan litsenziya va ruxsatnomalarni byurokratiyasiz olish.", 
       s3Title: "Sud ishlarida himoya", s3Desc: "Xo'jalik va iqtisodiy nizolarda sudda kompaniyangiz manfaatlarini to'liq himoya qilish.", 
       s4Title: "Yuridik konsultatsiya", s4Desc: "Shartnomalar ekspertizasi va biznes jarayonlarida doimiy professional huquqiy maslahat.",
-      s5Title: "Buxgalteriya xizmatlari", s5Desc: "Korxonangizning buxgalteriya hisobini to'liq yuritish, soliq hisobotlarini tayyorlash va topshirish.",
+      s5Title: "Ma'lumotlar tahlili", s5Desc: "Kompaniyangiz ma'lumotlarini chuqur tahlil qilish, vizualizatsiya (Dashbordlar) yaratish va biznes qarorlar uchun analitik hisobotlar tayyorlash.",
       s6Title: "HR va Kadrlar ishi", s6Desc: "Xodimlarni ishga qabul qilish, mehnat shartnomalarini tuzish va kadrlar hujjatlarini qonuniy yuritish."
     },
     adv: { 
@@ -63,7 +63,7 @@ const translations = {
       s2Title: "Лицензирование", s2Desc: "Получение необходимых лицензий и разрешений для вашей деятельности без бюрократии.", 
       s3Title: "Защита в суде", s3Desc: "Полная защита интересов вашей компании в суде по хозяйственным и экономическим спорам.", 
       s4Title: "Юридическая консультация", s4Desc: "Экспертиза договоров и постоянные профессиональные юридические консультации в бизнес-процессах.",
-      s5Title: "Бухгалтерские услуги", s5Desc: "Полное ведение бухгалтерского учета вашей компании, подготовка и сдача налоговой отчетности.",
+      s5Title: "Услуги аналитика данных", s5Desc: "Полный сбор и анализ данных вашей компании, разработка дашбордов и подготовка аналитической отчетности.",
       s6Title: "HR и Кадровое дело", s6Desc: "Прием сотрудников на работу, оформление трудовых договоров и законное ведение кадровой документации."
     },
     adv: { 
