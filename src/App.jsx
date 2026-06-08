@@ -52,7 +52,7 @@ const translations = {
       ]
     },
     contact: { title: "Huquqiy maslahat kerakmi?", desc: "Ma'lumotlaringizni qoldiring. Bizning yetakchi yuristlarimiz siz bilan bog'lanib, vaziyatingizni tahlil qilib berishadi. Maxfiylik 100% kafolatlanadi.", fast: "Tezkor aloqa", email: "Elektron manzil", formTitle: "Ariza qoldirish", formName: "Ism yoki Kompaniya nomi", formPhone: "Telefon raqam", formBtn: "Arizani yuborish", sending: "Yuborilmoqda...", success: "✅ Muvaffaqiyatli yuborildi!", error: "❌ Xatolik yuz berdi" },
-    footer: { desc: "Biznesingizning ishonchli huquqiy himoyachisi. Biz bilan muammolar tez va qonuniy hal qilinadi.", address: "Toshkent shahri, Yakkasaroy tumani, Cho'pon ota ko'chasi 16-uy. ", hours: "Du-Ju: 09:00 - 18:00", rights: "Barcha huquqlar himoyalangan." }
+    footer: { desc: "Biznesingizning ishonchli huquqiy himoyachisi. Biz bilan muammolar tez va qonuniy hal qilinadi.", address: "Toshkent shahri, Shota Rustaveli, 150. ", hours: "Du-Ju: 09:00 - 18:00", rights: "Barcha huquqlar himoyalangan." }
   },
   ru: {
     nav: { services: "Услуги", adv: "Преимущества", process: "Процесс", team: "Команда", btn: "Консультация" },
@@ -97,7 +97,7 @@ const translations = {
       ]
     },
     contact: { title: "Нужна юридическая консультация?", desc: "Оставьте свои данные. Наши ведущие юристы свяжутся с вами и проанализируют вашу ситуацию. 100% конфиденциальность гарантирована.", fast: "Быстрая связь", email: "Электронная почта", formTitle: "Оставить заявку", formName: "Имя или название компании", formPhone: "Номер телефона", formBtn: "Отправить заявку", sending: "Отправка...", success: "✅ Успешно отправлено!", error: "❌ Произошла ошибка" },
-    footer: { desc: "Надежный правовой защитник вашего бизнеса. С нами проблемы решаются быстро и законно.", address: "г. Ташкент, Яккасарайский район, улица Чупан-ота, дом 16.", hours: "Пн-Пт: 09:00 - 18:00", rights: "Все права защищены." }
+    footer: { desc: "Надежный правовой защитник вашего бизнеса. С нами проблемы решаются быстро и законно.", address: "г. Ташкент, Шота Руставели, 150", hours: "Пн-Пт: 09:00 - 18:00", rights: "Все права защищены." }
   }
 };
 
