@@ -556,7 +556,7 @@ const LandingPage = () => {
 
             <div className="h-64 lg:h-auto rounded-xl overflow-hidden shadow-lg">
               {/* Iframe uchun title atributi qo'shildi (SEO Accessibility) */}
-              <iframe src="https://yandex.ru/map-widget/v1/?z=12&ol=biz&oid=202735655546" width="100%" height="100%" style={{ border: 0, minHeight: "250px" }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="Green&Legal Ofisining xaritadagi joylashuvi"></iframe>
+              <iframe src="https://yandex.uz/maps/-/CPd8ZN~G" width="100%" height="100%" style={{ border: 0, minHeight: "250px" }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="Green&Legal Ofisining xaritadagi joylashuvi"></iframe>
             </div>
 
           </div>
