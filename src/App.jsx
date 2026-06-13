@@ -508,11 +508,11 @@ const LandingPage = () => {
                     <h3 className="text-2xl font-bold text-stone-900 mb-6">{t.contact.formTitle}</h3>
                     <div>
                       <label htmlFor="formName" className="block text-sm font-medium text-stone-700 mb-2">{t.contact.formName}</label>
-                      <input id="formName" type="text" required value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} className="w-full px-4 py-3 rounded-lg border border-stone-300 focus:ring-2 focus:ring-[#73976A] focus:border-[#73976A] outline-none transition bg-white text-stone-900" placeholder="MChJ Ideal Biznes" />
+                      <input id="formName" type="text" required value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} className="w-full px-4 py-3 rounded-lg border border-stone-300 focus:ring-2 focus:ring-[#73976A] focus:border-[#73976A] outline-none transition bg-white text-stone-900" placeholder="Ideal Biznes MChJ" />
                     </div>
                     <div>
                       <label htmlFor="formPhone" className="block text-sm font-medium text-stone-700 mb-2">{t.contact.formPhone}</label>
-                      <input id="formPhone" type="tel" required value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value})} className="w-full px-4 py-3 rounded-lg border border-stone-300 focus:ring-2 focus:ring-[#73976A] focus:border-[#73976A] outline-none transition bg-white text-stone-900" placeholder="+998" />
+                      <input id="formPhone" type="tel" required value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value})} className="w-full px-4 py-3 rounded-lg border border-stone-300 focus:ring-2 focus:ring-[#73976A] focus:border-[#73976A] outline-none transition bg-white text-stone-900" placeholder="+ 998 90 000 0000" />
                     </div>
                     <button type="submit" disabled={status === 'loading'} className={`w-full py-4 text-white font-bold rounded-lg transition shadow-lg mt-4 flex justify-center items-center ${ status === 'success' ? 'bg-green-600' : status === 'error' ? 'bg-red-600' : 'bg-[#73976A] hover:bg-[#5e7a56]' }`} title={getButtonText()}>
                       {getButtonText()}
