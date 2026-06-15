@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Scale, FileText, ShieldCheck, Briefcase, ChevronRight, Phone, CheckCircle, Users, MapPin, Mail, Clock, Globe, ChevronDown, Calculator, UserCheck } from 'lucide-react';
+import { Menu, X, Scale, FileText, ShieldCheck, Briefcase, ChevronRight, Phone, CheckCircle, Users, MapPin, Mail, Clock, Languages, ChevronDown, Calculator, UserCheck } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // --- TELEGRAM VA GOOGLE SOZLAMALARI ---
@@ -214,7 +214,7 @@ const LandingPage = () => {
               <a href="#team" className="text-sm font-medium text-stone-600 hover:text-[#73976A] transition">{t.nav.team}</a>
 
               <button aria-label="Tilni almashtirish" onClick={toggleLanguage} className="flex items-center gap-1 px-3 py-1.5 rounded-md bg-stone-100 text-stone-700 hover:bg-stone-200 transition font-semibold text-sm mx-2">
-                <Globe className="h-4 w-4" aria-hidden="true" /> {lang === 'uz' ? 'RU' : 'UZ'}
+                <Languages className="h-4 w-4" aria-hidden="true" /> {lang === 'uz' ? 'RU' : 'UZ'}
               </button>
 
               <a href="#contact" className="px-5 py-2.5 bg-[#73976A] text-white text-sm font-semibold rounded-lg hover:bg-[#5e7a56] transition shadow-sm" title={t.nav.btn}>
