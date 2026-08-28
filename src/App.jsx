@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Menu, X, Scale, FileText, ShieldCheck, Briefcase, ChevronRight, ChevronLeft, Phone, CheckCircle, Users, MapPin, Mail, Clock, Languages, ChevronDown, Calculator, UserCheck, CalendarDays } from 'lucide-react';
+import { Menu, X, Scale, FileText, ShieldCheck, Briefcase, ChevronRight, ChevronLeft, Phone, CheckCircle, Users, MapPin, Mail, Clock, Languages, ChevronDown, Calculator, UserCheck, CalendarDays, ArrowUp } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // --- TELEGRAM VA GOOGLE SOZLAMALARI ---
@@ -61,7 +61,8 @@ const translations = {
       ]
     },
     contact: { title: "Huquqiy maslahat kerakmi?", desc: "Ma'lumotlaringizni qoldiring. Bizning yetakchi yuristlarimiz siz bilan bog'lanib, vaziyatingizni tahlil qilib berishadi. Maxfiylik 100% kafolatlanadi.", fast: "Tezkor aloqa", email: "Elektron manzil", formTitle: "Ariza qoldirish", formName: "Ism yoki Kompaniya nomi", formPhone: "Telefon raqam", formBtn: "Arizani yuborish", sending: "Yuborilmoqda...", success: "✅ Muvaffaqiyatli yuborildi!", error: "❌ Xatolik yuz berdi" },
-    footer: { desc: "Biznesingizning ishonchli huquqiy himoyachisi. Biz bilan muammolar tez va qonuniy hal qilinadi.", address: "Toshkent shahri, Shota Rustaveli, 150. ", hours: "Du-Ju: 09:00 - 18:00", rights: "Barcha huquqlar himoyalangan." }
+    footer: { desc: "Biznesingizning ishonchli huquqiy himoyachisi. Biz bilan muammolar tez va qonuniy hal qilinadi.", address: "Toshkent shahri, Shota Rustaveli, 150. ", hours: "Du-Ju: 09:00 - 18:00", rights: "Barcha huquqlar himoyalangan." },
+    toast: { success: "Tabriklaymiz! Arizangiz muvaffaqiyatli qabul qilindi.", error: "Xatolik yuz berdi. Iltimos, qaytadan urinib ko'ring." }
   },
   ru: {
     nav: { services: "Услуги", adv: "Преимущества", process: "Процесс", team: "Команда", btn: "Консультация" },
@@ -115,7 +116,8 @@ const translations = {
       ]
     },
     contact: { title: "Нужна юридическая консультация?", desc: "Оставьте свои данные. Наши ведущие юристы свяжутся с вами и проанализируют вашу ситуацию. 100% конфиденциальность гарантирована.", fast: "Быстрая связь", email: "Электронная почта", formTitle: "Оставить заявку", formName: "Имя или название компании", formPhone: "Номер телефона", formBtn: "Отправить заявку", sending: "Отправка...", success: "✅ Успешно отправлено!", error: "❌ Произошла ошибка" },
-    footer: { desc: "Надежный правовой защитник вашего бизнеса. С нами проблемы решаются быстро и законно.", address: "г. Ташкент, Шота Руставели, 150", hours: "Пн-Пт: 09:00 - 18:00", rights: "Все права защищены." }
+    footer: { desc: "Надежный правовой защитник вашего бизнеса. С нами проблемы решаются быстро и законно.", address: "г. Ташкент, Шота Руставели, 150", hours: "Пн-Пт: 09:00 - 18:00", rights: "Все права защищены." },
+    toast: { success: "Поздравляем! Ваша заявка успешно принята.", error: "Произошла ошибка. Пожалуйста, попробуйте еще раз." }
   }
 };
 
@@ -127,6 +129,30 @@ const fadeInUp = {
 const staggerContainer = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { staggerChildren: 0.2 } }
+};
+
+// --- TELEFON RAQAM UCHUN MASK FUNKSIYASI ---
+const formatUzbekPhone = (value) => {
+  if (!value) return '';
+
+  // Faqat sonlarni ajratib olamiz
+  let numbers = value.replace(/\D/g, '');
+
+  // Agar boshida 998 yozilgan bo'lsa uni olib tashlaymiz (maska o'zi 998 ni qo'shib beradi)
+  if (numbers.startsWith('998')) {
+    numbers = numbers.substring(3);
+  }
+
+  // Agar hammasi o'chirib tashlangan bo'lsa
+  if (numbers.length === 0) return '';
+
+  let formatted = '+998 ';
+  if (numbers.length > 0) formatted += `(${numbers.substring(0, 2)}`;
+  if (numbers.length >= 3) formatted += `) ${numbers.substring(2, 5)}`;
+  if (numbers.length >= 6) formatted += `-${numbers.substring(5, 7)}`;
+  if (numbers.length >= 8) formatted += `-${numbers.substring(7, 9)}`;
+
+  return formatted;
 };
 
 const LandingPage = () => {
@@ -154,6 +180,10 @@ const LandingPage = () => {
     return saved ? JSON.parse(saved) : [];
   });
 
+  // --- Yangi: Toast va Scroll To Top holatlari ---
+  const [toast, setToast] = useState({ show: false, message: '', type: 'success' });
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
   const t = translations[lang];
 
   useEffect(() => {
@@ -173,6 +203,17 @@ const LandingPage = () => {
       }
     };
     trackVisit();
+
+    // Scroll to Top obyekti uchun listener
+    const handleScroll = () => {
+      if (window.scrollY > 400) {
+        setShowScrollTop(true);
+      } else {
+        setShowScrollTop(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const toggleLanguage = () => {
@@ -183,13 +224,28 @@ const LandingPage = () => {
     setOpenFaq(openFaq === index ? null : index);
   };
 
+  // Toastni ko'rsatish funksiyasi
+  const showToast = (message, type = 'success') => {
+    setToast({ show: true, message, type });
+    setTimeout(() => {
+      setToast({ show: false, message: '', type: 'success' });
+    }, 4000); // 4 soniyadan keyin avtomatik yopiladi
+  };
+
+  // Tepaga silliq qaytarish funksiyasi
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
   // --- MAXSUS (CUSTOM) KALENDAR KOMPONENTI ---
   const CustomDatePicker = ({ value, onChange }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [currentMonth, setCurrentMonth] = useState(value ? new Date(value) : new Date());
     const popoverRef = useRef(null);
 
-    // Tashqari bosilganda yopish
     useEffect(() => {
       const handleClickOutside = (e) => {
         if (popoverRef.current && !popoverRef.current.contains(e.target)) {
@@ -200,7 +256,6 @@ const LandingPage = () => {
       return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
-    // Kalendar logikasi
     const daysInMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0).getDate();
     const firstDay = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1).getDay();
 
@@ -220,7 +275,6 @@ const LandingPage = () => {
       setIsOpen(false);
     };
 
-    // Tarjimalar (Oylar va kunlar)
     const months = lang === 'uz'
       ? ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentabr", "Oktabr", "Noyabr", "Dekabr"]
       : ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
@@ -232,7 +286,6 @@ const LandingPage = () => {
     const today = new Date();
     today.setHours(0,0,0,0);
 
-    // Sanani formatlab ko'rsatish (DD.MM.YYYY)
     const displayValue = value ? value.split('-').reverse().join('.') : t.appointment.dateLabel;
 
     return (
@@ -335,15 +388,18 @@ const LandingPage = () => {
           body: JSON.stringify({ type: 'lead', name: formData.name, phone: formData.phone })
         });
         setStatus('success');
+        showToast(t.toast.success, 'success'); // Toast muvaffaqiyatli
         setFormData({ name: '', phone: '' });
         setTimeout(() => setStatus('idle'), 3000);
       } else {
         setStatus('error');
+        showToast(t.toast.error, 'error'); // Toast xatolik
         setTimeout(() => setStatus('idle'), 3000);
       }
     } catch (error) {
       console.error("Xatolik:", error);
       setStatus('error');
+      showToast(t.toast.error, 'error'); // Toast xatolik
       setTimeout(() => setStatus('idle'), 3000);
     }
   };
@@ -373,6 +429,7 @@ const LandingPage = () => {
         localStorage.setItem('bookedSlots', JSON.stringify(updatedBookedSlots));
 
         setApptStatus('success');
+        showToast(t.toast.success, 'success'); // Toast muvaffaqiyatli
 
         setTimeout(() => {
           setApptStatus('idle');
@@ -381,11 +438,13 @@ const LandingPage = () => {
         }, 3000);
       } else {
         setApptStatus('error');
+        showToast(t.toast.error, 'error'); // Toast xatolik
         setTimeout(() => setApptStatus('idle'), 3000);
       }
     } catch (error) {
       console.error("Xatolik:", error);
       setApptStatus('error');
+      showToast(t.toast.error, 'error'); // Toast xatolik
       setTimeout(() => setApptStatus('idle'), 3000);
     }
   };
@@ -409,6 +468,31 @@ const LandingPage = () => {
 
       <meta itemProp="name" content="Green&Legal" />
       <meta itemProp="image" content="/logo.jpg" />
+
+      {/* --- TOAST NOTIFICATION (BILDIRISHNOMA) --- */}
+      <AnimatePresence>
+        {toast.show && (
+          <motion.div
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -50 }}
+            className={`fixed top-24 left-1/2 -translate-x-1/2 z-[110] px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 border ${
+              toast.type === 'success' ? 'bg-white border-[#73976A] text-stone-900' : 'bg-red-50 border-red-500 text-stone-900'
+            }`}
+          >
+            {toast.type === 'success' ? (
+              <div className="bg-[#73976A]/10 p-2 rounded-full">
+                <CheckCircle className="w-6 h-6 text-[#73976A]" />
+              </div>
+            ) : (
+              <div className="bg-red-500/10 p-2 rounded-full">
+                <X className="w-6 h-6 text-red-500" />
+              </div>
+            )}
+            <span className="font-semibold text-sm sm:text-base pr-2">{toast.message}</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* HEADER / NAVBAR */}
       <header className="fixed top-0 w-full bg-white/95 backdrop-blur-md z-50 border-b border-stone-200">
@@ -721,7 +805,15 @@ const LandingPage = () => {
                     </div>
                     <div>
                       <label htmlFor="formPhone" className="block text-sm font-medium text-stone-700 mb-2">{t.contact.formPhone}</label>
-                      <input id="formPhone" type="tel" required value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value})} className="w-full px-4 py-3 rounded-lg border border-stone-300 focus:ring-2 focus:ring-[#73976A] focus:border-[#73976A] outline-none transition bg-white text-stone-900" placeholder="+ 998 90 123 45 67" />
+                      <input
+                        id="formPhone"
+                        type="tel"
+                        required
+                        value={formData.phone}
+                        onChange={(e) => setFormData({...formData, phone: formatUzbekPhone(e.target.value)})}
+                        className="w-full px-4 py-3 rounded-lg border border-stone-300 focus:ring-2 focus:ring-[#73976A] focus:border-[#73976A] outline-none transition bg-white text-stone-900"
+                        placeholder="+998 (90) 000-00-00"
+                      />
                     </div>
                     <button type="submit" disabled={status === 'loading'} className={`w-full py-4 text-white font-bold rounded-lg transition shadow-lg mt-4 flex justify-center items-center ${ status === 'success' ? 'bg-green-600' : status === 'error' ? 'bg-red-600' : 'bg-[#73976A] hover:bg-[#5e7a56]' }`} title={getButtonText()}>
                       {getButtonText()}
@@ -860,7 +952,14 @@ const LandingPage = () => {
                         </div>
                         <div>
                           <label className="block text-sm font-semibold text-stone-700 mb-2">{t.appointment.formPhone}</label>
-                          <input type="tel" required value={apptData.phone} onChange={(e) => setApptData({...apptData, phone: e.target.value})} className="w-full px-4 py-3 rounded-lg border border-stone-300 focus:ring-2 focus:ring-[#73976A] focus:border-[#73976A] outline-none transition bg-stone-50 text-stone-900" placeholder="+998 90 123 45 67" />
+                          <input
+                            type="tel"
+                            required
+                            value={apptData.phone}
+                            onChange={(e) => setApptData({...apptData, phone: formatUzbekPhone(e.target.value)})}
+                            className="w-full px-4 py-3 rounded-lg border border-stone-300 focus:ring-2 focus:ring-[#73976A] focus:border-[#73976A] outline-none transition bg-stone-50 text-stone-900"
+                            placeholder="+998 (90) 000-00-00"
+                          />
                         </div>
                       </div>
 
@@ -874,6 +973,22 @@ const LandingPage = () => {
               </div>
             </motion.div>
           </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* --- SCROLL TO TOP TUGMASI --- */}
+      <AnimatePresence>
+        {showScrollTop && (
+          <motion.button
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.5 }}
+            onClick={scrollToTop}
+            className="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 z-[90] p-3 sm:p-4 bg-[#73976A] text-white rounded-full shadow-2xl hover:bg-[#5e7a56] hover:-translate-y-1 transition-all"
+            aria-label="Tepaga qaytish"
+          >
+            <ArrowUp className="w-6 h-6" />
+          </motion.button>
         )}
       </AnimatePresence>
 
