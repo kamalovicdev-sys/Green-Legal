@@ -920,18 +920,26 @@ const LandingPage = () => {
                           <div className="grid grid-cols-3 gap-2">
                             {t.appointment.slots.map((timeSlot) => {
                               const isBooked = bookedSlots.includes(`${apptData.date}-${timeSlot}`);
+
+                              const isToday = apptData.date === todayDate;
+                              const currentHour = new Date().getHours();
+                              const slotHour = parseInt(timeSlot.split(':')[0], 10);
+                              const isPassed = isToday && slotHour <= currentHour;
+
+                              const isDisabled = isBooked || isPassed;
+
                               return (
                                 <button
                                   type="button"
                                   key={timeSlot}
-                                  disabled={isBooked}
+                                  disabled={isDisabled}
                                   onClick={() => setApptData({...apptData, time: timeSlot})}
                                   className={`py-2 px-1 text-sm font-medium rounded-md border transition-all ${
-                                    isBooked ? 'bg-stone-200 text-stone-400 border-stone-200 cursor-not-allowed opacity-60' :
+                                    isDisabled ? 'bg-stone-200 text-stone-400 border-stone-200 cursor-not-allowed opacity-60' :
                                     apptData.time === timeSlot ? 'bg-[#73976A] text-white border-[#73976A]' : 
                                     'bg-stone-50 text-stone-700 border-stone-300 hover:border-[#73976A] hover:bg-stone-100'
                                   }`}
-                                  title={isBooked ? "Bu vaqt band qilingan" : "Tanlash"}
+                                  title={isBooked ? t.appointment.booked : isPassed ? t.appointment.passed : t.appointment.select}
                                 >
                                   {timeSlot}
                                 </button>
@@ -944,7 +952,7 @@ const LandingPage = () => {
                       <div className="grid grid-cols-1 gap-6">
                         <div>
                           <label className="block text-sm font-semibold text-stone-700 mb-2">{t.appointment.formName}</label>
-                          <input type="text" required value={apptData.name} onChange={(e) => setApptData({...apptData, name: e.target.value})} className="w-full px-4 py-3 rounded-lg border border-stone-300 focus:ring-2 focus:ring-[#73976A] focus:border-[#73976A] outline-none transition bg-stone-50 text-stone-900" placeholder="Ideal Biznes MChJ" />
+                          <input type="text" required value={apptData.name} onChange={(e) => setApptData({...apptData, name: e.target.value})} className="w-full px-4 py-3 rounded-lg border border-stone-300 focus:ring-2 focus:ring-[#73976A] focus:border-[#73976A] outline-none transition bg-stone-50 text-stone-900" placeholder="Ali Valiyev" />
                         </div>
                         <div>
                           <label className="block text-sm font-semibold text-stone-700 mb-2">{t.appointment.formPhone}</label>
@@ -954,7 +962,7 @@ const LandingPage = () => {
                             value={apptData.phone}
                             onChange={(e) => setApptData({...apptData, phone: formatIntlPhone(e.target.value)})}
                             className="w-full px-4 py-3 rounded-lg border border-stone-300 focus:ring-2 focus:ring-[#73976A] focus:border-[#73976A] outline-none transition bg-stone-50 text-stone-900"
-                            placeholder="+ 998 90 123 45 67 "
+                            placeholder="+998 90 123 45 67 yoxud +1 234 567 8900"
                           />
                         </div>
                       </div>
