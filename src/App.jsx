@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Menu, X, Scale, FileText, ShieldCheck, Briefcase, ChevronRight, Phone, CheckCircle, Users, MapPin, Mail, Clock, Languages, ChevronDown, Calculator, UserCheck } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Menu, X, Scale, FileText, ShieldCheck, Briefcase, ChevronRight, ChevronLeft, Phone, CheckCircle, Users, MapPin, Mail, Clock, Languages, ChevronDown, Calculator, UserCheck, CalendarDays } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // --- TELEGRAM VA GOOGLE SOZLAMALARI ---
@@ -12,38 +12,47 @@ const translations = {
   uz: {
     nav: { services: "Xizmatlar", adv: "Afzalliklar", process: "Jarayon", team: "Jamoa", btn: "Konsultatsiya" },
     hero: { badge: "B2B | B2G Yuridik Xizmatlar", title1: "Biznesingizni huquqiy xavflardan", title2: "himoya qiling", desc: "Korxonalarni ro'yxatdan o'tkazish, litsenziyalash va sud jarayonlarida to'liq huquqiy yordam. Barcha yuridik masalalarni professionallarga topshirib, xotirjam ishlang.", btn1: "Ariza qoldiring" },
-    services: { 
-      title: "Biznesingiz uchun yechimlar", desc: "Vaqtingizni tejash va qonuniy xavfsizlikni ta'minlash uchun asosiy xizmatlarimiz", 
-      s1Title: "Biznesni ro'yxatdan o'tkazish", s1Desc: "Yangi korxonalarni (MChJ, AJ) ochish va ta'sis hujjatlarini qonuniy rasmiylashtirish.", 
-      s2Title: "Litsenziyalash", s2Desc: "Faoliyatingiz uchun zarur bo'lgan litsenziya va ruxsatnomalarni byurokratiyasiz olish.", 
-      s3Title: "Sud ishlarida himoya", s3Desc: "Xo'jalik va iqtisodiy nizolarda sudda kompaniyangiz manfaatlarini to'liq himoya qilish.", 
+    services: {
+      title: "Biznesingiz uchun yechimlar", desc: "Vaqtingizni tejash va qonuniy xavfsizlikni ta'minlash uchun asosiy xizmatlarimiz",
+      s1Title: "Biznesni ro'yxatdan o'tkazish", s1Desc: "Yangi korxonalarni (MChJ, AJ) ochish va ta'sis hujjatlarini qonuniy rasmiylashtirish.",
+      s2Title: "Litsenziyalash", s2Desc: "Faoliyatingiz uchun zarur bo'lgan litsenziya va ruxsatnomalarni byurokratiyasiz olish.",
+      s3Title: "Sud ishlarida himoya", s3Desc: "Xo'jalik va iqtisodiy nizolarda sudda kompaniyangiz manfaatlarini to'liq himoya qilish.",
       s4Title: "Yuridik konsultatsiya", s4Desc: "Shartnomalar ekspertizasi va biznes jarayonlarida doimiy professional huquqiy maslahat.",
       s5Title: "Ma'lumotlar tahlili", s5Desc: "Kompaniyangiz ma'lumotlarini chuqur tahlil qilish, vizualizatsiya (Dashbordlar) yaratish va biznes qarorlar uchun analitik hisobotlar tayyorlash.",
       s6Title: "HR va Kadrlar ishi", s6Desc: "Xodimlarni ishga qabul qilish, mehnat shartnomalarini tuzish va kadrlar hujjatlarini qonuniy yuritish."
     },
-    adv: { 
-      title: "Nima uchun yuridik ishlarni bizga ishonishadi?", desc: "Biz shunchaki maslahat bermaymiz, balki kompaniyangiz duch kelishi mumkin bo'lgan xavflarning oldini olamiz va amaliy yechimlar taqdim etamiz.", 
-      a1Title: "B2B | B2G Sektorida chuqur tajriba", a1Desc: "Biz asosan yuridik shaxslar bilan ishlaymiz va korporativ huquqni ich-ichidan bilamiz.", 
-      a2Title: "100% Maxfiylik kafolati", a2Desc: "Kompaniyangiz sirlari va moliyaviy ma'lumotlari qat'iy sir saqlanishiga kafolat beramiz.", 
-      a3Title: "Tezkorlik va byurokratiyasizlik", a3Desc: "Siz biznes bilan shug'ullanasiz, barcha hujjatbozlik va davlat idoralari bilan ishlashni o'zimiz hal qilamiz." 
+    adv: {
+      title: "Nima uchun yuridik ishlarni bizga ishonishadi?", desc: "Biz shunchaki maslahat bermaymiz, balki kompaniyangiz duch kelishi mumkin bo'lgan xavflarning oldini olamiz va amaliy yechimlar taqdim etamiz.",
+      a1Title: "B2B | B2G Sektorida chuqur tajriba", a1Desc: "Biz asosan yuridik shaxslar bilan ishlaymiz va korporativ huquqni ich-ichidan bilamiz.",
+      a2Title: "100% Maxfiylik kafolati", a2Desc: "Kompaniyangiz sirlari va moliyaviy ma'lumotlari qat'iy sir saqlanishiga kafolat beramiz.",
+      a3Title: "Tezkorlik va byurokratiyasizlik", a3Desc: "Siz biznes bilan shug'ullanasiz, barcha hujjatbozlik va davlat idoralari bilan ishlashni o'zimiz hal qilamiz."
     },
-    process: { 
-      title: "Biz qanday ishlaymiz?", desc: "Muammongizni qonuniy hal qilish uchun 4 ta oddiy qadam", 
-      p1Title: "Ariza qoldirish", p1Desc: "Sayt orqali ariza qoldirasiz yoki bizga qo'ng'iroq qilasiz.", 
-      p2Title: "Bepul tahlil", p2Desc: "Yuristimiz holatingizni bepul o'rganib chiqadi va yechim taklif qiladi.", 
-      p3Title: "Shartnoma", p3Desc: "Rasmiy shartnoma tuzamiz va barcha mas'uliyatni o'z zimmamizga olamiz.", 
-      p4Title: "Natija", p4Desc: "Sizning muammongiz qonuniy, tez va xavfsiz hal etiladi." 
+    process: {
+      title: "Biz qanday ishlaymiz?", desc: "Muammongizni qonuniy hal qilish uchun 4 ta oddiy qadam",
+      p1Title: "Ariza qoldirish", p1Desc: "Sayt orqali ariza qoldirasiz yoki bizga qo'ng'iroq qilasiz.",
+      p2Title: "Bepul tahlil", p2Desc: "Yuristimiz holatingizni bepul o'rganib chiqadi va yechim taklif qiladi.",
+      p3Title: "Shartnoma", p3Desc: "Rasmiy shartnoma tuzamiz va barcha mas'uliyatni o'z zimmamizga olamiz.",
+      p4Title: "Natija", p4Desc: "Sizning muammongiz qonuniy, tez va xavfsiz hal etiladi."
     },
-    team: { 
-      title: "Bizning Mutaxassislar", desc: "Sizning manfaatlaringizni ko'p yillik tajribaga ega professionallar himoya qiladi", 
-      t1Name: "Po'lat Xudayberdiyevich", t1Role: "Katta huquqshunos", t1Desc: "Biznesni ro'yxatdan o'tkazish va litsenziyalash bo'yicha 10+ yillik tajriba. Yuzlab korxonalarga yuridik maslahat bergan.", 
-      t2Name: "Muhammad Rabbimov", t2Role: "Yurist yordamchisi", t2Desc: "Iqtisodiy nizolar va sud jarayonlarida yuzlab muvaffaqiyatli keyslar muallifi. Ishonchli himoya kafolati.", 
-      t3Name: "Dildora Xakimova", t3Role: "Yurist katta yordamchisi", t3Desc: "Korporativ huquq va shartnomalar ekspertizasi bo'yicha kuchli tajribaga ega malakali xodim.", 
-      t4Title: "Kuchli Jamoa", t4Role: "Sizning biznesingiz uchun", t4Desc: "Bizning jamoamiz turli sohalarga ixtisoslashgan 15 dan ortiq malakali huquqshunoslardan iborat.", t4Badge: "Barcha mutaxassislarimiz" 
+    team: {
+      title: "Bizning Mutaxassislar", desc: "Sizning manfaatlaringizni ko'p yillik tajribaga ega professionallar himoya qiladi",
+      t1Name: "Po'lat Xudayberdiyevich", t1Role: "Katta huquqshunos", t1Desc: "Biznesni ro'yxatdan o'tkazish va litsenziyalash bo'yicha 10+ yillik tajriba. Yuzlab korxonalarga yuridik maslahat bergan.",
+      t2Name: "Muhammad Rabbimov", t2Role: "Yurist yordamchisi", t2Desc: "Iqtisodiy nizolar va sud jarayonlarida yuzlab muvaffaqiyatli keyslar muallifi. Ishonchli himoya kafolati.",
+      t3Name: "Dildora Xakimova", t3Role: "Yurist katta yordamchisi", t3Desc: "Korporativ huquq va shartnomalar ekspertizasi bo'yicha kuchli tajribaga ega malakali xodim.",
+      t4Title: "Kuchli Jamoa", t4Role: "Sizning biznesingiz uchun", t4Desc: "Bizning jamoamiz turli sohalarga ixtisoslashgan 15 dan ortiq malakali huquqshunoslardan iborat.", t4Badge: "Barcha mutaxassislarimiz"
     },
     partners: { title: "Bizning hamkorlar", desc: "Bizga ishonch bildirgan xalqaro va mahalliy yetakchi kompaniyalar" },
-    faq: { 
-      title: "Ko'p beriladigan savollar", desc: "Mijozlarimiz tomonidan eng ko'p beriladigan savollarga javoblar", 
+    appointment: {
+      title: "Uchrashuv belgilash", desc: "O'zingizga qulay sana va vaqtni tanlang hamda yuristlarimiz bilan bepul konsultatsiyaga yoziling.",
+      dateLabel: "Sanani tanlang", timeLabel: "Vaqtni tanlang",
+      timeAlert: "Iltimos, avval sana va vaqtni tanlang!",
+      formName: "Ismingiz yoki Kompaniya", formPhone: "Telefon raqamingiz",
+      btn: "Uchrashuvni tasdiqlash", success: "Uchrashuv muvaffaqiyatli belgilandi!",
+      slots: ["10:00", "11:00", "12:00", "14:00", "15:00", "16:00", "17:00"],
+      days: "Dushanba - Juma"
+    },
+    faq: {
+      title: "Ko'p beriladigan savollar", desc: "Mijozlarimiz tomonidan eng ko'p beriladigan savollarga javoblar",
       items: [
         { q: "Biznesni ro'yxatdan o'tkazish qancha vaqt oladi?", a: "Odatda barcha hujjatlar to'liq bo'lganda 3-5 ish kuni ichida davlat ro'yxatidan o'tkazish jarayonlari yakunlanadi." },
         { q: "Xizmatlar narxi qanday belgilanadi?", a: "Narxlar muammoning murakkabligi va xizmat turiga qarab individual belgilanadi. Dastlabki bepul tahlildan so'ng sizga aniq tijorat taklifi beriladi." },
@@ -57,38 +66,47 @@ const translations = {
   ru: {
     nav: { services: "Услуги", adv: "Преимущества", process: "Процесс", team: "Команда", btn: "Консультация" },
     hero: { badge: "Юридические услуги B2B | B2G", title1: "Защитите свой бизнес от", title2: "правовых рисков", desc: "Регистрация предприятий, лицензирование и полная юридическая поддержка в судебных процессах. Доверьте все юридические вопросы профессионалам и работайте спокойно.", btn1: "Бесплатный анализ" },
-    services: { 
-      title: "Решения для вашего бизнеса", desc: "Основные услуги для экономии вашего времени и обеспечения юридической безопасности", 
-      s1Title: "Регистрация бизнеса", s1Desc: "Открытие новых предприятий (ООО, АО) и законное оформление учредительных документов.", 
-      s2Title: "Лицензирование", s2Desc: "Получение необходимых лицензий и разрешений для вашей деятельности без бюрократии.", 
-      s3Title: "Защита в суде", s3Desc: "Полная защита интересов вашей компании в суде по хозяйственным и экономическим спорам.", 
+    services: {
+      title: "Решения для вашего бизнеса", desc: "Основные услуги для экономии вашего времени и обеспечения юридической безопасности",
+      s1Title: "Регистрация бизнеса", s1Desc: "Открытие новых предприятий (ООО, АО) и законное оформление учредительных документов.",
+      s2Title: "Лицензирование", s2Desc: "Получение необходимых лицензий и разрешений для вашей деятельности без бюрократии.",
+      s3Title: "Защита в суде", s3Desc: "Полная защита интересов вашей компании в суде по хозяйственным и экономическим спорам.",
       s4Title: "Юридическая консультация", s4Desc: "Экспертиза договоров и постоянные профессиональные юридические консультации в бизнес-процессах.",
       s5Title: "Услуги аналитика данных", s5Desc: "Полный сбор и анализ данных вашей компании, разработка дашбордов и подготовка аналитической отчетности.",
       s6Title: "HR и Кадровое дело", s6Desc: "Прием сотрудников на работу, оформление трудовых договоров и законное ведение кадровой документации."
     },
-    adv: { 
-      title: "Почему юридические дела доверяют нам?", desc: "Мы не просто консультируем, мы предотвращаем риски, с которыми может столкнуться ваша компания, и предлагаем практические решения.", 
-      a1Title: "Глубокий опыт в B2B | B2G секторе", a1Desc: "Мы работаем в основном с юридическими лицами и знаем корпоративное право изнутри.", 
-      a2Title: "100% Гарантия конфиденциальности", a2Desc: "Мы гарантируем строгую конфиденциальность секретов вашей компании и финансовой информации.", 
-      a3Title: "Оперативность и без бюрократии", a3Desc: "Вы занимаетесь бизнесом, а всю работу с документами и государственными органами мы берем на себя." 
+    adv: {
+      title: "Почему юридические дела доверяют нам?", desc: "Мы не просто консультируем, мы предотвращаем риски, с которыми может столкнуться ваша компания, и предлагаем практические решения.",
+      a1Title: "Глубокий опыт в B2B | B2G секторе", a1Desc: "Мы работаем в основном с юридическими лицами и знаем корпоративное право изнутри.",
+      a2Title: "100% Гарантия конфиденциальности", a2Desc: "Мы гарантируем строгую конфиденциальность секретов вашей компании и финансовой информации.",
+      a3Title: "Оперативность и без бюрократии", a3Desc: "Вы занимаетесь бизнесом, а всю работу с документами и государственными органами мы берем на себя."
     },
-    process: { 
-      title: "Как мы работаем?", desc: "4 простых шага для законного решения вашей проблемы", 
-      p1Title: "Оставить заявку", p1Desc: "Вы оставляете заявку на сайте или звоните нам.", 
-      p2Title: "Бесплатный анализ", p2Desc: "Наш юрист бесплатно изучит вашу ситуацию и предложит решение.", 
-      p3Title: "Договор", p3Desc: "Мы заключаем официальный договор и берем на себя всю ответственность.", 
-      p4Title: "Результат", p4Desc: "Ваша проблема будет решена законно, быстро и безопасно." 
+    process: {
+      title: "Как мы работаем?", desc: "4 простых шага для законного решения вашей проблемы",
+      p1Title: "Оставить заявку", p1Desc: "Вы оставляете заявку на сайте или звоните нам.",
+      p2Title: "Бесплатный анализ", p2Desc: "Наш юрист бесплатно изучит вашу ситуацию и предложит решение.",
+      p3Title: "Договор", p3Desc: "Мы заключаем официальный договор и берем на себя всю ответственность.",
+      p4Title: "Результат", p4Desc: "Ваша проблема будет решена законно, быстро и безопасно."
     },
-    team: { 
-      title: "Наши специалисты", desc: "Ваши интересы защищают профессионалы с многолетним опытом", 
-      t1Name: "Пулат Худайбердиевич", t1Role: "Старший юрист", t1Desc: "Более 10 лет опыта в регистрации бизнеса и лицензировании. Проконсультировал сотни предприятий.", 
-      t2Name: "Мухаммад Раббимов", t2Role: "Ассистент юриста", t2Desc: "Автор сотен успешных кейсов в экономических спорах и судебных процессах. Гарантия надежной защиты.", 
-      t3Name: "Дилдора Хакимова", t3Role: "Старший ассистент юриста", t3Desc: "Квалифицированный сотрудник с большим опытом работы в области корпоративного права и экспертизы договоров.", 
-      t4Title: "Сильная команда", t4Role: "Для вашего бизнеса", t4Desc: "Наша команда состоит из более чем 15 квалифицированных юристов, специализирующихся в различных областях.", t4Badge: "Все специалисты" 
+    team: {
+      title: "Наши специалисты", desc: "Ваши интересы защищают профессионалы с многолетним опытом",
+      t1Name: "Пулат Худайбердиевич", t1Role: "Старший юрист", t1Desc: "Более 10 лет опыта в регистрации бизнеса и лицензировании. Проконсультировал сотни предприятий.",
+      t2Name: "Мухаммад Раббимов", t2Role: "Ассистент юриста", t2Desc: "Автор сотен успешных кейсов в экономических спорах и судебных процессах. Гарантия надежной защиты.",
+      t3Name: "Дилдора Хакимова", t3Role: "Старший ассистент юриста", t3Desc: "Квалифицированный сотрудник с большим опытом работы в области корпоративного права и экспертизы договоров.",
+      t4Title: "Сильная команда", t4Role: "Для вашего бизнеса", t4Desc: "Наша команда состоит из более чем 15 квалифицированных юристов, специализирующихся в различных областях.", t4Badge: "Все специалисты"
     },
     partners: { title: "Наши партнеры", desc: "Ведущие международные и местные компании, доверяющие нам" },
-    faq: { 
-      title: "Часто задаваемые вопросы", desc: "Ответы на самые популярные вопросы наших клиентов", 
+    appointment: {
+      title: "Назначить встречу", desc: "Выберите удобную дату и время, чтобы записаться на бесплатную консультацию к нашим юристам.",
+      dateLabel: "Выберите дату", timeLabel: "Выберите время",
+      timeAlert: "Пожалуйста, сначала выберите дату и время!",
+      formName: "Ваше имя или компания", formPhone: "Номер телефона",
+      btn: "Подтвердить встречу", success: "Встреча успешно назначена!",
+      slots: ["10:00", "11:00", "12:00", "14:00", "15:00", "16:00", "17:00"],
+      days: "Понедельник - Пятница"
+    },
+    faq: {
+      title: "Часто задаваемые вопросы", desc: "Ответы на самые популярные вопросы наших клиентов",
       items: [
         { q: "Сколько времени занимает регистрация бизнеса?", a: "Обычно, при наличии всех документов, процесс государственной регистрации завершается в течение 3-5 рабочих дней." },
         { q: "Как формируется стоимость услуг?", a: "Цены определяются индивидуально в зависимости от сложности проблемы и вида услуги. После бесплатного анализа мы предоставим вам точное коммерческое предложение." },
@@ -116,8 +134,25 @@ const LandingPage = () => {
   const [lang, setLang] = useState('ru');
   const [openFaq, setOpenFaq] = useState(null);
 
+  // POPUP (Modal) holati
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Aloqa formasi state
   const [formData, setFormData] = useState({ name: '', phone: '' });
   const [status, setStatus] = useState('idle');
+
+  // Bugungi sanani olish YYYY-MM-DD
+  const todayDate = new Date().toISOString().split('T')[0];
+
+  // Uchrashuv (Popup) formasi state - by default bugungi sana
+  const [apptData, setApptData] = useState({ name: '', phone: '', date: todayDate, time: '' });
+  const [apptStatus, setApptStatus] = useState('idle');
+
+  // Band qilingan vaqtlarni saqlash (Hozircha localStorage)
+  const [bookedSlots, setBookedSlots] = useState(() => {
+    const saved = localStorage.getItem('bookedSlots');
+    return saved ? JSON.parse(saved) : [];
+  });
 
   const t = translations[lang];
 
@@ -148,6 +183,138 @@ const LandingPage = () => {
     setOpenFaq(openFaq === index ? null : index);
   };
 
+  // --- MAXSUS (CUSTOM) KALENDAR KOMPONENTI ---
+  const CustomDatePicker = ({ value, onChange }) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const [currentMonth, setCurrentMonth] = useState(value ? new Date(value) : new Date());
+    const popoverRef = useRef(null);
+
+    // Tashqari bosilganda yopish
+    useEffect(() => {
+      const handleClickOutside = (e) => {
+        if (popoverRef.current && !popoverRef.current.contains(e.target)) {
+          setIsOpen(false);
+        }
+      };
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+
+    // Kalendar logikasi
+    const daysInMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0).getDate();
+    const firstDay = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), 1).getDay();
+
+    const days = [];
+    for (let i = 0; i < firstDay; i++) days.push(null);
+    for (let i = 1; i <= daysInMonth; i++) days.push(i);
+
+    const nextMonth = () => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1));
+    const prevMonth = () => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1));
+
+    const handleSelect = (day) => {
+      const date = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
+      const yyyy = date.getFullYear();
+      const mm = String(date.getMonth() + 1).padStart(2, '0');
+      const dd = String(date.getDate()).padStart(2, '0');
+      onChange(`${yyyy}-${mm}-${dd}`);
+      setIsOpen(false);
+    };
+
+    // Tarjimalar (Oylar va kunlar)
+    const months = lang === 'uz'
+      ? ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentabr", "Oktabr", "Noyabr", "Dekabr"]
+      : ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
+
+    const weeks = lang === 'uz'
+      ? ["Ya", "Du", "Se", "Ch", "Pa", "Ju", "Sh"]
+      : ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"];
+
+    const today = new Date();
+    today.setHours(0,0,0,0);
+
+    // Sanani formatlab ko'rsatish (DD.MM.YYYY)
+    const displayValue = value ? value.split('-').reverse().join('.') : t.appointment.dateLabel;
+
+    return (
+      <div className="relative" ref={popoverRef}>
+        <div
+          onClick={() => setIsOpen(!isOpen)}
+          className={`w-full px-4 py-3 rounded-lg border ${isOpen ? 'border-[#73976A] ring-2 ring-[#73976A]/20' : 'border-stone-300'} bg-stone-50 text-stone-900 cursor-pointer flex justify-between items-center transition-all hover:border-[#73976A]`}
+        >
+          <span className={value ? 'font-medium' : 'text-stone-500'}>{displayValue}</span>
+          <CalendarDays className="w-5 h-5 text-[#73976A]" />
+        </div>
+
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 10 }}
+              transition={{ duration: 0.2 }}
+              className="absolute z-50 top-full left-0 mt-2 p-5 bg-white rounded-2xl shadow-2xl border border-stone-200 w-72"
+            >
+              <div className="flex justify-between items-center mb-4">
+                <button type="button" onClick={prevMonth} className="p-2 hover:bg-stone-100 rounded-full transition-colors text-stone-600">
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+                <div className="font-bold text-stone-800 text-base">
+                  {months[currentMonth.getMonth()]} {currentMonth.getFullYear()}
+                </div>
+                <button type="button" onClick={nextMonth} className="p-2 hover:bg-stone-100 rounded-full transition-colors text-stone-600">
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+              </div>
+
+              <div className="grid grid-cols-7 gap-1 mb-2">
+                {weeks.map(day => (
+                  <div key={day} className="text-center text-xs font-bold text-stone-400 py-1">{day}</div>
+                ))}
+              </div>
+
+              <div className="grid grid-cols-7 gap-1">
+                {days.map((day, idx) => {
+                  if (!day) return <div key={`empty-${idx}`} className="h-9 w-9"></div>;
+
+                  const cellDate = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
+                  cellDate.setHours(0,0,0,0);
+                  const isPast = cellDate < today;
+
+                  const yyyy = cellDate.getFullYear();
+                  const mm = String(cellDate.getMonth() + 1).padStart(2, '0');
+                  const dd = String(cellDate.getDate()).padStart(2, '0');
+                  const formattedDate = `${yyyy}-${mm}-${dd}`;
+
+                  const isSelected = value === formattedDate;
+                  const isToday = formattedDate === todayDate;
+
+                  return (
+                    <button
+                      key={day}
+                      type="button"
+                      disabled={isPast}
+                      onClick={() => handleSelect(day)}
+                      className={`h-9 w-9 flex items-center justify-center rounded-full text-sm mx-auto transition-all ${
+                        isPast ? 'text-stone-300 cursor-not-allowed' :
+                        isSelected ? 'bg-[#73976A] text-white font-bold shadow-md transform scale-105' :
+                        isToday ? 'border border-[#73976A] text-[#73976A] font-bold hover:bg-[#73976A]/10' :
+                        'text-stone-700 hover:bg-stone-100 font-medium'
+                      }`}
+                    >
+                      {day}
+                    </button>
+                  );
+                })}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    );
+  };
+  // --- MAXSUS KALENDAR TUGADI ---
+
+  // Oddiy aloqa formasi
   const sendToTelegram = async (e) => {
     e.preventDefault();
     setStatus('loading');
@@ -181,6 +348,48 @@ const LandingPage = () => {
     }
   };
 
+  // Uchrashuv formasi logikasi (Popup)
+  const sendAppointmentToTelegram = async (e) => {
+    e.preventDefault();
+    if (!apptData.date || !apptData.time) {
+        alert(t.appointment.timeAlert);
+        return;
+    }
+
+    setApptStatus('loading');
+    const message = `📅 Yangi uchrashuv (Green&Legal) 🌿\n\n👤 Ism: ${apptData.name}\n📞 Telefon: ${apptData.phone}\n🗓 Sana: ${apptData.date}\n⏰ Vaqt: ${apptData.time}`;
+
+    try {
+      const telegramResponse = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: CHAT_ID, text: message }),
+      });
+
+      if (telegramResponse.ok) {
+        const newBookedSlot = `${apptData.date}-${apptData.time}`;
+        const updatedBookedSlots = [...bookedSlots, newBookedSlot];
+        setBookedSlots(updatedBookedSlots);
+        localStorage.setItem('bookedSlots', JSON.stringify(updatedBookedSlots));
+
+        setApptStatus('success');
+
+        setTimeout(() => {
+          setApptStatus('idle');
+          setApptData({ name: '', phone: '', date: todayDate, time: '' });
+          setIsModalOpen(false);
+        }, 3000);
+      } else {
+        setApptStatus('error');
+        setTimeout(() => setApptStatus('idle'), 3000);
+      }
+    } catch (error) {
+      console.error("Xatolik:", error);
+      setApptStatus('error');
+      setTimeout(() => setApptStatus('idle'), 3000);
+    }
+  };
+
   const getButtonText = () => {
     if (status === 'loading') return t.contact.sending;
     if (status === 'success') return t.contact.success;
@@ -188,11 +397,16 @@ const LandingPage = () => {
     return t.contact.formBtn;
   };
 
+  const getApptButtonText = () => {
+    if (apptStatus === 'loading') return t.contact.sending;
+    if (apptStatus === 'success') return t.appointment.success;
+    if (apptStatus === 'error') return t.contact.error;
+    return t.appointment.btn;
+  };
+
   return (
-    // SEO uchun asosiy schema (LegalService) qo'shildi
     <div className="min-h-screen bg-stone-50 font-sans text-stone-900 scroll-smooth overflow-hidden" itemScope itemType="https://schema.org/LegalService">
-      
-      {/* Schema tegida nomi va logotipni avtomatik aniqlash uchun */}
+
       <meta itemProp="name" content="Green&Legal" />
       <meta itemProp="image" content="/logo.jpg" />
 
@@ -217,9 +431,9 @@ const LandingPage = () => {
                 <Languages className="h-4 w-4" aria-hidden="true" /> {lang === 'uz' ? 'RU' : 'UZ'}
               </button>
 
-              <a href="#contact" className="px-5 py-2.5 bg-[#73976A] text-white text-sm font-semibold rounded-lg hover:bg-[#5e7a56] transition shadow-sm" title={t.nav.btn}>
+              <button onClick={() => setIsModalOpen(true)} className="px-5 py-2.5 bg-[#73976A] text-white text-sm font-semibold rounded-lg hover:bg-[#5e7a56] transition shadow-sm cursor-pointer" title={t.nav.btn}>
                 {t.nav.btn}
-              </a>
+              </button>
             </nav>
 
             <div className="md:hidden flex items-center gap-3">
@@ -240,15 +454,15 @@ const LandingPage = () => {
               <a href="#advantages" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 text-base font-medium text-stone-700 hover:bg-stone-50 rounded-md">{t.nav.adv}</a>
               <a href="#process" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 text-base font-medium text-stone-700 hover:bg-stone-50 rounded-md">{t.nav.process}</a>
               <a href="#team" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 text-base font-medium text-stone-700 hover:bg-stone-50 rounded-md">{t.nav.team}</a>
-              <a href="#contact" onClick={() => setIsMenuOpen(false)} className="block mt-4 text-center px-4 py-3 bg-[#73976A] text-white font-semibold rounded-lg shadow-sm">
+
+              <button onClick={() => { setIsMenuOpen(false); setIsModalOpen(true); }} className="block w-full mt-4 text-center px-4 py-3 bg-[#73976A] text-white font-semibold rounded-lg shadow-sm">
                 {t.nav.btn}
-              </a>
+              </button>
             </div>
           </div>
         )}
       </header>
 
-      {/* ASOSIY QISM MAIN ICHIGA OLINDI - SEO */}
       <main>
         {/* HERO SECTION */}
         <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 bg-white">
@@ -264,9 +478,9 @@ const LandingPage = () => {
                 {t.hero.desc}
               </motion.p>
               <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4">
-                <a href="#contact" className="inline-flex justify-center items-center px-6 py-3.5 bg-[#73976A] text-white font-semibold rounded-lg hover:bg-[#5e7a56] transition shadow-lg shadow-[#73976A]/20" title={t.hero.btn1}>
+                <button onClick={() => setIsModalOpen(true)} className="inline-flex justify-center items-center px-6 py-3.5 bg-[#73976A] text-white font-semibold rounded-lg hover:bg-[#5e7a56] transition shadow-lg shadow-[#73976A]/20 cursor-pointer" title={t.hero.btn1}>
                   {t.hero.btn1} <ChevronRight className="ml-2 h-5 w-5" aria-hidden="true" />
-                </a>
+                </button>
                 <a href="tel:+998956760163" className="inline-flex justify-center items-center px-6 py-3.5 bg-white text-stone-800 font-semibold rounded-lg border border-stone-300 hover:bg-stone-50 transition" title="Telefon qilish" itemProp="telephone">
                   <Phone className="mr-2 h-5 w-5 text-stone-600" aria-hidden="true" /> +998 95 676 01 63
                 </a>
@@ -373,8 +587,7 @@ const LandingPage = () => {
             </motion.div>
 
             <motion.div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}>
-              
-              {/* Karta 1 - Alt qismi mutaxassis nomiga moslashtirildi */}
+
               <motion.div variants={fadeInUp} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-stone-200 hover:shadow-xl transition flex flex-col">
                 <img src="/team1.png" alt={`${t.team.t1Name} - ${t.team.t1Role} | Green&Legal`} loading="lazy" decoding="async" className="w-full aspect-[4/5] sm:aspect-square md:aspect-[4/5] object-cover object-center bg-stone-100" />
                 <div className="p-6 flex-1">
@@ -384,7 +597,6 @@ const LandingPage = () => {
                 </div>
               </motion.div>
 
-              {/* Karta 2 */}
               <motion.div variants={fadeInUp} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-stone-200 hover:shadow-xl transition flex flex-col">
                 <img src="/team-2.png" alt={`${t.team.t2Name} - ${t.team.t2Role} | Green&Legal`} loading="lazy" decoding="async" className="w-full aspect-[4/5] sm:aspect-square md:aspect-[4/5] object-cover object-center bg-stone-100" />
                 <div className="p-6 flex-1">
@@ -394,7 +606,6 @@ const LandingPage = () => {
                 </div>
               </motion.div>
 
-              {/* Karta 3 */}
               <motion.div variants={fadeInUp} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-stone-200 hover:shadow-xl transition flex flex-col">
                 <img src="/team3.png" alt={`${t.team.t3Name} - ${t.team.t3Role} | Green&Legal`} loading="lazy" decoding="async" className="w-full aspect-[4/5] sm:aspect-square md:aspect-[4/5] object-cover object-center bg-stone-100" />
                 <div className="p-6 flex-1">
@@ -404,7 +615,6 @@ const LandingPage = () => {
                 </div>
               </motion.div>
 
-              {/* Karta 4 */}
               <motion.div variants={fadeInUp} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-stone-200 hover:shadow-xl transition flex flex-col">
                 <div className="w-full aspect-[4/5] sm:aspect-square md:aspect-[4/5] bg-stone-100 flex flex-col items-center justify-center text-stone-500">
                   <Users className="h-16 w-16 mb-2" aria-hidden="true" />
@@ -486,9 +696,8 @@ const LandingPage = () => {
                       </div>
                       <div>
                         <p className="text-sm text-stone-400 items-center">{t.contact.fast}</p>
-                        {/* itemProp bilan raqamlarni belgilash */}
-                        <p className="font-semibold text-lg" itemProp="telephone">+998 91 162 00 63</p>
                         <p className="font-semibold text-lg" itemProp="telephone">+998 95 676 01 63</p>
+                        <p className="font-semibold text-lg" itemProp="telephone">+998 91 162 00 63</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-4">
@@ -512,7 +721,7 @@ const LandingPage = () => {
                     </div>
                     <div>
                       <label htmlFor="formPhone" className="block text-sm font-medium text-stone-700 mb-2">{t.contact.formPhone}</label>
-                      <input id="formPhone" type="tel" required value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value})} className="w-full px-4 py-3 rounded-lg border border-stone-300 focus:ring-2 focus:ring-[#73976A] focus:border-[#73976A] outline-none transition bg-white text-stone-900" placeholder="+ 998 90 000 0000" />
+                      <input id="formPhone" type="tel" required value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value})} className="w-full px-4 py-3 rounded-lg border border-stone-300 focus:ring-2 focus:ring-[#73976A] focus:border-[#73976A] outline-none transition bg-white text-stone-900" placeholder="+ 998 90 123 45 67" />
                     </div>
                     <button type="submit" disabled={status === 'loading'} className={`w-full py-4 text-white font-bold rounded-lg transition shadow-lg mt-4 flex justify-center items-center ${ status === 'success' ? 'bg-green-600' : status === 'error' ? 'bg-red-600' : 'bg-[#73976A] hover:bg-[#5e7a56]' }`} title={getButtonText()}>
                       {getButtonText()}
@@ -540,8 +749,7 @@ const LandingPage = () => {
                 </span>
               </div>
               <p className="text-stone-400 mb-8 max-w-md">{t.footer.desc}</p>
-              
-              {/* Address schema bilan belgilandi */}
+
               <div className="space-y-4" itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
                 <div className="flex items-start gap-3">
                   <MapPin className="h-5 w-5 text-[#73976A] mt-1 flex-shrink-0" aria-hidden="true" />
@@ -555,7 +763,6 @@ const LandingPage = () => {
             </div>
 
             <div className="h-64 lg:h-auto rounded-xl overflow-hidden shadow-lg">
-              {/* Iframe uchun title atributi qo'shildi (SEO Accessibility) */}
               <iframe src="https://yandex.uz/map-widget/v1/?ll=69.223962%2C41.259870&mode=search&oid=84204908030&ol=biz&z=15.02" width="100%" height="100%" style={{ border: 0, minHeight: "250px" }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade" title="Green&Legal Ofisining xaritadagi joylashuvi"></iframe>
             </div>
 
@@ -565,6 +772,111 @@ const LandingPage = () => {
           </div>
         </div>
       </footer>
+
+      {/* APPOINTMENT POPUP (MODAL) */}
+      <AnimatePresence>
+        {isModalOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-stone-900/60 backdrop-blur-sm p-4 sm:p-6"
+            onClick={() => setIsModalOpen(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0, y: 20 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="relative w-full max-w-5xl bg-white rounded-3xl shadow-2xl overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="absolute top-4 right-4 z-50 p-2 bg-white/20 hover:bg-stone-200 text-stone-900 lg:text-white lg:hover:text-stone-900 rounded-full backdrop-blur-md transition-colors"
+                title="Yopish"
+              >
+                <X className="w-6 h-6" />
+              </button>
+
+              <div className="relative overflow-hidden">
+                <div className="absolute top-0 right-0 -mt-20 -mr-20 w-80 h-80 bg-[#73976A] rounded-full blur-[100px] opacity-20 pointer-events-none"></div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-2 relative z-10 max-h-[90vh] overflow-y-auto">
+
+                  <div className="p-8 sm:p-10 lg:p-14 bg-[#73976A] text-white flex flex-col justify-center relative">
+                    <h2 className="text-3xl lg:text-4xl font-bold mb-4">{t.appointment.title}</h2>
+                    <p className="text-stone-100 text-lg mb-8">{t.appointment.desc}</p>
+                    <div className="space-y-4">
+                      <div className="flex items-center gap-3 bg-[#5e7a56] p-4 rounded-xl">
+                        <CalendarDays className="h-6 w-6 text-stone-100" />
+                        <p className="font-medium text-stone-100">{t.appointment.days}</p>
+                      </div>
+                      <div className="flex items-center gap-3 bg-[#5e7a56] p-4 rounded-xl">
+                        <Clock className="h-6 w-6 text-stone-100" />
+                        <p className="font-medium text-stone-100">09:00 - 18:00</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="p-8 sm:p-10 lg:p-14 bg-white">
+                    <form onSubmit={sendAppointmentToTelegram} className="space-y-6">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                          <label className="block text-sm font-semibold text-stone-700 mb-2">{t.appointment.dateLabel}</label>
+                          <CustomDatePicker value={apptData.date} onChange={(newDate) => setApptData({...apptData, date: newDate, time: ''})} />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-semibold text-stone-700 mb-2">{t.appointment.timeLabel}</label>
+                          <div className="grid grid-cols-3 gap-2">
+                            {t.appointment.slots.map((timeSlot) => {
+                              const isBooked = bookedSlots.includes(`${apptData.date}-${timeSlot}`);
+                              return (
+                                <button
+                                  type="button"
+                                  key={timeSlot}
+                                  disabled={isBooked}
+                                  onClick={() => setApptData({...apptData, time: timeSlot})}
+                                  className={`py-2 px-1 text-sm font-medium rounded-md border transition-all ${
+                                    isBooked ? 'bg-stone-200 text-stone-400 border-stone-200 cursor-not-allowed opacity-60' :
+                                    apptData.time === timeSlot ? 'bg-[#73976A] text-white border-[#73976A]' : 
+                                    'bg-stone-50 text-stone-700 border-stone-300 hover:border-[#73976A] hover:bg-stone-100'
+                                  }`}
+                                  title={isBooked ? "Bu vaqt band qilingan" : "Tanlash"}
+                                >
+                                  {timeSlot}
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 gap-6">
+                        <div>
+                          <label className="block text-sm font-semibold text-stone-700 mb-2">{t.appointment.formName}</label>
+                          <input type="text" required value={apptData.name} onChange={(e) => setApptData({...apptData, name: e.target.value})} className="w-full px-4 py-3 rounded-lg border border-stone-300 focus:ring-2 focus:ring-[#73976A] focus:border-[#73976A] outline-none transition bg-stone-50 text-stone-900" placeholder="Ideal Biznes MChJ" />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-semibold text-stone-700 mb-2">{t.appointment.formPhone}</label>
+                          <input type="tel" required value={apptData.phone} onChange={(e) => setApptData({...apptData, phone: e.target.value})} className="w-full px-4 py-3 rounded-lg border border-stone-300 focus:ring-2 focus:ring-[#73976A] focus:border-[#73976A] outline-none transition bg-stone-50 text-stone-900" placeholder="+998 90 123 45 67" />
+                        </div>
+                      </div>
+
+                      <button type="submit" disabled={apptStatus === 'loading'} className={`w-full py-4 text-white font-bold rounded-lg transition shadow-lg mt-4 flex justify-center items-center ${ apptStatus === 'success' ? 'bg-green-600' : apptStatus === 'error' ? 'bg-red-600' : 'bg-[#73976A] hover:bg-[#5e7a56]' }`}>
+                        {getApptButtonText()}
+                      </button>
+                    </form>
+                  </div>
+
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
     </div>
   );
 };
