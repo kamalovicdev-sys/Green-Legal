@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Menu, X, Scale, FileText, ShieldCheck, Briefcase, ChevronRight, ChevronLeft, Phone, CheckCircle, Users, MapPin, Mail, Clock, Languages, ChevronDown, Calculator, UserCheck, CalendarDays, ArrowUp } from 'lucide-react';
+import { Menu, X, Scale, FileText, ShieldCheck, Briefcase, ChevronRight, ChevronLeft, Phone, CheckCircle, Users, MapPin, Mail, Clock, Languages, ChevronDown, Calculator, UserCheck, CalendarDays, ArrowUp, MessageCircle, Send, MessageSquare } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // --- TELEGRAM VA GOOGLE SOZLAMALARI ---
@@ -62,7 +62,8 @@ const translations = {
     },
     contact: { title: "Huquqiy maslahat kerakmi?", desc: "Ma'lumotlaringizni qoldiring. Bizning yetakchi yuristlarimiz siz bilan bog'lanib, vaziyatingizni tahlil qilib berishadi. Maxfiylik 100% kafolatlanadi.", fast: "Tezkor aloqa", email: "Elektron manzil", formTitle: "Ariza qoldirish", formName: "Ism yoki Kompaniya nomi", formPhone: "Telefon raqam", formBtn: "Arizani yuborish", sending: "Yuborilmoqda...", success: "✅ Muvaffaqiyatli yuborildi!", error: "❌ Xatolik yuz berdi" },
     footer: { desc: "Biznesingizning ishonchli huquqiy himoyachisi. Biz bilan muammolar tez va qonuniy hal qilinadi.", address: "Toshkent shahri, Shota Rustaveli, 150. ", hours: "Du-Ju: 09:00 - 18:00", rights: "Barcha huquqlar himoyalangan." },
-    toast: { success: "Tabriklaymiz! Arizangiz muvaffaqiyatli qabul qilindi.", error: "Xatolik yuz berdi. Iltimos, qaytadan urinib ko'ring." }
+    toast: { success: "Tabriklaymiz! Arizangiz muvaffaqiyatli qabul qilindi.", error: "Xatolik yuz berdi. Iltimos, qaytadan urinib ko'ring." },
+    social: { tg: "Telegram", wa: "WhatsApp", phone: "Qo'ng'iroq qilish" }
   },
   ru: {
     nav: { services: "Услуги", adv: "Преимущества", process: "Процесс", team: "Команда", btn: "Консультация" },
@@ -117,7 +118,8 @@ const translations = {
     },
     contact: { title: "Нужна юридическая консультация?", desc: "Оставьте свои данные. Наши ведущие юристы свяжутся с вами и проанализируют вашу ситуацию. 100% конфиденциальность гарантирована.", fast: "Быстрая связь", email: "Электронная почта", formTitle: "Оставить заявку", formName: "Имя или название компании", formPhone: "Номер телефона", formBtn: "Отправить заявку", sending: "Отправка...", success: "✅ Успешно отправлено!", error: "❌ Произошла ошибка" },
     footer: { desc: "Надежный правовой защитник вашего бизнеса. С нами проблемы решаются быстро и законно.", address: "г. Ташкент, Шота Руставели, 150", hours: "Пн-Пт: 09:00 - 18:00", rights: "Все права защищены." },
-    toast: { success: "Поздравляем! Ваша заявка успешно принята.", error: "Произошла ошибка. Пожалуйста, попробуйте еще раз." }
+    toast: { success: "Поздравляем! Ваша заявка успешно принята.", error: "Произошла ошибка. Пожалуйста, попробуйте еще раз." },
+    social: { tg: "Telegram", wa: "WhatsApp", phone: "Позвонить" }
   }
 };
 
@@ -135,15 +137,12 @@ const staggerContainer = {
 const formatUzbekPhone = (value) => {
   if (!value) return '';
 
-  // Faqat sonlarni ajratib olamiz
   let numbers = value.replace(/\D/g, '');
 
-  // Agar boshida 998 yozilgan bo'lsa uni olib tashlaymiz (maska o'zi 998 ni qo'shib beradi)
   if (numbers.startsWith('998')) {
     numbers = numbers.substring(3);
   }
 
-  // Agar hammasi o'chirib tashlangan bo'lsa
   if (numbers.length === 0) return '';
 
   let formatted = '+998 ';
@@ -170,19 +169,20 @@ const LandingPage = () => {
   // Bugungi sanani olish YYYY-MM-DD
   const todayDate = new Date().toISOString().split('T')[0];
 
-  // Uchrashuv (Popup) formasi state - by default bugungi sana
+  // Uchrashuv (Popup) formasi state
   const [apptData, setApptData] = useState({ name: '', phone: '', date: todayDate, time: '' });
   const [apptStatus, setApptStatus] = useState('idle');
 
-  // Band qilingan vaqtlarni saqlash (Hozircha localStorage)
+  // Band qilingan vaqtlarni saqlash
   const [bookedSlots, setBookedSlots] = useState(() => {
     const saved = localStorage.getItem('bookedSlots');
     return saved ? JSON.parse(saved) : [];
   });
 
-  // --- Yangi: Toast va Scroll To Top holatlari ---
+  // --- Toast, Scroll To Top va Social Buttons holatlari ---
   const [toast, setToast] = useState({ show: false, message: '', type: 'success' });
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [isSocialOpen, setIsSocialOpen] = useState(false);
 
   const t = translations[lang];
 
@@ -204,7 +204,6 @@ const LandingPage = () => {
     };
     trackVisit();
 
-    // Scroll to Top obyekti uchun listener
     const handleScroll = () => {
       if (window.scrollY > 400) {
         setShowScrollTop(true);
@@ -224,15 +223,13 @@ const LandingPage = () => {
     setOpenFaq(openFaq === index ? null : index);
   };
 
-  // Toastni ko'rsatish funksiyasi
   const showToast = (message, type = 'success') => {
     setToast({ show: true, message, type });
     setTimeout(() => {
       setToast({ show: false, message: '', type: 'success' });
-    }, 4000); // 4 soniyadan keyin avtomatik yopiladi
+    }, 4000);
   };
 
-  // Tepaga silliq qaytarish funksiyasi
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -367,7 +364,6 @@ const LandingPage = () => {
   };
   // --- MAXSUS KALENDAR TUGADI ---
 
-  // Oddiy aloqa formasi
   const sendToTelegram = async (e) => {
     e.preventDefault();
     setStatus('loading');
@@ -388,23 +384,22 @@ const LandingPage = () => {
           body: JSON.stringify({ type: 'lead', name: formData.name, phone: formData.phone })
         });
         setStatus('success');
-        showToast(t.toast.success, 'success'); // Toast muvaffaqiyatli
+        showToast(t.toast.success, 'success');
         setFormData({ name: '', phone: '' });
         setTimeout(() => setStatus('idle'), 3000);
       } else {
         setStatus('error');
-        showToast(t.toast.error, 'error'); // Toast xatolik
+        showToast(t.toast.error, 'error');
         setTimeout(() => setStatus('idle'), 3000);
       }
     } catch (error) {
       console.error("Xatolik:", error);
       setStatus('error');
-      showToast(t.toast.error, 'error'); // Toast xatolik
+      showToast(t.toast.error, 'error');
       setTimeout(() => setStatus('idle'), 3000);
     }
   };
 
-  // Uchrashuv formasi logikasi (Popup)
   const sendAppointmentToTelegram = async (e) => {
     e.preventDefault();
     if (!apptData.date || !apptData.time) {
@@ -429,7 +424,7 @@ const LandingPage = () => {
         localStorage.setItem('bookedSlots', JSON.stringify(updatedBookedSlots));
 
         setApptStatus('success');
-        showToast(t.toast.success, 'success'); // Toast muvaffaqiyatli
+        showToast(t.toast.success, 'success');
 
         setTimeout(() => {
           setApptStatus('idle');
@@ -438,13 +433,13 @@ const LandingPage = () => {
         }, 3000);
       } else {
         setApptStatus('error');
-        showToast(t.toast.error, 'error'); // Toast xatolik
+        showToast(t.toast.error, 'error');
         setTimeout(() => setApptStatus('idle'), 3000);
       }
     } catch (error) {
       console.error("Xatolik:", error);
       setApptStatus('error');
-      showToast(t.toast.error, 'error'); // Toast xatolik
+      showToast(t.toast.error, 'error');
       setTimeout(() => setApptStatus('idle'), 3000);
     }
   };
@@ -499,7 +494,7 @@ const LandingPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             <a href="#" className="flex-shrink-0 flex items-center gap-2 cursor-pointer" title="Green&Legal Asosiy sahifa">
-              <img src="/logo.jpg" alt="Green&Legal - Yuridik Xizmatlar Logotipi" width="40" height="40" fetchpriority="high" className="h-10 w-10 object-contain mix-blend-multiply" />
+              <img src="/logo.jpg" alt="Green&Legal - Yuridik Xizmatlar Logotipi" width="40" height="40" fetchPriority="high" className="h-10 w-10 object-contain mix-blend-multiply" />
               <span className="font-bold text-2xl tracking-tight text-stone-900">
                 Green <span className="text-[#73976A]">& Legal</span>
               </span>
@@ -976,21 +971,65 @@ const LandingPage = () => {
         )}
       </AnimatePresence>
 
-      {/* --- SCROLL TO TOP TUGMASI --- */}
+      {/* --- SCROLL TO TOP TUGMASI (CHAP TOMONDA, SOCIAL MENYU OCHILGANDA YASHIRINADI) --- */}
       <AnimatePresence>
-        {showScrollTop && (
+        {showScrollTop && !isSocialOpen && (
           <motion.button
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.5 }}
             onClick={scrollToTop}
-            className="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 z-[90] p-3 sm:p-4 bg-[#73976A] text-white rounded-full shadow-2xl hover:bg-[#5e7a56] hover:-translate-y-1 transition-all"
+            className="fixed bottom-24 right-6 sm:bottom-28 sm:right-8 z-[80] w-12 h-12 sm:w-14 sm:h-14 bg-[#73976A] text-white rounded-full shadow-2xl hover:bg-[#5e7a56] hover:-translate-y-1 transition-all flex items-center justify-center"
             aria-label="Tepaga qaytish"
           >
             <ArrowUp className="w-6 h-6" />
           </motion.button>
         )}
       </AnimatePresence>
+
+      {/* --- FLOATING SOCIAL BUTTONS (Suzib yuruvchi aloqa tugmalari - CHAP TOMONDA) --- */}
+      <div className="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 z-[90] flex flex-col items-start gap-3">
+        <AnimatePresence>
+          {isSocialOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: 20, scale: 0.8 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 20, scale: 0.8 }}
+              className="flex flex-col gap-3 mb-2"
+            >
+              {/* WhatsApp */}
+              <a href="https://wa.me/998956760163" target="_blank" rel="noreferrer" className="w-12 h-12 sm:w-14 sm:h-14 bg-green-500 text-white rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform relative group">
+                <MessageSquare className="w-5 h-5 sm:w-6 sm:h-6" />
+                <span className="absolute right-16 bg-white text-stone-800 text-sm font-bold px-3 py-1.5 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                  {t.social.wa}
+                </span>
+              </a>
+              {/* Telegram */}
+              <a href="https://t.me/+998956760163" target="_blank" rel="noreferrer" className="w-12 h-12 sm:w-14 sm:h-14 bg-[#0088cc] text-white rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform relative group">
+                <Send className="w-5 h-5 sm:w-6 sm:h-6 -ml-1 mt-1" />
+                <span className="absolute right-16 bg-white text-stone-800 text-sm font-bold px-3 py-1.5 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                  {t.social.tg}
+                </span>
+              </a>
+              {/* Phone */}
+              <a href="tel:+998956760163" className="w-12 h-12 sm:w-14 sm:h-14 bg-[#73976A] text-white rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform relative group">
+                <Phone className="w-5 h-5 sm:w-6 sm:h-6" />
+                <span className="absolute right-16 bg-white text-stone-800 text-sm font-bold px-3 py-1.5 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                  {t.social.phone}
+                </span>
+              </a>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <button
+          onClick={() => setIsSocialOpen(!isSocialOpen)}
+          className={`w-12 h-12 sm:w-14 sm:h-14 rounded-full text-white shadow-2xl flex items-center justify-center transition-transform duration-300 ${isSocialOpen ? 'bg-red-500 rotate-45' : 'bg-[#73976A] hover:bg-[#5e7a56] hover:scale-105'}`}
+          aria-label="Aloqa qismi"
+        >
+          {isSocialOpen ? <X className="w-6 h-6 sm:w-7 sm:h-7" /> : <MessageCircle className="w-6 h-6 sm:w-7 sm:h-7" />}
+        </button>
+      </div>
 
     </div>
   );
