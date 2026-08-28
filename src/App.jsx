@@ -711,7 +711,7 @@ const LandingPage = () => {
           </div>
         </section>
 
-        {/* PARTNERS (HAMKORLAR) SECTION */}
+        {/* PARTNERS SECTION */}
         <section id="partners" className="py-20 bg-white border-t border-stone-200">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp} className="text-center mb-12">
@@ -952,7 +952,7 @@ const LandingPage = () => {
                       <div className="grid grid-cols-1 gap-6">
                         <div>
                           <label className="block text-sm font-semibold text-stone-700 mb-2">{t.appointment.formName}</label>
-                          <input type="text" required value={apptData.name} onChange={(e) => setApptData({...apptData, name: e.target.value})} className="w-full px-4 py-3 rounded-lg border border-stone-300 focus:ring-2 focus:ring-[#73976A] focus:border-[#73976A] outline-none transition bg-stone-50 text-stone-900" placeholder="Ali Valiyev" />
+                          <input type="text" required value={apptData.name} onChange={(e) => setApptData({...apptData, name: e.target.value})} className="w-full px-4 py-3 rounded-lg border border-stone-300 focus:ring-2 focus:ring-[#73976A] focus:border-[#73976A] outline-none transition bg-stone-50 text-stone-900" placeholder="Ideal Biznes MChJ" />
                         </div>
                         <div>
                           <label className="block text-sm font-semibold text-stone-700 mb-2">{t.appointment.formPhone}</label>
@@ -962,7 +962,7 @@ const LandingPage = () => {
                             value={apptData.phone}
                             onChange={(e) => setApptData({...apptData, phone: formatIntlPhone(e.target.value)})}
                             className="w-full px-4 py-3 rounded-lg border border-stone-300 focus:ring-2 focus:ring-[#73976A] focus:border-[#73976A] outline-none transition bg-stone-50 text-stone-900"
-                            placeholder="+998 90 123 45 67 yoxud +1 234 567 8900"
+                            placeholder="+ 998 90 123 45 67 "
                           />
                         </div>
                       </div>
