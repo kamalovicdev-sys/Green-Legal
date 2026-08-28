@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Menu, X, Scale, FileText, ShieldCheck, Briefcase, ChevronRight, ChevronLeft, Phone, CheckCircle, Users, MapPin, Mail, Clock, Languages, ChevronDown, Calculator, UserCheck, CalendarDays, ArrowUp, MessageCircle, Send, MessageSquare } from 'lucide-react';
+// eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from 'framer-motion';
 
 // --- TELEGRAM VA GOOGLE SOZLAMALARI ---
@@ -108,7 +109,7 @@ const translations = {
       days: "Понедельник - Пятница"
     },
     faq: {
-      title: "Часто задаваемые вопросы", desc: "Ответы на самые популярные вопросы наших клиентов",
+      title: "Часто задаваемые вопросы", desc: "Ответы на самые популярные вопросы gross наших клиентов",
       items: [
         { q: "Сколько времени занимает регистрация бизнеса?", a: "Обычно, при наличии всех документов, процесс государственной регистрации завершается в течение 3-5 рабочих дней." },
         { q: "Как формируется стоимость услуг?", a: "Цены определяются индивидуально в зависимости от сложности проблемы и вида услуги. После бесплатного анализа мы предоставим вам точное коммерческое предложение." },
@@ -133,25 +134,25 @@ const staggerContainer = {
   visible: { opacity: 1, transition: { staggerChildren: 0.2 } }
 };
 
-// --- TELEFON RAQAM UCHUN MASK FUNKSIYASI ---
-const formatUzbekPhone = (value) => {
+// --- TELEFON RAQAM UCHUN XALQARO MASK FUNKSIYASI ---
+const formatIntlPhone = (value) => {
   if (!value) return '';
 
-  let numbers = value.replace(/\D/g, '');
+  // Faqat ruxsat etilgan belgilarni qoldiramiz: raqamlar, +, bo'shliq, qavs, va chiziqcha
+  let cleaned = value.replace(/[^\d\s()+-]/g, '');
 
-  if (numbers.startsWith('998')) {
-    numbers = numbers.substring(3);
+  // Agar raqam kiritilsa-yu, "+" bilan boshlanmasa, avtomatik "+" qo'shamiz
+  if (cleaned.length > 0 && !cleaned.startsWith('+') && /\d/.test(cleaned)) {
+    cleaned = '+' + cleaned;
   }
 
-  if (numbers.length === 0) return '';
+  // Faqat bitta "+" bo'lishini ta'minlash
+  if (cleaned.indexOf('+') > 0) {
+    cleaned = cleaned.replace(/\+/g, '');
+    cleaned = '+' + cleaned;
+  }
 
-  let formatted = '+998 ';
-  if (numbers.length > 0) formatted += `(${numbers.substring(0, 2)}`;
-  if (numbers.length >= 3) formatted += `) ${numbers.substring(2, 5)}`;
-  if (numbers.length >= 6) formatted += `-${numbers.substring(5, 7)}`;
-  if (numbers.length >= 8) formatted += `-${numbers.substring(7, 9)}`;
-
-  return formatted;
+  return cleaned;
 };
 
 const LandingPage = () => {
@@ -464,7 +465,7 @@ const LandingPage = () => {
       <meta itemProp="name" content="Green&Legal" />
       <meta itemProp="image" content="/logo.jpg" />
 
-      {/* --- TOAST NOTIFICATION (BILDIRISHNOMA) --- */}
+      {/* --- NOTIFICATION --- */}
       <AnimatePresence>
         {toast.show && (
           <motion.div
@@ -517,7 +518,7 @@ const LandingPage = () => {
 
             <div className="md:hidden flex items-center gap-3">
               <button aria-label="Tilni almashtirish" onClick={toggleLanguage} className="flex items-center gap-1 px-2 py-1.5 rounded-md bg-stone-100 text-stone-700 text-sm font-bold">
-                {lang === 'uz' ? 'RU' : 'UZ'}
+                <Languages className="h-4 w-4" aria-hidden="true" /> {lang === 'uz' ? 'RU' : 'UZ'}
               </button>
               <button aria-label="Menyuni ochish yoki yopish" onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-stone-600 hover:text-stone-900 focus:outline-none">
                 {isMenuOpen ? <X className="h-6 w-6" aria-hidden="true" /> : <Menu className="h-6 w-6" aria-hidden="true" />}
@@ -805,9 +806,9 @@ const LandingPage = () => {
                         type="tel"
                         required
                         value={formData.phone}
-                        onChange={(e) => setFormData({...formData, phone: formatUzbekPhone(e.target.value)})}
+                        onChange={(e) => setFormData({...formData, phone: formatIntlPhone(e.target.value)})}
                         className="w-full px-4 py-3 rounded-lg border border-stone-300 focus:ring-2 focus:ring-[#73976A] focus:border-[#73976A] outline-none transition bg-white text-stone-900"
-                        placeholder="+998 (90) 000-00-00"
+                        placeholder="+ 998 90 123 45 67 "
                       />
                     </div>
                     <button type="submit" disabled={status === 'loading'} className={`w-full py-4 text-white font-bold rounded-lg transition shadow-lg mt-4 flex justify-center items-center ${ status === 'success' ? 'bg-green-600' : status === 'error' ? 'bg-red-600' : 'bg-[#73976A] hover:bg-[#5e7a56]' }`} title={getButtonText()}>
@@ -951,9 +952,9 @@ const LandingPage = () => {
                             type="tel"
                             required
                             value={apptData.phone}
-                            onChange={(e) => setApptData({...apptData, phone: formatUzbekPhone(e.target.value)})}
+                            onChange={(e) => setApptData({...apptData, phone: formatIntlPhone(e.target.value)})}
                             className="w-full px-4 py-3 rounded-lg border border-stone-300 focus:ring-2 focus:ring-[#73976A] focus:border-[#73976A] outline-none transition bg-stone-50 text-stone-900"
-                            placeholder="+998 (90) 000-00-00"
+                            placeholder="+ 998 90 123 45 67 "
                           />
                         </div>
                       </div>
@@ -971,7 +972,7 @@ const LandingPage = () => {
         )}
       </AnimatePresence>
 
-      {/* --- SCROLL TO TOP TUGMASI (CHAP TOMONDA, SOCIAL MENYU OCHILGANDA YASHIRINADI) --- */}
+      {/* --- SCROLL TO TOP  --- */}
       <AnimatePresence>
         {showScrollTop && !isSocialOpen && (
           <motion.button
@@ -987,7 +988,7 @@ const LandingPage = () => {
         )}
       </AnimatePresence>
 
-      {/* --- FLOATING SOCIAL BUTTONS (Suzib yuruvchi aloqa tugmalari - CHAP TOMONDA) --- */}
+      {/* --- FLOATING SOCIAL BUTTONS  --- */}
       <div className="fixed bottom-6 right-6 sm:bottom-8 sm:right-8 z-[90] flex flex-col items-start gap-3">
         <AnimatePresence>
           {isSocialOpen && (
