@@ -109,7 +109,7 @@ const translations = {
       days: "Понедельник - Пятница"
     },
     faq: {
-      title: "Часто задаваемые вопросы", desc: "Ответы на самые популярные вопросы gross наших клиентов",
+      title: "Часто задаваемые вопросы", desc: "Ответы на самые популярные вопросы наших клиентов",
       items: [
         { q: "Сколько времени занимает регистрация бизнеса?", a: "Обычно, при наличии всех документов, процесс государственной регистрации завершается в течение 3-5 рабочих дней." },
         { q: "Как формируется стоимость услуг?", a: "Цены определяются индивидуально в зависимости от сложности проблемы и вида услуги. После бесплатного анализа мы предоставим вам точное коммерческое предложение." },
@@ -121,6 +121,62 @@ const translations = {
     footer: { desc: "Надежный правовой защитник вашего бизнеса. С нами проблемы решаются быстро и законно.", address: "г. Ташкент, Шота Руставели, 150", hours: "Пн-Пт: 09:00 - 18:00", rights: "Все права защищены." },
     toast: { success: "Поздравляем! Ваша заявка успешно принята.", error: "Произошла ошибка. Пожалуйста, попробуйте еще раз." },
     social: { tg: "Telegram", wa: "WhatsApp", phone: "Позвонить" }
+  },
+  en: {
+    nav: { services: "Services", adv: "Advantages", process: "Process", team: "Team", btn: "Consultation" },
+    hero: { badge: "B2B | B2G Legal Services", title1: "Protect your business from", title2: "legal risks", desc: "Company registration, licensing, and full legal support in litigation. Entrust all legal matters to professionals and work with peace of mind.", btn1: "Leave a request" },
+    services: {
+      title: "Solutions for your business", desc: "Core services to save your time and ensure legal security",
+      s1Title: "Business Registration", s1Desc: "Opening new companies (LLC, JSC) and legal execution of constituent documents.",
+      s2Title: "Licensing", s2Desc: "Obtaining necessary licenses and permits for your activity without bureaucracy.",
+      s3Title: "Court Protection", s3Desc: "Full protection of your company's interests in court for commercial and economic disputes.",
+      s4Title: "Legal Consultation", s4Desc: "Expertise in contracts and continuous professional legal advice in business processes.",
+      s5Title: "Data Analytics", s5Desc: "Deep analysis of your company's data, creating visualizations (Dashboards) and analytical reports.",
+      s6Title: "HR and Personnel", s6Desc: "Hiring employees, drafting employment contracts, and legal maintenance of HR documents."
+    },
+    adv: {
+      title: "Why entrust legal matters to us?", desc: "We don't just advise; we prevent risks your company might face and provide practical solutions.",
+      a1Title: "Deep experience in B2B | B2G", a1Desc: "We mainly work with legal entities and know corporate law from the inside out.",
+      a2Title: "100% Confidentiality Guarantee", a2Desc: "We guarantee strict confidentiality of your company's secrets and financial data.",
+      a3Title: "Speed and Zero Bureaucracy", a3Desc: "You do business, we handle all the paperwork and interactions with government agencies."
+    },
+    process: {
+      title: "How do we work?", desc: "4 simple steps to legally resolve your problem",
+      p1Title: "Submit Request", p1Desc: "Leave a request on the site or call us.",
+      p2Title: "Free Analysis", p2Desc: "Our lawyer will review your situation for free and propose a solution.",
+      p3Title: "Contract", p3Desc: "We sign an official contract and take full responsibility.",
+      p4Title: "Result", p4Desc: "Your problem is resolved legally, quickly, and safely."
+    },
+    team: {
+      title: "Our Experts", desc: "Your interests are protected by professionals with years of experience",
+      t1Name: "Pulat Khudayberdiyevich", t1Role: "Senior Lawyer", t1Desc: "10+ years of experience in business registration and licensing. Advised hundreds of enterprises.",
+      t2Name: "Muhammad Rabbimov", t2Role: "Assistant Lawyer", t2Desc: "Author of hundreds of successful cases in economic disputes. Guarantee of reliable protection.",
+      t3Name: "Dildora Khakimova", t3Role: "Senior Assistant Lawyer", t3Desc: "Qualified employee with strong experience in corporate law and contract expertise.",
+      t4Title: "Strong Team", t4Role: "For your business", t4Desc: "Our team consists of more than 15 qualified lawyers specializing in various fields.", t4Badge: "All Specialists"
+    },
+    partners: { title: "Our Partners", desc: "Leading international and local companies that trust us" },
+    appointment: {
+      title: "Schedule an Appointment", desc: "Choose a convenient date and time to book a free consultation with our lawyers.",
+      dateLabel: "Select Date", timeLabel: "Select Time",
+      timeAlert: "Please select a date and time first!",
+      formName: "Your Name or Company", formPhone: "Phone Number",
+      btn: "Confirm Appointment", success: "Appointment successfully scheduled!",
+      slots: ["10:00", "11:00", "12:00", "14:00", "15:00", "16:00", "17:00"],
+      days: "Monday - Friday"
+    },
+    faq: {
+      title: "Frequently Asked Questions", desc: "Answers to the most common questions from our clients",
+      items: [
+        { q: "How long does business registration take?", a: "Usually, when all documents are complete, the state registration process is finished within 3-5 working days." },
+        { q: "How are the service prices determined?", a: "Prices are determined individually based on the complexity of the problem and the type of service. After a free initial analysis, we will provide you with a precise commercial offer." },
+        { q: "Do you guarantee the confidentiality of company secrets?", a: "Yes, absolutely. Before starting work, we sign a formal Non-Disclosure Agreement (NDA) with each client and legally guarantee data protection." },
+        { q: "Do you also participate in court proceedings?", a: "Yes, our experienced lawyers will reliably protect your company's interests in all instances of economic and commercial courts." }
+      ]
+    },
+    contact: { title: "Need legal advice?", desc: "Leave your details. Our leading lawyers will contact you and analyze your situation. 100% confidentiality guaranteed.", fast: "Fast connection", email: "Email", formTitle: "Submit Request", formName: "Name or Company Name", formPhone: "Phone Number", formBtn: "Submit Application", sending: "Sending...", success: "✅ Successfully sent!", error: "❌ An error occurred" },
+    footer: { desc: "Reliable legal defender of your business. With us, problems are resolved quickly and legally.", address: "Tashkent city, Shota Rustaveli, 150.", hours: "Mon-Fri: 09:00 - 18:00", rights: "All rights reserved." },
+    toast: { success: "Congratulations! Your application has been successfully received.", error: "An error occurred. Please try again." },
+    social: { tg: "Telegram", wa: "WhatsApp", phone: "Call" }
   }
 };
 
@@ -138,15 +194,12 @@ const staggerContainer = {
 const formatIntlPhone = (value) => {
   if (!value) return '';
 
-  // Faqat ruxsat etilgan belgilarni qoldiramiz: raqamlar, +, bo'shliq, qavs, va chiziqcha
   let cleaned = value.replace(/[^\d\s()+-]/g, '');
 
-  // Agar raqam kiritilsa-yu, "+" bilan boshlanmasa, avtomatik "+" qo'shamiz
   if (cleaned.length > 0 && !cleaned.startsWith('+') && /\d/.test(cleaned)) {
     cleaned = '+' + cleaned;
   }
 
-  // Faqat bitta "+" bo'lishini ta'minlash
   if (cleaned.indexOf('+') > 0) {
     cleaned = cleaned.replace(/\+/g, '');
     cleaned = '+' + cleaned;
@@ -216,8 +269,10 @@ const LandingPage = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // 3 TA TIL UCHUN ALMASHTIRISH FUNKSIYASI
   const toggleLanguage = () => {
-    setLang(lang === 'ru' ? 'uz' : 'ru');
+    const nextLang = { uz: 'ru', ru: 'en', en: 'uz' };
+    setLang(nextLang[lang]);
   };
 
   const toggleFaq = (index) => {
@@ -273,13 +328,18 @@ const LandingPage = () => {
       setIsOpen(false);
     };
 
+    // 3 TA TIL UCHUN OYLAR VA HAFTA KUNLARI
     const months = lang === 'uz'
       ? ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentabr", "Oktabr", "Noyabr", "Dekabr"]
-      : ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
+      : lang === 'ru'
+        ? ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"]
+        : ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
     const weeks = lang === 'uz'
       ? ["Ya", "Du", "Se", "Ch", "Pa", "Ju", "Sh"]
-      : ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"];
+      : lang === 'ru'
+        ? ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"]
+        : ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
 
     const today = new Date();
     today.setHours(0,0,0,0);
@@ -507,8 +567,8 @@ const LandingPage = () => {
               <a href="#process" className="text-sm font-medium text-stone-600 hover:text-[#73976A] transition">{t.nav.process}</a>
               <a href="#team" className="text-sm font-medium text-stone-600 hover:text-[#73976A] transition">{t.nav.team}</a>
 
-              <button aria-label="Tilni almashtirish" onClick={toggleLanguage} className="flex items-center gap-1 px-3 py-1.5 rounded-md bg-stone-100 text-stone-700 hover:bg-stone-200 transition font-semibold text-sm mx-2">
-                <Languages className="h-4 w-4" aria-hidden="true" /> {lang === 'uz' ? 'RU' : 'UZ'}
+              <button aria-label="Tilni almashtirish" onClick={toggleLanguage} className="flex items-center gap-1 px-3 py-1.5 rounded-md bg-stone-100 text-stone-700 hover:bg-stone-200 transition font-semibold text-sm mx-2 uppercase">
+                <Languages className="h-4 w-4" aria-hidden="true" /> {lang === 'uz' ? 'RU' : lang === 'ru' ? 'EN' : 'UZ'}
               </button>
 
               <button onClick={() => setIsModalOpen(true)} className="px-5 py-2.5 bg-[#73976A] text-white text-sm font-semibold rounded-lg hover:bg-[#5e7a56] transition shadow-sm cursor-pointer" title={t.nav.btn}>
@@ -517,8 +577,8 @@ const LandingPage = () => {
             </nav>
 
             <div className="md:hidden flex items-center gap-3">
-              <button aria-label="Tilni almashtirish" onClick={toggleLanguage} className="flex items-center gap-1 px-2 py-1.5 rounded-md bg-stone-100 text-stone-700 text-sm font-bold">
-                <Languages className="h-4 w-4" aria-hidden="true" /> {lang === 'uz' ? 'RU' : 'UZ'}
+              <button aria-label="Tilni almashtirish" onClick={toggleLanguage} className="flex items-center gap-1 px-2 py-1.5 rounded-md bg-stone-100 text-stone-700 text-sm font-bold uppercase">
+                <Languages className="h-4 w-4" aria-hidden="true" /> {lang === 'uz' ? 'RU' : lang === 'ru' ? 'EN' : 'UZ'}
               </button>
               <button aria-label="Menyuni ochish yoki yopish" onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-stone-600 hover:text-stone-900 focus:outline-none">
                 {isMenuOpen ? <X className="h-6 w-6" aria-hidden="true" /> : <Menu className="h-6 w-6" aria-hidden="true" />}
@@ -939,7 +999,6 @@ const LandingPage = () => {
                                     apptData.time === timeSlot ? 'bg-[#73976A] text-white border-[#73976A]' : 
                                     'bg-stone-50 text-stone-700 border-stone-300 hover:border-[#73976A] hover:bg-stone-100'
                                   }`}
-                                  title={isBooked ? t.appointment.booked : isPassed ? t.appointment.passed : t.appointment.select}
                                 >
                                   {timeSlot}
                                 </button>
