@@ -857,7 +857,7 @@ const LandingPage = () => {
                     <h3 className="text-2xl font-bold text-stone-900 mb-6">{t.contact.formTitle}</h3>
                     <div>
                       <label htmlFor="formName" className="block text-sm font-medium text-stone-700 mb-2">{t.contact.formName}</label>
-                      <input id="formName" type="text" required value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} className="w-full px-4 py-3 rounded-lg border border-stone-300 focus:ring-2 focus:ring-[#73976A] focus:border-[#73976A] outline-none transition bg-white text-stone-900" placeholder="Ideal Biznes MChJ" />
+                      <input id="formName" type="text" required value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} className="w-full px-4 py-3 rounded-lg border border-stone-300 focus:ring-2 focus:ring-[#73976A] focus:border-[#73976A] outline-none transition bg-white text-stone-900" placeholder="Biznes MChJ" />
                     </div>
                     <div>
                       <label htmlFor="formPhone" className="block text-sm font-medium text-stone-700 mb-2">{t.contact.formPhone}</label>
@@ -1011,7 +1011,7 @@ const LandingPage = () => {
                       <div className="grid grid-cols-1 gap-6">
                         <div>
                           <label className="block text-sm font-semibold text-stone-700 mb-2">{t.appointment.formName}</label>
-                          <input type="text" required value={apptData.name} onChange={(e) => setApptData({...apptData, name: e.target.value})} className="w-full px-4 py-3 rounded-lg border border-stone-300 focus:ring-2 focus:ring-[#73976A] focus:border-[#73976A] outline-none transition bg-stone-50 text-stone-900" placeholder="Ideal Biznes MChJ" />
+                          <input type="text" required value={apptData.name} onChange={(e) => setApptData({...apptData, name: e.target.value})} className="w-full px-4 py-3 rounded-lg border border-stone-300 focus:ring-2 focus:ring-[#73976A] focus:border-[#73976A] outline-none transition bg-stone-50 text-stone-900" placeholder="Biznes MChJ" />
                         </div>
                         <div>
                           <label className="block text-sm font-semibold text-stone-700 mb-2">{t.appointment.formPhone}</label>
