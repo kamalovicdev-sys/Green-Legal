@@ -1,5 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Menu, X, Scale, FileText, ShieldCheck, Briefcase, ChevronRight, ChevronLeft, Phone, CheckCircle, Users, MapPin, Mail, Clock, Languages, ChevronDown, Calculator, UserCheck, CalendarDays, ArrowUp, MessageCircle, Send, MessageSquare } from 'lucide-react';
+import {
+  Menu, X, Scale, FileText, ShieldCheck, Briefcase, ChevronRight, ChevronLeft,
+  Phone, CheckCircle, Users, MapPin, Mail, Clock, Languages, ChevronDown,
+  Calculator, UserCheck, CalendarDays, ArrowUp, MessageCircle, Send,
+  MessageSquare, Landmark, Sparkles, ExternalLink
+} from 'lucide-react';
 // eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -7,6 +12,62 @@ import { motion, AnimatePresence } from 'framer-motion';
 const BOT_TOKEN = "8014966765:AAFsBpsRbdta0YymF2Vd9UjIZGGB9IKZ-zs";
 const CHAT_ID = "-1003577717245";
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwoUMJGg6enEuzs_HlBi98pXY57_f9FztRcT1oUh-_TimUVIkauBxVIdislmsG0UJ2AAQ/exec";
+const TELEGRAM_GROUP_URL = "https://t.me/+IIeB3yj8bho2YTUy";
+
+// --- HAR OYNING 4-SHANBASINI AVTOMATIK HISOBLASH FUNKSIYASI ---
+const getNextFourthSaturday = (lang) => {
+  const now = new Date();
+
+  const findFourthSaturday = (year, month) => {
+    let saturdayCount = 0;
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    for (let day = 1; day <= daysInMonth; day++) {
+      const dateObj = new Date(year, month, day);
+      if (dateObj.getDay() === 6) { // 6 - Shanba (Saturday)
+        saturdayCount++;
+        if (saturdayCount === 4) {
+          return dateObj;
+        }
+      }
+    }
+    return null;
+  };
+
+  let targetYear = now.getFullYear();
+  let targetMonth = now.getMonth();
+  let targetDate = findFourthSaturday(targetYear, targetMonth);
+
+  // Bugungi kun bilan solishtirish (vaqtni hisobga olmagan holda)
+  const todayOnly = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  if (!targetDate || targetDate < todayOnly) {
+    targetMonth += 1;
+    if (targetMonth > 11) {
+      targetMonth = 0;
+      targetYear += 1;
+    }
+    targetDate = findFourthSaturday(targetYear, targetMonth);
+  }
+
+  if (!targetDate) return '';
+
+  const day = targetDate.getDate();
+  const monthIdx = targetDate.getMonth();
+  const year = targetDate.getFullYear();
+
+  const monthNames = {
+    uz: ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentabr", "Oktabr", "Noyabr", "Dekabr"],
+    ru: ["Января", "Февраля", "Марта", "Апреля", "Мая", "Июня", "Июля", "Августа", "Сентября", "Октября", "Ноября", "Декабря"],
+    en: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+  };
+
+  if (lang === 'uz') {
+    return `${day}-${monthNames.uz[monthIdx]}, ${year}`;
+  } else if (lang === 'en') {
+    return `${monthNames.en[monthIdx]} ${day}, ${year}`;
+  } else {
+    return `${day} ${monthNames.ru[monthIdx]} ${year}`;
+  }
+};
 
 // --- TARJIMALAR LUG'ATI ---
 const translations = {
@@ -64,7 +125,36 @@ const translations = {
     contact: { title: "Huquqiy maslahat kerakmi?", desc: "Ma'lumotlaringizni qoldiring. Bizning yetakchi yuristlarimiz siz bilan bog'lanib, vaziyatingizni tahlil qilib berishadi. Maxfiylik 100% kafolatlanadi.", fast: "Tezkor aloqa", email: "Elektron manzil", formTitle: "Ariza qoldirish", formName: "Ism yoki Kompaniya nomi", formPhone: "Telefon raqam", formBtn: "Arizani yuborish", sending: "Yuborilmoqda...", success: "✅ Muvaffaqiyatli yuborildi!", error: "❌ Xatolik yuz berdi" },
     footer: { desc: "Biznesingizning ishonchli huquqiy himoyachisi. Biz bilan muammolar tez va qonuniy hal qilinadi.", address: "Toshkent shahri, Shota Rustaveli, 150. ", hours: "Du-Ju: 09:00 - 18:00", rights: "Barcha huquqlar himoyalangan." },
     toast: { success: "Tabriklaymiz! Arizangiz muvaffaqiyatli qabul qilindi.", error: "Xatolik yuz berdi. Iltimos, qaytadan urinib ko'ring." },
-    social: { tg: "Telegram", wa: "WhatsApp", phone: "Qo'ng'iroq qilish" }
+    social: { tg: "Telegram", wa: "WhatsApp", phone: "Qo'ng'iroq qilish" },
+    ads: {
+      badge: "Bepul huquqiy qabul",
+      org: "Toshkent shahar hokimligi huzurida",
+      schedule: "Har oyning 4-shanba kuni",
+      nextDatePrefix: "Navbatdagi bepul qabul:",
+      time: "10:00 - 17:00",
+      btn: "Telegram guruhga a'zo bo'lish",
+      counterNote: "Toshkent shahar fuqarolari uchun bepul yuridik yordam aksiyasi",
+      slides: [
+        {
+          tag: "Oilaviy masalalar",
+          title: "Oilaviy nizolar bo'yicha maslahat",
+          desc: "Ajrim jarayonlari, aliment undirish, umumiy mol-mulkni bo'lish, meros nizolari hamda vasiylik masalalarini qonuniy hal etish.",
+          points: ["Ajrim va aliment", "Meros huquqi", "Mulkni taqsimlash"]
+        },
+        {
+          tag: "Iqtisodiy masalalar",
+          title: "Ipoteka va iqtisodiy muammolar",
+          desc: "Ipoteka kreditlari, uy-joy va ko'chmas mulk nizolari, qarz undiruvlari hamda fuqarolar o'rtasidagi moliyaviy ziddiyatlarni hal qilish.",
+          points: ["Ipoteka va uy nizolari", "Qarz undirish", "Moliyaviy shartnomalar"]
+        },
+        {
+          tag: "Yuridik maslahatlar",
+          title: "Umumiy yuridik himoya",
+          desc: "Davlat idoralariga murojaatlar, huquqlarni tiklash, shartnomalarni huquqiy ekspertiza qilish va sudgacha bo'lgan nizolarni hal qilish.",
+          points: ["Hujjatlar ekspertizasi", "Huquqlarni himoya qilish", "Sudgacha hal etish"]
+        }
+      ]
+    }
   },
   ru: {
     nav: { services: "Услуги", adv: "Преимущества", process: "Процесс", team: "Команда", btn: "Консультация" },
@@ -120,7 +210,36 @@ const translations = {
     contact: { title: "Нужна юридическая консультация?", desc: "Оставьте свои данные. Наши ведущие юристы свяжутся с вами и проанализируют вашу ситуацию. 100% конфиденциальность гарантирована.", fast: "Быстрая связь", email: "Электронная почта", formTitle: "Оставить заявку", formName: "Имя или название компании", formPhone: "Номер телефона", formBtn: "Отправить заявку", sending: "Отправка...", success: "✅ Успешно отправлено!", error: "❌ Произошла ошибка" },
     footer: { desc: "Надежный правовой защитник вашего бизнеса. С нами проблемы решаются быстро и законно.", address: "г. Ташкент, Шота Руставели, 150", hours: "Пн-Пт: 09:00 - 18:00", rights: "Все права защищены." },
     toast: { success: "Поздравляем! Ваша заявка успешно принята.", error: "Произошла ошибка. Пожалуйста, попробуйте еще раз." },
-    social: { tg: "Telegram", wa: "WhatsApp", phone: "Позвонить" }
+    social: { tg: "Telegram", wa: "WhatsApp", phone: "Позвонить" },
+    ads: {
+      badge: "Бесплатный приём",
+      org: "При хокимияте города Ташкента",
+      schedule: "Каждую 4-ю субботу месяца",
+      nextDatePrefix: "Дата следующего приёма:",
+      time: "10:00 - 17:00",
+      btn: "Записаться через Telegram группу",
+      counterNote: "Бесплатная правовая помощь для жителей города Ташкента",
+      slides: [
+        {
+          tag: "Семейные вопросы",
+          title: "Консультации по семейным спорам",
+          desc: "Бракоразводные процессы, взыскание алиментов, раздел общего имущества, наследственные разногласия и вопросы опеки.",
+          points: ["Развод и алименты", "Наследственное право", "Раздел имущества"]
+        },
+        {
+          tag: "Экономические споры",
+          title: "Ипотека и экономические вопросы",
+          desc: "Ипотечные кредиты, споры с недвижимостью и жильем, взыскание долгов и урегулирование имущественных споров между гражданами.",
+          points: ["Ипотека и жилье", "Взыскание задолженностей", "Финансовые договоры"]
+        },
+        {
+          tag: "Юридические консультации",
+          title: "Общая юридическая помощь",
+          desc: "Обращения в госорганы, восстановление нарушенных прав, правовая экспертиза договоров и досудебное урегулирование вопросов.",
+          points: ["Экспертиза документов", "Защита прав граждан", "Досудебное решение"]
+        }
+      ]
+    }
   },
   en: {
     nav: { services: "Services", adv: "Advantages", process: "Process", team: "Team", btn: "Consultation" },
@@ -176,7 +295,36 @@ const translations = {
     contact: { title: "Need legal advice?", desc: "Leave your details. Our leading lawyers will contact you and analyze your situation. 100% confidentiality guaranteed.", fast: "Fast connection", email: "Email", formTitle: "Submit Request", formName: "Name or Company Name", formPhone: "Phone Number", formBtn: "Submit Application", sending: "Sending...", success: "✅ Successfully sent!", error: "❌ An error occurred" },
     footer: { desc: "Reliable legal defender of your business. With us, problems are resolved quickly and legally.", address: "Tashkent city, Shota Rustaveli, 150.", hours: "Mon-Fri: 09:00 - 18:00", rights: "All rights reserved." },
     toast: { success: "Congratulations! Your application has been successfully received.", error: "An error occurred. Please try again." },
-    social: { tg: "Telegram", wa: "WhatsApp", phone: "Call" }
+    social: { tg: "Telegram", wa: "WhatsApp", phone: "Call" },
+    ads: {
+      badge: "Free Legal Aid",
+      org: "Under the Tashkent City Administration",
+      schedule: "Every 4th Saturday of the month",
+      nextDatePrefix: "Next reception date:",
+      time: "10:00 - 17:00",
+      btn: "Join Telegram Group to Register",
+      counterNote: "Free legal support campaign for citizens of Tashkent",
+      slides: [
+        {
+          tag: "Family Disputes",
+          title: "Family Law Consultations",
+          desc: "Divorce proceedings, alimony collection, division of joint property, inheritance disputes, and legal guardianship support.",
+          points: ["Divorce & Alimony", "Inheritance Rights", "Property Division"]
+        },
+        {
+          tag: "Economic Issues",
+          title: "Mortgage & Economic Challenges",
+          desc: "Mortgage credit issues, housing and real estate disputes, debt recovery, and financial conflicts between individuals.",
+          points: ["Mortgage & Housing", "Debt Collection", "Financial Contracts"]
+        },
+        {
+          tag: "Legal Defense",
+          title: "General Legal Assistance",
+          desc: "Appeals to public authorities, protection of legal rights, legal contract reviews, and pre-trial dispute settlements.",
+          points: ["Document Analysis", "Rights Defense", "Pre-trial Resolution"]
+        }
+      ]
+    }
   }
 };
 
@@ -210,11 +358,15 @@ const formatIntlPhone = (value) => {
 
 const LandingPage = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [lang, setLang] = useState('ru');
+  const [lang, setLang] = useState('ru'); // Default til rus tili
   const [openFaq, setOpenFaq] = useState(null);
 
-  // POPUP (Modal) holati
+  // POPUP (Uchrashuv) holati
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // POPUP ADS (Karusel aksiya e'loni) holati
+  const [isAdsOpen, setIsAdsOpen] = useState(false);
+  const [adsCurrentIndex, setAdsCurrentIndex] = useState(0);
 
   // Aloqa formasi state
   const [formData, setFormData] = useState({ name: '', phone: '' });
@@ -239,6 +391,25 @@ const LandingPage = () => {
   const [isSocialOpen, setIsSocialOpen] = useState(false);
 
   const t = translations[lang];
+
+  // Sahifa yuklanganda 1.5 soniyadan keyin Ads Popup avtomatik ochilishi
+  useEffect(() => {
+    const adsTimer = setTimeout(() => {
+      setIsAdsOpen(true);
+    }, 1500);
+
+    return () => clearTimeout(adsTimer);
+  }, []);
+
+  // Ads karuselini avtomatik har 6 soniyada almashtirish
+  useEffect(() => {
+    if (!isAdsOpen) return;
+    const slideInterval = setInterval(() => {
+      setAdsCurrentIndex((prev) => (prev + 1) % 3);
+    }, 6000);
+
+    return () => clearInterval(slideInterval);
+  }, [isAdsOpen]);
 
   useEffect(() => {
     const trackVisit = async () => {
@@ -291,6 +462,15 @@ const LandingPage = () => {
       top: 0,
       behavior: 'smooth'
     });
+  };
+
+  // Carusel boshqaruvi
+  const nextAdSlide = () => {
+    setAdsCurrentIndex((prev) => (prev + 1) % 3);
+  };
+
+  const prevAdSlide = () => {
+    setAdsCurrentIndex((prev) => (prev === 0 ? 2 : prev - 1));
   };
 
   // --- MAXSUS (CUSTOM) KALENDAR KOMPONENTI ---
@@ -423,7 +603,7 @@ const LandingPage = () => {
       </div>
     );
   };
-  // --- MAXSUS KALENDAR TUGADI ---
+  // --- MAXSUS KALENDAR limitation of time ---
 
   const sendToTelegram = async (e) => {
     e.preventDefault();
@@ -495,7 +675,7 @@ const LandingPage = () => {
       } else {
         setApptStatus('error');
         showToast(t.toast.error, 'error');
-        setTimeout(() => setApptStatus('idle'), 3000);
+        setTimeout(() => setStatus('idle'), 3000);
       }
     } catch (error) {
       console.error("Xatolik:", error);
@@ -518,6 +698,8 @@ const LandingPage = () => {
     if (apptStatus === 'error') return t.contact.error;
     return t.appointment.btn;
   };
+
+  const computedFourthSaturday = getNextFourthSaturday(lang);
 
   return (
     <div className="min-h-screen bg-stone-50 font-sans text-stone-900 scroll-smooth overflow-hidden" itemScope itemType="https://schema.org/LegalService">
@@ -550,6 +732,155 @@ const LandingPage = () => {
         )}
       </AnimatePresence>
 
+      {/* --- POPUP ADS --- */}
+      <AnimatePresence>
+        {isAdsOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[120] flex items-center justify-center bg-stone-950/70 backdrop-blur-md p-4 sm:p-6"
+            onClick={() => setIsAdsOpen(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.94, opacity: 0, y: 25 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.94, opacity: 0, y: 25 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl border border-stone-200 overflow-hidden flex flex-col"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Yopish tugmasi */}
+              <button
+                onClick={() => setIsAdsOpen(false)}
+                className="absolute top-4 right-4 z-30 p-2 rounded-full bg-stone-100/80 text-stone-500 hover:text-stone-900 hover:bg-stone-200 transition-colors"
+                aria-label="Yopish"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              {/* Yuqori qism: Tashkilot va Badge */}
+              <div className="pt-6 px-6 sm:px-8 pb-3 bg-gradient-to-b from-stone-50 to-white border-b border-stone-100">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#73976A]/10 text-[#4e6b47] text-xs font-bold uppercase tracking-wider">
+                    <Sparkles className="w-3.5 h-3.5 text-[#73976A]" />
+                    {t.ads.badge}
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-stone-600">
+                  <Landmark className="w-4 h-4 text-[#73976A] flex-shrink-0" />
+                  <span>{t.ads.org}</span>
+                </div>
+              </div>
+
+              {/* Dinamik Sana kartochkasi */}
+              <div className="px-6 sm:px-8 pt-4 pb-2">
+                <div className="bg-[#73976A]/10 border border-[#73976A]/20 rounded-2xl p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-[#73976A] text-white flex items-center justify-center flex-shrink-0 shadow-sm">
+                      <CalendarDays className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <p className="text-xs text-stone-500 font-medium leading-none mb-1">{t.ads.nextDatePrefix}</p>
+                      <p className="text-base sm:text-lg font-extrabold text-stone-900 leading-tight">
+                        {computedFourthSaturday}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-1.5 self-start sm:self-center bg-white px-2.5 py-1 rounded-lg border border-[#73976A]/20 text-xs font-semibold text-[#4e6b47]">
+                    <Clock className="w-3.5 h-3.5" />
+                    <span>{t.ads.time}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Carusel: Slaydlar */}
+              <div className="px-6 sm:px-8 py-4 relative min-h-[170px] sm:min-h-[160px] flex flex-col justify-center">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={adsCurrentIndex}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    transition={{ duration: 0.25 }}
+                    className="flex flex-col"
+                  >
+                    <div className="inline-block self-start px-2.5 py-0.5 rounded-md bg-stone-100 text-[#5b7b52] font-semibold text-xs mb-2">
+                      {t.ads.slides[adsCurrentIndex].tag}
+                    </div>
+                    <h4 className="text-lg sm:text-xl font-bold text-stone-900 mb-2 leading-snug">
+                      {t.ads.slides[adsCurrentIndex].title}
+                    </h4>
+                    <p className="text-stone-600 text-xs sm:text-sm leading-relaxed mb-3">
+                      {t.ads.slides[adsCurrentIndex].desc}
+                    </p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {t.ads.slides[adsCurrentIndex].points.map((pt, idx) => (
+                        <span key={idx} className="text-[11px] font-medium bg-stone-100 text-stone-700 px-2 py-0.5 rounded-full border border-stone-200">
+                          ✓ {pt}
+                        </span>
+                      ))}
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+
+              {/* Slayder boshqaruv nuqtalari va strelkalar */}
+              <div className="px-6 sm:px-8 pb-3 flex items-center justify-between">
+                <div className="flex items-center gap-1.5">
+                  {[0, 1, 2].map((dotIdx) => (
+                    <button
+                      key={dotIdx}
+                      onClick={() => setAdsCurrentIndex(dotIdx)}
+                      className={`h-2 rounded-full transition-all ${
+                        adsCurrentIndex === dotIdx ? 'w-6 bg-[#73976A]' : 'w-2 bg-stone-300 hover:bg-stone-400'
+                      }`}
+                      aria-label={`Slide ${dotIdx + 1}`}
+                    />
+                  ))}
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={prevAdSlide}
+                    className="p-1.5 rounded-full border border-stone-200 text-stone-600 hover:bg-stone-100 hover:text-stone-900 transition-colors"
+                    aria-label="Oldingi slayd"
+                  >
+                    <ChevronLeft className="w-4 h-4" />
+                  </button>
+                  <button
+                    onClick={nextAdSlide}
+                    className="p-1.5 rounded-full border border-stone-200 text-stone-600 hover:bg-stone-100 hover:text-stone-900 transition-colors"
+                    aria-label="Keyingi slayd"
+                  >
+                    <ChevronRight className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+
+              {/*  Telegram havola */}
+              <div className="p-6 sm:p-8 pt-2 bg-stone-50 border-t border-stone-100">
+                <a
+                  href={TELEGRAM_GROUP_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-full py-3.5 px-4 bg-[#0088cc] hover:bg-[#0077b5] text-white font-semibold rounded-xl flex items-center justify-center gap-2 transition-all shadow-md shadow-sky-500/20 text-sm sm:text-base group"
+                >
+                  <Send className="w-4 h-4 -ml-1 group-hover:translate-x-0.5 transition-transform" />
+                  <span>{t.ads.btn}</span>
+                  <ExternalLink className="w-4 h-4 opacity-70 ml-1" />
+                </a>
+                <p className="text-center text-[11px] text-stone-400 mt-2 font-medium">
+                  {t.ads.counterNote}
+                </p>
+              </div>
+
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* HEADER / NAVBAR */}
       <header className="fixed top-0 w-full bg-white/95 backdrop-blur-md z-50 border-b border-stone-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -567,6 +898,16 @@ const LandingPage = () => {
               <a href="#process" className="text-sm font-medium text-stone-600 hover:text-[#73976A] transition">{t.nav.process}</a>
               <a href="#team" className="text-sm font-medium text-stone-600 hover:text-[#73976A] transition">{t.nav.team}</a>
 
+              {/* Reklama popapini qo'lda ochish uchun ixcham belgi */}
+              <button
+                onClick={() => setIsAdsOpen(true)}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#73976A]/10 text-[#4e6b47] hover:bg-[#73976A]/20 transition text-xs font-bold"
+                title={t.ads.badge}
+              >
+                <Landmark className="w-3.5 h-3.5 text-[#73976A]" />
+                <span>{t.ads.badge}</span>
+              </button>
+
               <button aria-label="Tilni almashtirish" onClick={toggleLanguage} className="flex items-center gap-1 px-3 py-1.5 rounded-md bg-stone-100 text-stone-700 hover:bg-stone-200 transition font-semibold text-sm mx-2 uppercase">
                 <Languages className="h-4 w-4" aria-hidden="true" /> {lang === 'uz' ? 'RU' : lang === 'ru' ? 'EN' : 'UZ'}
               </button>
@@ -576,7 +917,14 @@ const LandingPage = () => {
               </button>
             </nav>
 
-            <div className="md:hidden flex items-center gap-3">
+            <div className="md:hidden flex items-center gap-2">
+              <button
+                onClick={() => setIsAdsOpen(true)}
+                className="flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-[#73976A]/10 text-[#4e6b47] text-xs font-bold"
+              >
+                <Landmark className="w-3.5 h-3.5" />
+              </button>
+
               <button aria-label="Tilni almashtirish" onClick={toggleLanguage} className="flex items-center gap-1 px-2 py-1.5 rounded-md bg-stone-100 text-stone-700 text-sm font-bold uppercase">
                 <Languages className="h-4 w-4" aria-hidden="true" /> {lang === 'uz' ? 'RU' : lang === 'ru' ? 'EN' : 'UZ'}
               </button>
@@ -594,6 +942,10 @@ const LandingPage = () => {
               <a href="#advantages" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 text-base font-medium text-stone-700 hover:bg-stone-50 rounded-md">{t.nav.adv}</a>
               <a href="#process" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 text-base font-medium text-stone-700 hover:bg-stone-50 rounded-md">{t.nav.process}</a>
               <a href="#team" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 text-base font-medium text-stone-700 hover:bg-stone-50 rounded-md">{t.nav.team}</a>
+
+              <button onClick={() => { setIsMenuOpen(false); setIsAdsOpen(true); }} className="w-full text-left px-3 py-2 text-sm font-semibold text-[#4e6b47] bg-[#73976A]/10 rounded-md flex items-center gap-2">
+                <Landmark className="w-4 h-4" /> {t.ads.badge} ({computedFourthSaturday})
+              </button>
 
               <button onClick={() => { setIsMenuOpen(false); setIsModalOpen(true); }} className="block w-full mt-4 text-center px-4 py-3 bg-[#73976A] text-white font-semibold rounded-lg shadow-sm">
                 {t.nav.btn}
@@ -921,7 +1273,7 @@ const LandingPage = () => {
         </div>
       </footer>
 
-      {/* APPOINTMENT POPUP (MODAL) */}
+      {/* APPOINTMENT POPUP  */}
       <AnimatePresence>
         {isModalOpen && (
           <motion.div
