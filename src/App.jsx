@@ -128,7 +128,7 @@ const translations = {
     social: { tg: "Telegram", wa: "WhatsApp", phone: "Qo'ng'iroq qilish" },
     ads: {
       badge: "Bepul huquqiy qabul",
-      org: "Toshkent shahar hokimligi huzurida",
+      org: "Toshkent shahar Yakkasaroy hokimligi huzurida",
       schedule: "Har oyning 4-shanba kuni",
       nextDatePrefix: "Navbatdagi bepul qabul:",
       time: "10:00 - 17:00",
@@ -213,7 +213,7 @@ const translations = {
     social: { tg: "Telegram", wa: "WhatsApp", phone: "Позвонить" },
     ads: {
       badge: "Бесплатный приём",
-      org: "При хокимияте города Ташкента",
+      org: "При Яккасарайского хокимияте города Ташкента",
       schedule: "Каждую 4-ю субботу месяца",
       nextDatePrefix: "Дата следующего приёма:",
       time: "10:00 - 17:00",
@@ -298,7 +298,7 @@ const translations = {
     social: { tg: "Telegram", wa: "WhatsApp", phone: "Call" },
     ads: {
       badge: "Free Legal Aid",
-      org: "Under the Tashkent City Administration",
+      org: "Under the Tashkent City Yakkasaray Administration",
       schedule: "Every 4th Saturday of the month",
       nextDatePrefix: "Next reception date:",
       time: "10:00 - 17:00",
